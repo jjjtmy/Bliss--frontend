@@ -8,6 +8,7 @@ export default function ExplorePage() {
   const [vendors, setVendors] = useState([]);
   const [formState, setFormState] = useState("");
   const [searchResult, setSearchResult] = useState({});
+  const [allVendors, setAllVendors] = useState([]);
 
   // retrieve available vendors
   async function getVendors() {
@@ -23,7 +24,25 @@ export default function ExplorePage() {
 
   useEffect(() => {
     getVendors();
+    setSearchResult(null);
   }, []);
+
+  // retrieve all vendors
+  async function fetchAllVendors() {
+    try {
+      const vendorPromises = vendors.map(async (vendor) => {
+        return await getVendorByName(vendor);
+      });
+      const allVendors = await Promise.all(vendorPromises);
+      console.log("fetchAllVendors", allVendors);
+      setAllVendors(allVendors);
+    } catch {
+      console.error("Error fetching all vendors");
+    }
+  }
+  useEffect(() => {
+    fetchAllVendors();
+  }, [vendors]);
 
   //handle submit for search bar
   async function handleSubmit(evt: React.FormEvent) {
@@ -52,8 +71,12 @@ export default function ExplorePage() {
         </form>
       </Box>
 
-      <Box>
-        <VendorCard vendor={searchResult} />
+      <Box className="vendorcardgrid">
+        {searchResult ? (
+          <VendorCard vendor={searchResult} />
+        ) : (
+          allVendors.map((vendor) => <VendorCard vendor={vendor} />)
+        )}
       </Box>
 
       {/* <Box className="vendorContainer">
