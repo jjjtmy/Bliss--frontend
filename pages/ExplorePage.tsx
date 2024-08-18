@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./ExplorePage.css";
-import { getVendorNames, getVendorByName } from "../service/vendors"; //TODO: code this function
-import { Box, TextInput, Button } from "@mantine/core";
+import { getVendorNames, getVendorByName } from "../service/vendors";
+import { Box, Button, Autocomplete } from "@mantine/core";
 import VendorCard from "../components/VendorCard";
 
 export default function ExplorePage() {
@@ -9,25 +9,21 @@ export default function ExplorePage() {
   const [formState, setFormState] = useState("");
   const [searchResult, setSearchResult] = useState({});
 
-  // // retrieve available vendors
-  // async function getVendors() {
-  //   try {
-  //     const vendorNames = await getVendorNames();
-  //     console.log("vendorNames", vendorNames);
-  //     setVendors(vendorNames); //TODO: limit search input to vendors
-  //   } catch {
-  //     console.error("Error fetching vendors");
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getVendors();
-  // }, []);
-
-  //handle change for search bar
-  function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
-    setFormState(evt.target.value);
+  // retrieve available vendors
+  async function getVendors() {
+    try {
+      const vendorNames = await getVendorNames();
+      const vendorNamelist = vendorNames.data.map((vendor) => vendor.Name);
+      console.log("vendorNamelist", vendorNamelist);
+      setVendors(vendorNamelist);
+    } catch {
+      console.error("Error fetching vendors");
+    }
   }
+
+  useEffect(() => {
+    getVendors();
+  }, []);
 
   //handle submit for search bar
   async function handleSubmit(evt: React.FormEvent) {
@@ -41,14 +37,17 @@ export default function ExplorePage() {
     }
   }
 
-  // on submit to search for vendors with the search term
-
   return (
     <div>
       <h1>Explore Page</h1>
       <Box className="searchBar">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <TextInput label="Search" name="search" onChange={handleChange} />
+          <Autocomplete
+            label="Search"
+            placeholder="Enter a venue name"
+            data={vendors}
+            onChange={setFormState}
+          />
           <Button type="submit">Go</Button>
         </form>
       </Box>

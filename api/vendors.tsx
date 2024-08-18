@@ -59,3 +59,12 @@ export async function getReviewsByUser(userid) {
     "Invalid Reviews"
   );
 }
+export async function getVendorNames() {
+  console.log("getVendorNames API");
+  return await sendRequest(
+    `${BASE_URL}/getVendorNames`,
+    "GET",
+    null,
+    "Invalid vendor names"
+  );
+}

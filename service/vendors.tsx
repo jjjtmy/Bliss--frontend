@@ -31,5 +31,7 @@ export async function getReviewsByUser(userid) {
 }
 
 export async function getVendorNames() {
-  return;
+  console.log("getVendorNames service");
+  const vendors = await vendorsAPI.getVendorNames();
+  return vendors; //returns array of vendor names
 }
