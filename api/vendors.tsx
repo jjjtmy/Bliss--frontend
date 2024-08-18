@@ -29,6 +29,15 @@ export async function getVendorPage(vendor) {
     "Invalid Vendor"
   );
 }
+export async function getVendorByName(vendorname) {
+  console.log("getVendorByName API", vendorname);
+  return await sendRequest(
+    `${BASE_URL}/name/${vendorname}`,
+    "GET",
+    null,
+    "Invalid Vendor"
+  );
+}
 
 export async function addVendorReview(review) {
   console.log("addVendorReview API", review);
