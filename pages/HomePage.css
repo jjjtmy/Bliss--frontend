@@ -1,0 +1,24 @@
+.container {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  margin-top: 0;
+}
+
+.Header {
+  font-style: italic;
+  color: black;
+  text-align: left;
+  padding-left: 100px;
+  padding-top: 15vh;
+}
+
+.button-container {
+  display: flex;
+  width: 40%;
+}
+
+.Buttons {
+  padding: 5px;
+  margin-right: 5px;
+}

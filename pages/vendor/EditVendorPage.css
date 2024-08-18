@@ -1,0 +1,12 @@
+.formcontainer {
+  margin: 50px;
+}
+
+.formcontainer fieldset {
+  display: flex;
+  gap: 10px;
+}
+
+.formcontainer button {
+  margin-top: 10px;
+}

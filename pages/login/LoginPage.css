@@ -1,0 +1,53 @@
+.FormContainer {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Style the labels */
+.FormContainer label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-align: left;
+  color: black;
+}
+
+/* Style the login button */
+.FormContainer button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffbdf8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.FormContainer button:hover {
+  background-color: #b300ad;
+}
+
+/* Style the sign-up link */
+.FormContainer a {
+  display: inline-block;
+  margin-top: 15px;
+  color: #9d00ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.FormContainer a:hover {
+  text-decoration: underline;
+}
+
+/* Style for error message */
+.error-message {
+  color: red;
+  margin-top: 15px;
+}
