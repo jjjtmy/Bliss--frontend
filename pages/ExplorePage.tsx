@@ -8,11 +8,12 @@ import NavBar from "../components/NavBar";
 export default function ExplorePage() {
   const [vendors, setVendors] = useState([]); //vendor names to autopopulate search bar
   const [formState, setFormState] = useState(""); //search bar
-  const [searchResult, setSearchResult] = useState({}); //result from search bar
+  const [searchResult, setSearchResult] = useState(null); //result from search bar
   const [allVendors, setAllVendors] = useState([]); //all vendors when page loads
   const [filteredVendors, setFilteredVendors] = useState([]); //filtered vendors
   const [priceFilter, setPriceFilter] = useState([0, 500]);
   const [capFilter, setCapFilter] = useState([0, 500]);
+  const [filterApplied, setFilterApplied] = useState(false); // track if filter is applied
 
   // retrieve available vendors
   async function getVendors() {
@@ -39,7 +40,7 @@ export default function ExplorePage() {
       });
       const allVendors = await Promise.all(vendorPromises);
       console.log("fetchAllVendors", allVendors);
-      setAllVendors(allVendors);
+      setAllVendors(allVendors as never[]);
     } catch {
       console.error("Error fetching all vendors");
     }
@@ -62,12 +63,13 @@ export default function ExplorePage() {
 
   //when filter changes, filter vendors
   async function submitFilters() {
+    setFilterApplied(true);
     const filteredVendors = allVendors.filter((vendor) => {
       return (
-        vendor.MinCap >= capFilter[0] &&
-        vendor.MaxCap <= capFilter[1] &&
-        vendor.MinPrice >= priceFilter[0] &&
-        vendor.MaxPrice <= priceFilter[1]
+        (vendor.MinCap as number) >= capFilter[0] &&
+        (vendor.MaxCap as number) <= capFilter[1] &&
+        (vendor.MinPrice as number) >= priceFilter[0] &&
+        (vendor.MaxPrice as number) <= priceFilter[1]
       );
     });
     console.log("filteredVendors", filteredVendors);
@@ -92,59 +94,53 @@ export default function ExplorePage() {
           </form>
         </Box>
 
-        <Box className="filters">
-          <Text size="m" mt="xl" fw={700}>
-            Capacity
-          </Text>
-          <RangeSlider
-            defaultValue={[0, 500]}
-            min={0}
-            max={500}
-            step={50}
-            label={(value) => `${value} pax`}
-            onChange={setCapFilter}
-          />
-          <Text size="sm">
-            Capacity Filter: {capFilter[0]} to {capFilter[1]} pax
-          </Text>
-          <Text size="m" fw={700}>
-            Price per pax
-          </Text>
-          <RangeSlider
-            defaultValue={[0, 500]}
-            min={0}
-            max={500}
-            step={50}
-            label={(value) => `$${value}`}
-            onChange={setPriceFilter}
-          />
-          <Text size="sm">
-            Price Filter: ${priceFilter[0]} to ${priceFilter[1]}
-          </Text>
-          <Button onClick={submitFilters} mt={10}>
-            Filter
-          </Button>
-        </Box>
+        {searchResult ? null : (
+          <Box className="filters">
+            <Text size="m" mt="xl" fw={700}>
+              Capacity
+            </Text>
+            <RangeSlider
+              defaultValue={[0, 500]}
+              min={0}
+              max={500}
+              step={50}
+              label={(value) => `${value} pax`}
+              onChange={(value) => setCapFilter(value)}
+            />
+            <Text size="sm">
+              Capacity Filter: {capFilter[0]} to {capFilter[1]} pax
+            </Text>
+            <Text size="m" fw={700}>
+              Price per pax
+            </Text>
+            <RangeSlider
+              defaultValue={[0, 500]}
+              min={0}
+              max={500}
+              step={50}
+              label={(value) => `$${value}`}
+              onChange={(value) => setPriceFilter(value)}
+            />
+            <Text size="sm">
+              Price Filter: ${priceFilter[0]} to ${priceFilter[1]}
+            </Text>
+            <Button onClick={submitFilters} mt={10}>
+              Filter
+            </Button>
+          </Box>
+        )}
 
         <Box className="vendorcardgrid">
           {searchResult ? (
             <VendorCard vendor={searchResult} />
-          ) : filteredVendors.length === 0 ? (
-            allVendors.map((vendor, index) => (
-              <VendorCard key={index} vendor={vendor} />
-            ))
+          ) : filterApplied && filteredVendors.length === 0 ? (
+            <Text>No results found</Text>
           ) : (
-            filteredVendors.map((vendor, index) => (
-              <VendorCard key={index} vendor={vendor} />
-            ))
+            (filteredVendors.length > 0 ? filteredVendors : allVendors).map(
+              (vendor, index) => <VendorCard key={index} vendor={vendor} />
+            )
           )}
         </Box>
-
-        {/* <Box className="vendorContainer">
-        {searchResults.map((vendor) => (
-          <VendorCard vendor={vendor} />
-        ))}
-      </Box> */}
       </div>
     </>
   );

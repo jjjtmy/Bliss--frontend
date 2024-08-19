@@ -8,7 +8,7 @@ import { getReviewsByUser, getVendorPage } from "../../service/vendors";
 
 export default function UserProfilePage() {
   const { userID } = useParams();
-  const [userDetails, setUserDetails] = useState({});
+  const [userDetails, setUserDetails] = useState(null);
 
   async function fetchData() {
     try {
@@ -17,7 +17,6 @@ export default function UserProfilePage() {
       console.log("getReviewsByUser reviews", reviews);
       const vendor = await getVendorPage(reviews.vendorID);
       setUserDetails({
-        ...userDetails,
         name: user.name,
         reviews: reviews.userReviewsArray,
         vendor: vendor.Name,
@@ -29,36 +28,40 @@ export default function UserProfilePage() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [userID]);
 
   //to see what is in userDetails
-  useEffect(() => {
-    console.log("userDetails", userDetails);
-  }, [userDetails]);
+  // useEffect(() => {
+  //   console.log("userDetails", userDetails);
+  // }, [userDetails]);
+
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <NavBar />
-      <Box className="vendorContainer">
-        <div className="details">
-          <Box>Profile Picture goes here</Box>
-          <Box>{userDetails.name}</Box>
-          <Box>
-            Reviews
-            {userDetails.reviews.map((review) => (
-              <div>
-                <p>Venue: {userDetails.vendor}</p>
-                <p>Cost per pax: {review.costperpax}</p>
-                <p>Food: {review.food}</p>
-                <p>Ambience: {review.ambience}</p>
-                <p>Pre-wedding support: {review.preWeddingSupport}</p>
-                <p>Day-of support: {review.dayOfSupport}</p>
-                <p>Overall: {review.overall}</p>
-                <p>Comments: {review.comments}</p>
-              </div>
-            ))}
-          </Box>
-        </div>
+      <Box className="userContainer">
+        <Box className="profile">
+          <Box className="image">Profile Picture </Box>
+          <Box className="name">{userDetails.name}</Box>
+        </Box>
+        <Box className="reviews">
+          <p className="title">Reviews</p>
+          {userDetails.reviews.map((review) => (
+            <div>
+              <p>Venue: {userDetails.vendor}</p>
+              <p>Cost per pax: {review.costperpax}</p>
+              <p>Food: {review.food}</p>
+              <p>Ambience: {review.ambience}</p>
+              <p>Pre-wedding support: {review.preWeddingSupport}</p>
+              <p>Day-of support: {review.dayOfSupport}</p>
+              <p>Overall: {review.overall}</p>
+              <p>Comments: {review.comments}</p>
+            </div>
+          ))}
+        </Box>
       </Box>
     </>
   );
