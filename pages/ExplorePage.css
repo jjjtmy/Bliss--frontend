@@ -1,0 +1,25 @@
+.explorePage {
+  /* display: flex;
+  flex-direction: column; */
+  margin: 20px;
+}
+
+.explorePage form {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  margin: 0 auto;
+}
+
+.vendorcardgrid {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

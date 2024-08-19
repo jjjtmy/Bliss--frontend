@@ -22,7 +22,11 @@ export default function VendorPage() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [vendorID]);
+
+  if (!vendorDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -30,7 +34,7 @@ export default function VendorPage() {
       <Box className="vendorContainer">
         <Box className="image">IMAGE GOES HERE</Box>
         <div className="details">
-          <Box>{vendorDetails.Name}</Box>
+          <Box fw={700}>{vendorDetails.Name}</Box>
           <Box> {vendorDetails.Description}</Box>
           <Box>
             <p>
@@ -46,10 +50,11 @@ export default function VendorPage() {
             <p>Email: {vendorDetails.Email}</p>
             <p>Phone: {vendorDetails.Phone}</p>
           </Box>
-          <Box h="200px">
+          <Box className="reviews">
             Reviews
             {vendorDetails.reviews.map((review) => (
               <div>
+                <p>{review.username} said:</p>
                 <p>Cost per pax: {review.costperpax}</p>
                 <p>Food: {review.food}</p>
                 <p>Ambience: {review.ambience}</p>

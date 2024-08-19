@@ -25,10 +25,10 @@ export default function NavBar() {
         <>
           <div className="title-container">
             <h3>Welcome, {user}!</h3>
+            <button className="button" onClick={handleLogOut}>
+              Logout
+            </button>
           </div>
-          <button className="button" onClick={handleLogOut}>
-            Logout
-          </button>
         </>
       ) : (
         <button className="button" onClick={handleLoginClick}>

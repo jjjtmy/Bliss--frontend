@@ -26,7 +26,9 @@ export default function HomePage(): JSX.Element {
         <h1>Bliss</h1>
         <h2>Make the most of your big day</h2>
         <div className="button-container">
-          <button className="Buttons">Find a Venue</button>
+          <button className="Buttons" onClick={() => navigate("/explore")}>
+            Find a Venue
+          </button>
           <button className="Buttons" onClick={handleClick}>
             Review a Venue
           </button>

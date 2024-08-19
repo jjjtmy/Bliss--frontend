@@ -1,11 +1,59 @@
 .vendorContainer {
   display: flex;
   flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
-.vendorContainer div {
-  padding: 20px;
-  margin: 10px;
-  border: 2px solid black;
+.image {
   width: 100%;
+  height: 50vh;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: #777;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  gap: 10px;
+}
+
+.details > div {
+  /* margin-bottom: 10px; */
+}
+
+.details p {
+  margin: 5px 0;
+}
+
+.details .reviews {
+  height: 200px;
+  /* overflow-y: auto; */
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.details .reviews div {
+  margin-bottom: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.details .reviews p {
+  font-size: 14px;
+  line-height: 10px;
+}
+
+.details .reviews p:first-child {
+  font-weight: bold;
+  margin-top: 10px;
 }

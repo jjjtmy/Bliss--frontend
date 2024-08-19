@@ -7,14 +7,6 @@
   position: relative;
 }
 
-/* Container for the title and welcome message */
-.title-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 80px;
-}
-
 /* Bliss in italics */
 .header h1 {
   font-style: italic;
@@ -23,16 +15,23 @@
   margin-top: 0;
 }
 
+/* Container for the title and welcome message */
+.title-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
 /* Welcome message */
 .header h3 {
-  margin: 0;
+  margin-right: 10px;
 }
 
 /* Logout button positioned in the top right corner */
 .button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background-color: #007bff;
   color: white;
   border: none;
