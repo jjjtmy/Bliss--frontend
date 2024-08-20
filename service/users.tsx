@@ -7,6 +7,12 @@ export async function getUserfromID(id) {
   return user; //returns user collection
 }
 
+export async function getUserfromUser(username) {
+  console.log("getUserfromUser", username);
+  const user = await usersAPI.getUserfromUser(username);
+  return user;
+}
+
 export async function getLoginDetails(email) {
   console.log("getLoginDetails service", email);
   const loginDetails = await usersAPI.getLoginDetails(email);
@@ -34,9 +40,8 @@ export async function logoutUser() {
       JSON.parse(atob(token.split(".")[1])).payload
     );
     removeToken();
-    window.location.reload();
+    // window.location.reload();
   }
-  return res;
 }
 
 export function getUser() {
@@ -44,5 +49,12 @@ export function getUser() {
   const token = getToken();
   // If there's a token, return the user in the payload, otherwise return null
   return token ? JSON.parse(atob(token.split(".")[1])).payload.user : null;
+  // returns username
+}
+export function getUserRole() {
+  console.log("getUser service");
+  const token = getToken();
+  // If there's a token, return the user in the payload, otherwise return null
+  return token ? JSON.parse(atob(token.split(".")[1])).payload.role : null;
   // returns username
 }

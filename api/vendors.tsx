@@ -29,10 +29,21 @@ export async function getVendorPage(vendor) {
     "Invalid Vendor"
   );
 }
+
 export async function getVendorByName(vendorname) {
   console.log("getVendorByName API", vendorname);
   return await sendRequest(
     `${BASE_URL}/name/${vendorname}`,
+    "GET",
+    null,
+    "Invalid Vendor"
+  );
+}
+
+export async function getVendorbyUserID(userID) {
+  console.log("getVendorbyUserID API", userID);
+  return await sendRequest(
+    `${BASE_URL}/user/${userID}`,
     "GET",
     null,
     "Invalid Vendor"
@@ -47,6 +58,15 @@ export async function addVendorReview(review) {
     review.review,
     "Invalid Review",
     review.token
+  );
+}
+export async function deleteReview(reviewid) {
+  console.log("deleteReview API", reviewid);
+  return await sendRequest(
+    `${BASE_URL}/deletereview/${reviewid}`,
+    "POST",
+    null,
+    "Error deleting review"
   );
 }
 

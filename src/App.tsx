@@ -12,6 +12,7 @@ import EditVendorPage from "../pages/vendor/EditVendorPage";
 import VendorPage from "../pages/vendor/VendorPage";
 import UserProfilePage from "../pages/user/UserProfilePage";
 import ExplorePage from "../pages/ExplorePage";
+import MyProfilePage from "../pages/user/MyProfilePage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/editvendorpage" element={<EditVendorPage />} />
           <Route path="/vendors/:vendorID" element={<VendorPage />} />
           <Route path="/users/:userID" element={<UserProfilePage />} />
+          <Route path="/myprofile" element={<MyProfilePage />} />
           <Route path="/explore" element={<ExplorePage />} />
         </Routes>
       </main>

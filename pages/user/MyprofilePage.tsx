@@ -1,60 +1,95 @@
-// import "./UserProfilePage.css";
-// import { Box } from "@mantine/core";
-// import { useParams } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import NavBar from "../../components/NavBar";
-// import { getUser } from "../../service/users";
+import "./MyProfilePage.css";
+import { Box } from "@mantine/core";
+import { useEffect, useState } from "react";
+import NavBar from "../../components/NavBar";
+import { getUserfromID, getLoginDetails } from "../../service/users";
+import {
+  getReviewsByUser,
+  getVendorPage,
+  deleteReview,
+} from "../../service/vendors";
+import { getToken } from "../../util/security";
 
-// export default function clientProfilePage() {
-//   const { userID } = useParams();
-//   const [userDetails, setUserDetails] = useState(null);
+export default function MyProfilePage() {
+  const [userDetails, setUserDetails] = useState(null);
 
-//   async function fetchData() {
-//     try {
-//       const token = getToken();
-//       if (!token) {
-//         navigate("/login");
-//       } else {
-//         const role = JSON.parse(atob(token.split(".")[1])).payload.email;
-//         const user = await getLoginDetails(email);
-//         console.log(`userpage user`, user);
-//         setUserDetails(user);
-//       }
-//     } catch {
-//       console.error("Error fetching vendor details", error);
-//     }
-//   }
+  async function fetchData() {
+    await getToken();
+    const token = getToken();
+    const email = token
+      ? JSON.parse(atob(token.split(".")[1])).payload.email
+      : null;
+    console.log("email", email);
+    const userCollection = await getLoginDetails(email);
+    const userID = userCollection.data._id;
+    console.log("userID", userID);
+    try {
+      const user = await getUserfromID(userID);
+      const reviews = await getReviewsByUser(userID);
+      console.log("getReviewsByUser reviews", reviews);
+      const vendor = await getVendorPage(reviews.vendorID);
+      setUserDetails({
+        name: user.name,
+        reviews: reviews.userReviewsArray,
+        vendor: vendor.Name,
+      });
+    } catch {
+      console.error("Error fetching user details");
+    }
+  }
 
-//   useEffect(() => {
-//     fetchData();
-//   }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-//   return (
-//     <>
-//       <NavBar />
-//       <Box className="vendorContainer">
-//         <Box className="image">IMAGE GOES HERE</Box>
-//         <div className="details">
-//           <Box>Profile Picture goes here</Box>
-//           <Box>Name </Box>
-//           <Box h="200px">
-//             {" "}
-//             Reviews
-//             {/* Reviews
-//             {vendorDetails.reviews.map((review) => (
-//               <div>
-//                 <p>Cost per pax: {review.costperpax}</p>
-//                 <p>Food: {review.food}</p>
-//                 <p>Ambience: {review.ambience}</p>
-//                 <p>Pre-wedding support: {review.preWeddingSupport}</p>
-//                 <p>Day-of support: {review.dayOfSupport}</p>
-//                 <p>Overall: {review.overall}</p>
-//                 <p>Comments: {review.comments}</p>
-//               </div>
-//             ))} */}
-//           </Box>
-//         </div>
-//       </Box>
-//     </>
-//   );
-// }
+  //to see what is in userDetails
+  // useEffect(() => {
+  //   console.log("userDetails", userDetails);
+  // }, [userDetails]);
+
+  async function handleDeleteReview(reviewid) {
+    console.log("deleterviewid", reviewid);
+    try {
+      await deleteReview(reviewid);
+      console.log("Review deleted");
+      // window.location.reload();
+    } catch {
+      console.error("Error deleting review");
+    }
+  }
+
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <NavBar />
+      <Box className="userContainer">
+        <Box className="profile">
+          <Box className="image">Profile Picture </Box>
+          <Box className="name">{userDetails.name}</Box>
+        </Box>
+        <Box className="reviews">
+          <p className="title">Reviews</p>
+
+          {userDetails.reviews.map((review) => (
+            <div>
+              <button onClick={() => handleDeleteReview(review._id)}>
+                delete
+              </button>
+              <p>Venue: {userDetails.vendor}</p>
+              <p>Cost per pax: {review.costperpax}</p>
+              <p>Food: {review.food}</p>
+              <p>Ambience: {review.ambience}</p>
+              <p>Pre-wedding support: {review.preWeddingSupport}</p>
+              <p>Day-of support: {review.dayOfSupport}</p>
+              <p>Overall: {review.overall}</p>
+              <p>Comments: {review.comments}</p>
+            </div>
+          ))}
+        </Box>
+      </Box>
+    </>
+  );
+}

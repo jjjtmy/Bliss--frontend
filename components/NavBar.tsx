@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { useState } from "react";
-import { getUser, logoutUser } from "../service/users";
+import { getUser, logoutUser, getUserRole } from "../service/users";
 
 export default function NavBar() {
   const [user, setUser] = useState<string | null>(getUser());
@@ -18,6 +18,12 @@ export default function NavBar() {
     setUser(user);
     navigate("/");
   }
+
+  async function handleMyProfile() {
+    const role = await getUserRole();
+    role === "client" ? navigate("/myprofile") : navigate("/editvendorpage");
+  }
+
   return (
     <div className="header">
       <h1 onClick={() => navigate("/")}>Bliss</h1>
@@ -25,6 +31,7 @@ export default function NavBar() {
         <>
           <div className="title-container">
             <h3>Welcome, {user}!</h3>
+            <button onClick={handleMyProfile}>My profile</button>
             <button className="button" onClick={handleLogOut}>
               Logout
             </button>

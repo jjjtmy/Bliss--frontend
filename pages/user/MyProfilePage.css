@@ -1,0 +1,57 @@
+.userContainer {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  height: 100vh;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image {
+  width: 100px;
+  height: 100px;
+  background-color: #e0e0e0;
+  color: #777;
+  border-radius: 50%;
+  font-size: 15px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.reviews {
+  height: 200px;
+  /* overflow-y: auto; */
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.reviews .title {
+  font-size: 14px;
+  line-height: 2px;
+  font-weight: bold;
+}
+
+.reviews div {
+  margin-bottom: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.reviews p {
+  font-size: 14px;
+  line-height: 2px;
+}
+
+.details .reviews p:first-child {
+  font-weight: bold;
+  margin-top: 10px;
+}

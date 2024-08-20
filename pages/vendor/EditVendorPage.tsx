@@ -1,5 +1,5 @@
 import "./EditVendorPage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextInput,
@@ -7,15 +7,22 @@ import {
   NumberInput,
   Fieldset,
 } from "@mantine/core";
-import { editVendorPage } from "../../service/vendors.tsx";
+import {
+  editVendorPage,
+  getVendorPage,
+  getVendorbyUserID,
+} from "../../service/vendors.tsx";
+import { getUserfromUser, getUser } from "../../service/users.tsx";
 import { getToken } from "../../util/security.tsx";
 import NavBar from "../../components/NavBar.tsx";
 
 export default function EditVendorPage() {
+  const [prefilledForm, setPrefilledForm] = useState({});
   const [formState, setFormState] = useState<{
     [key: string]: string | number;
   }>({});
   const [error, setError] = useState<string | null>(null);
+  const [fetchedData, setfetchedData] = useState(false);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => ({
@@ -40,10 +47,24 @@ export default function EditVendorPage() {
         // console.log(`no token`);
         return;
       }
+
+      const username = await getUser();
+      console.log("username", username);
+      const user = await getUserfromUser(username);
+      console.log("user", user);
+      const userID = user[0]._id;
+
+      // Update the form state with userID
+      const updatedFormState = {
+        ...formState,
+        UserID: userID,
+      };
+
       const pageDetails = {
         token: token,
-        vendorPage: formState,
+        vendorPage: updatedFormState,
       };
+
       console.log(`editvendorpage req`, pageDetails);
       const res = await editVendorPage(pageDetails);
       // navigate(`/myprofile`);
@@ -51,6 +72,34 @@ export default function EditVendorPage() {
     } catch (error) {
       console.error("Edit vendor error:", error);
     }
+  }
+
+  async function fetchData() {
+    try {
+      //get userID from user in token - 66bf41d937c3e815af6da5bb
+      const username = await getUser();
+      console.log("username", username);
+      const user = await getUserfromUser(username);
+      console.log("user", user[0]._id);
+      const vendorID = await getVendorbyUserID(user[0]._id);
+      console.log("vendorID", vendorID);
+      // get vendorpage by vendorid - 66c4a4c756d770941bcc2776
+      const vendor = await getVendorPage(vendorID.data._id);
+      console.log(`vendorpage vendor`, vendor);
+      return vendor
+        ? (setPrefilledForm(vendor), setFormState(vendor))
+        : setfetchedData(true);
+    } catch {
+      console.error("Error fetching vendor details", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!prefilledForm) {
+    return <div>Loading...</div>;
   }
 
   return (
@@ -61,29 +110,39 @@ export default function EditVendorPage() {
         onSubmit={handleSubmit}
         className="formcontainer"
       >
-        <TextInput label="Name" name="Name" onChange={handleChange} required />
+        <TextInput
+          label="Name"
+          name="Name"
+          onChange={handleChange}
+          value={prefilledForm.Name || undefined}
+          required
+        />
         <TextInput
           label="Location"
           name="Location"
           onChange={handleChange}
+          value={prefilledForm.Location || undefined}
           required
         />
         <TextInput
           label="Email"
           name="Email"
           onChange={handleChange}
+          value={prefilledForm.Email || undefined}
           required
         />
         <TextInput
           label="Phone"
           name="Phone"
           onChange={handleChange}
+          value={prefilledForm.Phone || undefined}
           required
         />
         <Textarea
           label="Description"
           name="Description"
           onChange={handleChange}
+          value={prefilledForm.Description || undefined}
           required
         />
         <Fieldset legend="Seating Capacity">
@@ -92,12 +151,14 @@ export default function EditVendorPage() {
             name="MinCap"
             hideControls
             onChange={(value) => handleNumberChange("MinCap", value || 0)}
+            value={prefilledForm.MinCap || undefined}
           />
           <NumberInput
             label="Maximum Capacity"
             name="MaxCap"
             hideControls
             onChange={(value) => handleNumberChange("MaxCap", value || 0)}
+            value={prefilledForm.MaxCap || undefined}
           />
         </Fieldset>
         <Fieldset legend="Estimated Price">
@@ -106,12 +167,14 @@ export default function EditVendorPage() {
             name="MinPrice"
             hideControls
             onChange={(value) => handleNumberChange("MinPrice", value || 0)}
+            value={prefilledForm.MinPrice || undefined}
           />
           <NumberInput
             label="Maximum price per pax"
             name="MaxPrice"
             hideControls
             onChange={(value) => handleNumberChange("MaxPrice", value || 0)}
+            value={prefilledForm.MaxPrice || undefined}
           />
         </Fieldset>
         <Button type="submit">Submit</Button>

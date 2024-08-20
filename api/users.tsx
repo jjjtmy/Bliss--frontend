@@ -11,6 +11,16 @@ export async function getUserfromID(userid: number) {
     null
   );
 }
+export async function getUserfromUser(user: string) {
+  console.log("getUserfromUser API", user);
+  return await sendRequest(
+    `${BASE_URL}/${user}`,
+    "GET",
+    null,
+    "Invalid User",
+    null
+  );
+}
 
 export async function signUp(userData) {
   console.log("signUp API", userData);
