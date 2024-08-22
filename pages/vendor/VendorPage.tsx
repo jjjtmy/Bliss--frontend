@@ -1,8 +1,9 @@
 import "./VendorPage.css";
-import { Box } from "@mantine/core";
+import { Box, Button } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
+import { addToWishlist } from "../../service/users";
 import NavBar from "../../components/NavBar";
 
 export default function VendorPage() {
@@ -28,12 +29,18 @@ export default function VendorPage() {
     return <div>Loading...</div>;
   }
 
+  const handleLike = (event) => {
+    event.preventDefault();
+    addToWishlist(vendorID);
+  };
+
   return (
     <>
       <NavBar />
       <Box className="vendorContainer">
         <Box className="image">IMAGE GOES HERE</Box>
         <div className="details">
+          <Button onClick={handleLike}>Like</Button>
           <Box fw={700}>{vendorDetails.Name}</Box>
           <Box> {vendorDetails.Description}</Box>
           <Box>

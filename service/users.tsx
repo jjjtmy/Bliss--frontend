@@ -77,3 +77,10 @@ export function editUser(userDetails) {
   const user = usersAPI.editUser(userDetails);
   return user; //returns true if successful
 }
+
+export async function addToWishlist(vendorID) {
+  const userID = await getUserIDFromToken();
+  const wishlist = { userID, vendorID };
+  const res = await usersAPI.addToWishlist(wishlist);
+  return res; //returns true if successful
+}

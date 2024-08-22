@@ -117,3 +117,20 @@ export async function editUser(userDetails) {
     throw new Error("Invalid Edit User");
   }
 }
+
+export async function addToWishlist(wishlist) {
+  console.log("addToWishlist API", wishlist);
+  const wishlistURL = BASE_URL + "/addToWishlist";
+  console.log(wishlistURL);
+  const res = await fetch(wishlistURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(wishlist),
+  });
+  if (res.ok) {
+    console.log(res);
+    return res.json();
+  } else {
+    throw new Error("Could not save to wishlist");
+  }
+}
