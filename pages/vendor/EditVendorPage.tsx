@@ -6,6 +6,8 @@ import {
   Textarea,
   NumberInput,
   Fieldset,
+  Input,
+  Image,
 } from "@mantine/core";
 import {
   editVendorPage,
@@ -22,6 +24,8 @@ export default function EditVendorPage() {
     [key: string]: string | number;
   }>({});
   const [error, setError] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageURL, setImageURL] = useState("");
   const [fetchedData, setfetchedData] = useState(false);
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -37,6 +41,32 @@ export default function EditVendorPage() {
       [name]: value,
     }));
   }
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event file", event.target.files[0]);
+    const file = event.target.files[0];
+    setImageFile(file);
+    if (!file) return;
+  };
+
+  const handleUploadImageClick = async () => {
+    const data = new FormData();
+    data.append("file", imageFile);
+    data.append("upload_preset", "vendor_image");
+    data.append("cloud_name", "dagpbzoqq");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/dagpbzoqq/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+
+    const uploadedImageURL = await res.json();
+    console.log("uploadedImageURL", uploadedImageURL.url);
+    setImageURL(uploadedImageURL.url);
+  };
 
   async function handleSubmit(evt: React.FormEvent) {
     evt.preventDefault();
@@ -57,6 +87,7 @@ export default function EditVendorPage() {
       // Update the form state with userID
       const updatedFormState = {
         ...formState,
+        image_url: imageURL,
         UserID: userID,
       };
 
@@ -110,6 +141,21 @@ export default function EditVendorPage() {
         onSubmit={handleSubmit}
         className="formcontainer"
       >
+        <Image
+          src={imageURL ? imageURL : prefilledForm.image_url}
+          radius="md"
+          h={200}
+          w="auto"
+          fit="contain"
+          fallbackSrc="https://placehold.co/600x400?text=Placeholder"
+        />
+        <Input
+          name="image_url"
+          type="file"
+          onChange={handleImageUpload}
+          accept="image/*"
+        />{" "}
+        <button onClick={handleUploadImageClick}>Upload Image</button>
         <TextInput
           label="Name"
           name="Name"

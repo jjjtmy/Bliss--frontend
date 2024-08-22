@@ -58,3 +58,22 @@ export function getUserRole() {
   return token ? JSON.parse(atob(token.split(".")[1])).payload.role : null;
   // returns username
 }
+
+export async function getUserIDFromToken() {
+  await getToken();
+  const token = getToken();
+  const email = token
+    ? JSON.parse(atob(token.split(".")[1])).payload.email
+    : null;
+  console.log("email", email);
+  const userCollection = await getLoginDetails(email);
+  const userID = userCollection.data._id;
+  console.log("userID", userID);
+  return userID;
+}
+
+export function editUser(userDetails) {
+  console.log("editUser service", userDetails);
+  const user = usersAPI.editUser(userDetails);
+  return user; //returns true if successful
+}

@@ -4,7 +4,7 @@ const BASE_URL = "http://localhost:3000/users";
 export async function getUserfromID(userid: number) {
   console.log("getUserfromID API", userid);
   return await sendRequest(
-    `${BASE_URL}/${userid}`,
+    `${BASE_URL}/userid/${userid}`,
     "GET",
     null,
     "Invalid User",
@@ -14,7 +14,7 @@ export async function getUserfromID(userid: number) {
 export async function getUserfromUser(user: string) {
   console.log("getUserfromUser API", user);
   return await sendRequest(
-    `${BASE_URL}/${user}`,
+    `${BASE_URL}/user/${user}`,
     "GET",
     null,
     "Invalid User",
@@ -98,5 +98,22 @@ export async function logoutUser(token, userData) {
     return res.json();
   } else {
     throw new Error("Invalid Logout");
+  }
+}
+
+export async function editUser(userDetails) {
+  console.log("editUser API", userDetails);
+  const editURL = BASE_URL + "/edit";
+  console.log(editURL);
+  const res = await fetch(editURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userDetails),
+  });
+  if (res.ok) {
+    console.log(res);
+    return res.json();
+  } else {
+    throw new Error("Invalid Edit User");
   }
 }
