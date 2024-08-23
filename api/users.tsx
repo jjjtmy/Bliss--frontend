@@ -134,3 +134,37 @@ export async function addToWishlist(wishlist) {
     throw new Error("Could not save to wishlist");
   }
 }
+
+export async function updateComment(body) {
+  console.log("updateComment API", body);
+  const updateCommentURL = BASE_URL + "/updateComment";
+  console.log(updateCommentURL);
+  const res = await fetch(updateCommentURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (res.ok) {
+    console.log(res);
+    return res.json();
+  } else {
+    throw new Error("Could not update comment");
+  }
+}
+
+export async function deleteWishlistItem(body) {
+  console.log("deleteWishlistItem API", body);
+  const deleteWishlistItemURL = BASE_URL + "/deleteWishlistItem";
+  console.log(deleteWishlistItemURL);
+  const res = await fetch(deleteWishlistItemURL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (res.ok) {
+    console.log(res);
+    return res.json();
+  } else {
+    throw new Error("");
+  }
+}
