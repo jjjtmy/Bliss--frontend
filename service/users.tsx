@@ -84,3 +84,13 @@ export async function addToWishlist(vendorID) {
   const res = await usersAPI.addToWishlist(wishlist);
   return res; //returns true if successful
 }
+
+export async function updateComment(body) {
+  const res = await usersAPI.updateComment(body);
+  return res;
+}
+
+export async function deleteWishlistItem(body) {
+  const res = await usersAPI.deleteWishlistItem(body);
+  return res;
+}

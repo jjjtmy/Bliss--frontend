@@ -13,6 +13,7 @@ import VendorPage from "../pages/vendor/VendorPage";
 import UserProfilePage from "../pages/user/UserProfilePage";
 import ExplorePage from "../pages/ExplorePage";
 import MyProfilePage from "../pages/user/MyProfilePage";
+import WishlistPage from "../pages/user/WishlistPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/users/:userID" element={<UserProfilePage />} />
           <Route path="/myprofile" element={<MyProfilePage />} />
           <Route path="/explore" element={<ExplorePage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
         </Routes>
       </main>
     </MantineProvider>
