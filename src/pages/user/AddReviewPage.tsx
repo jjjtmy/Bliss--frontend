@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddReviewPage.css";
-import NavBar from "../../components/NavBar.tsx";
+import NavBar from "../../../components/NavBar.tsx";
 import {
   Box,
   Button,
@@ -9,10 +9,11 @@ import {
   Textarea,
   Rating,
   Group,
+  Autocomplete,
   Fieldset,
 } from "@mantine/core";
-import { getToken } from "../../util/security.tsx";
-import { addVendorReview } from "../../service/vendors.tsx";
+import { getToken } from "../../../util/security.tsx";
+import { addVendorReview, getVendorNames } from "../../../service/vendors.tsx";
 
 export default function AddReviewPage(): JSX.Element {
   const [formState, setFormState] = useState({
@@ -25,6 +26,22 @@ export default function AddReviewPage(): JSX.Element {
     overall: 1.5,
     comments: "",
   });
+  const [vendors, setVendors] = useState([]); //vendor names to autopopulate vendor name
+
+  async function getVendors() {
+    try {
+      const vendorNames = await getVendorNames();
+      const vendorNamelist = vendorNames.data.map((vendor) => vendor.Name);
+      console.log("vendorNamelist", vendorNamelist);
+      setVendors(vendorNamelist); //setVendor state
+    } catch {
+      console.error("Error fetching vendors");
+    }
+  }
+
+  useEffect(() => {
+    getVendors();
+  }, []);
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -58,13 +75,22 @@ export default function AddReviewPage(): JSX.Element {
       <NavBar />
       <Box className="FormContainer" w="60vw">
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <TextInput
-            label="Venue"
+          <Text size="m" fw={700}>
+            Venue:
+          </Text>
+          <Autocomplete
+            placeholder="Enter a venue name"
+            data={vendors}
             name="Venue"
             value={formState.Venue}
-            onChange={handleChange}
-            required
+            onChange={(value) =>
+              setFormState((prevState) => ({
+                ...prevState,
+                Venue: value, // Update the Venue field in formState directly
+              }))
+            }
           />
+
           <TextInput
             label="Cost per pax"
             name="costperpax"

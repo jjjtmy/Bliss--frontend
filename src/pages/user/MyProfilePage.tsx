@@ -1,17 +1,17 @@
 import "./MyProfilePage.css";
 import { Box, Input, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../../components/NavBar";
 import {
   getUserfromID,
   getUserIDFromToken,
   editUser,
-} from "../../service/users";
+} from "../../../service/users";
 import {
   getReviewsByUser,
   getVendorPage,
   deleteReview,
-} from "../../service/vendors";
+} from "../../../service/vendors";
 
 export default function MyProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -27,12 +27,19 @@ export default function MyProfilePage() {
       console.log("fetchData user", user);
       const reviews = await getReviewsByUser(userID);
       console.log("getReviewsByUser reviews", reviews);
-      const vendor = await getVendorPage(reviews.vendorID);
+      console.log(
+        "getReviewsByUser reviews.userReviewsArray",
+        reviews.userReviewsArray
+      );
+      console.log(
+        "getReviewsByUser vendor",
+        reviews.userReviewsArray.vendorName
+      );
+      // const vendor = await getVendorPage(reviews.userReviewsArray.vendorID);
       setUserDetails({
         name: user.name,
         image_url: user.image_url,
         reviews: reviews.userReviewsArray,
-        vendor: vendor.Name,
       });
     } catch {
       console.error("Error fetching user details");
@@ -139,17 +146,17 @@ export default function MyProfilePage() {
 
         {userDetails.reviews.map((review) => (
           <div>
-            <button onClick={() => handleDeleteReview(review._id)}>
+            <button onClick={() => handleDeleteReview(review.review._id)}>
               delete
             </button>
-            <p>Venue: {userDetails.vendor}</p>
-            <p>Cost per pax: {review.costperpax}</p>
-            <p>Food: {review.food}</p>
-            <p>Ambience: {review.ambience}</p>
-            <p>Pre-wedding support: {review.preWeddingSupport}</p>
-            <p>Day-of support: {review.dayOfSupport}</p>
-            <p>Overall: {review.overall}</p>
-            <p>Comments: {review.comments}</p>
+            <p>Venue: {review.vendorName}</p>
+            <p>Cost per pax: {review.review.costperpax}</p>
+            <p>Food: {review.review.food}</p>
+            <p>Ambience: {review.review.ambience}</p>
+            <p>Pre-wedding support: {review.review.preWeddingSupport}</p>
+            <p>Day-of support: {review.review.dayOfSupport}</p>
+            <p>Overall: {review.review.overall}</p>
+            <p>Comments: {review.review.comments}</p>
           </div>
         ))}
       </Box>

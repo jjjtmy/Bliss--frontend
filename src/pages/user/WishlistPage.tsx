@@ -7,8 +7,8 @@ import {
   getUserIDFromToken,
   updateComment,
   deleteWishlistItem,
-} from "../../service/users";
-import { getVendorPage } from "../../service/vendors";
+} from "../../../service/users";
+import { getVendorPage } from "../../../service/vendors";
 
 export default function WishlistPage() {
   const [allVendors, setAllVendors] = useState<any[]>([]);

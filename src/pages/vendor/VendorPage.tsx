@@ -1,10 +1,10 @@
 import "./VendorPage.css";
-import { Box, Button } from "@mantine/core";
+import { Box, Button, Image } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getVendorPage } from "../../service/vendors";
-import { addToWishlist } from "../../service/users";
-import NavBar from "../../components/NavBar";
+import { getVendorPage } from "../../../service/vendors";
+import { addToWishlist } from "../../../service/users";
+import NavBar from "../../../components/NavBar";
 
 export default function VendorPage() {
   // const fetchData await getVendorPage(vendor) try catch fnally
@@ -38,15 +38,14 @@ export default function VendorPage() {
     <>
       <NavBar />
       <Box className="vendorContainer">
-        <Box className="image">IMAGE GOES HERE</Box>
+        <Image src={vendorDetails.image_url} alt="vendor" />
         <div className="details">
           <Button onClick={handleLike}>Like</Button>
           <Box fw={700}>{vendorDetails.Name}</Box>
           <Box> {vendorDetails.Description}</Box>
           <Box>
             <p>
-              Capacity: {vendorDetails.MinCap} to
-              {vendorDetails.MaxCap}
+              Capacity: {vendorDetails.MinCap} to {vendorDetails.MaxCap}
             </p>
             <p>
               Price: {vendorDetails.MinPrice} to {vendorDetails.MaxPrice}

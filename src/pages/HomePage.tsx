@@ -1,7 +1,7 @@
 import "./HomePage.css";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../util/security";
+import { getToken } from "../../util/security";
 
 export default function HomePage(): JSX.Element {
   const navigate = useNavigate();

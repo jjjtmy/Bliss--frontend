@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./ExplorePage.css";
-import { getVendorNames, getVendorByName } from "../service/vendors";
+import { getVendorNames, getVendorByName } from "../../service/vendors";
 import { Box, Button, Autocomplete, RangeSlider, Text } from "@mantine/core";
-import VendorCard from "../components/VendorCard";
-import NavBar from "../components/NavBar";
+import VendorCard from "../../components/VendorCard";
+import NavBar from "../../components/NavBar";
 
 export default function ExplorePage() {
   const [vendors, setVendors] = useState([]); //vendor names to autopopulate search bar

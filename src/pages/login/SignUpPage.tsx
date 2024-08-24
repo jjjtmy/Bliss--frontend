@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { signUp } from "../../service/users";
-import { hashData } from "../../util/security";
+import { signUp } from "../../../service/users";
+import { hashData } from "../../../util/security";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextInput, PasswordInput } from "@mantine/core";
-import "./SignUpPageVendor.css";
+import "./SignUpPage.css";
 
-export default function SignUpPageVendor() {
+export default function SignUpPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
   const [disable, setDisable] = useState(true);
 
@@ -57,7 +57,7 @@ export default function SignUpPageVendor() {
       const formData = { ...formState };
       delete formData.error;
       delete formData.confirm;
-      formData.role = "vendor";
+      formData.role = "client";
       // highlight-end
       console.log(formData);
       const user = await signUp(formData);

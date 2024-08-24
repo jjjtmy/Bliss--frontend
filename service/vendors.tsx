@@ -34,6 +34,7 @@ export async function deleteReview(reviewid) {
 export async function getReviewsByUser(userid) {
   console.log("getReviewsByUser service", userid);
   const reviews = await vendorsAPI.getReviewsByUser(userid);
+  console.log("getReviewsByUser reviews", reviews);
   return reviews; //returns array of review collections by userid + vendorID
 }
 

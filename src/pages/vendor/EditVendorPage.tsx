@@ -13,10 +13,10 @@ import {
   editVendorPage,
   getVendorPage,
   getVendorbyUserID,
-} from "../../service/vendors.tsx";
-import { getUserfromUser, getUser } from "../../service/users.tsx";
-import { getToken } from "../../util/security.tsx";
-import NavBar from "../../components/NavBar.tsx";
+} from "../../../service/vendors.tsx";
+import { getUserfromUser, getUser } from "../../../service/users.tsx";
+import { getToken } from "../../../util/security.tsx";
+import NavBar from "../../../components/NavBar.tsx";
 
 export default function EditVendorPage() {
   const [prefilledForm, setPrefilledForm] = useState({});

@@ -3,17 +3,17 @@ import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
 
-import HomePage from "../pages/HomePage";
-import LoginPage from "../pages/login/LoginPage";
-import SignUpPage from "../pages/login/SignUpPage";
-import SignUpPageVendor from "../pages/vendor/SignUpPageVendor";
-import AddReviewPage from "../pages/user/AddReviewPage";
-import EditVendorPage from "../pages/vendor/EditVendorPage";
-import VendorPage from "../pages/vendor/VendorPage";
-import UserProfilePage from "../pages/user/UserProfilePage";
-import ExplorePage from "../pages/ExplorePage";
-import MyProfilePage from "../pages/user/MyProfilePage";
-import WishlistPage from "../pages/user/WishlistPage";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/login/LoginPage";
+import SignUpPage from "./pages/login/SignUpPage";
+import SignUpPageVendor from "./pages/vendor/SignUpPageVendor";
+import AddReviewPage from "./pages/user/AddReviewPage";
+import EditVendorPage from "./pages/vendor/EditVendorPage";
+import VendorPage from "./pages/vendor/VendorPage";
+import UserProfilePage from "./pages/user/UserProfilePage";
+import ExplorePage from "./pages/ExplorePage";
+import MyProfilePage from "./pages/user/MyProfilePage";
+import WishlistPage from "./pages/user/WishlistPage";
 
 function App() {
   return (

@@ -7,11 +7,11 @@ import {
   TextInput,
   PasswordInput,
 } from "@mantine/core";
-import { getLoginDetails, loginUser } from "../../service/users";
-import { hashDataWithSaltRounds, storeToken } from "../../util/security";
+import { getLoginDetails, loginUser } from "../../../service/users";
+import { hashDataWithSaltRounds, storeToken } from "../../../util/security";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../../components/NavBar";
 
 export default function LoginPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
