@@ -1,5 +1,5 @@
 import "./WishlistPage.css";
-import { Box, Input, Image } from "@mantine/core";
+import { Box, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
 import NavBar from "../../components/NavBar";
 import {
