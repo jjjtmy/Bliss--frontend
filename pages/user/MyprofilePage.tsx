@@ -27,12 +27,12 @@ export default function MyProfilePage() {
       console.log("fetchData user", user);
       const reviews = await getReviewsByUser(userID);
       console.log("getReviewsByUser reviews", reviews);
-      const vendor = await getVendorPage(reviews.vendorID);
+      // const vendor = await getVendorPage(reviews.vendorID);
       setUserDetails({
         name: user.name,
         image_url: user.image_url,
         reviews: reviews.userReviewsArray,
-        vendor: vendor.Name,
+        // vendor: vendor.Name,
       });
     } catch {
       console.error("Error fetching user details");
@@ -124,32 +124,24 @@ export default function MyProfilePage() {
             </>
           )}
         </Box>
-        {/* {image && (
-            <Image
-              cloudName="your_cloud_name"
-              publicId={userDetails.image_url}
-              width="300"
-              crop="scale"
-            />
-          )} */}
         <Box className="name">{userDetails.name}</Box>
       </Box>
       <Box className="reviews">
         <p className="title">Reviews</p>
 
-        {userDetails.reviews.map((review) => (
-          <div>
-            <button onClick={() => handleDeleteReview(review._id)}>
+        {userDetails.reviews.map((reviewItem, index) => (
+          <div key={index}>
+            <button onClick={() => handleDeleteReview(reviewItem.review._id)}>
               delete
             </button>
-            <p>Venue: {userDetails.vendor}</p>
-            <p>Cost per pax: {review.costperpax}</p>
-            <p>Food: {review.food}</p>
-            <p>Ambience: {review.ambience}</p>
-            <p>Pre-wedding support: {review.preWeddingSupport}</p>
-            <p>Day-of support: {review.dayOfSupport}</p>
-            <p>Overall: {review.overall}</p>
-            <p>Comments: {review.comments}</p>
+            <p>Venue: {reviewItem.vendorName}</p>
+            <p>Cost per pax: {reviewItem.review.costperpax}</p>
+            <p>Food: {reviewItem.review.food}</p>
+            <p>Ambience: {reviewItem.review.ambience}</p>
+            <p>Pre-wedding support: {reviewItem.review.preWeddingSupport}</p>
+            <p>Day-of support: {reviewItem.review.dayOfSupport}</p>
+            <p>Overall: {reviewItem.review.overall}</p>
+            <p>Comments: {reviewItem.review.comments}</p>
           </div>
         ))}
       </Box>

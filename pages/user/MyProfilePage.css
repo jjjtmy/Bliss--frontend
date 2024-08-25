@@ -1,57 +1,100 @@
+/* Main container for user profile */
 .userContainer {
-  padding: 20px;
-  border: 1px solid #ddd;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f7ede2;
   border-radius: 8px;
-  background-color: #f9f9f9;
-  height: 100vh;
-}
-
-.profile {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 30vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Ensure vertical stacking if needed */
   align-items: center;
 }
 
-/* .image {
-  width: 100px;
-  height: 100px;
-  background-color: #e0e0e0;
-  color: #777;
-  border-radius: 50%;
-  font-size: 15px;
-} */
+/* Profile section */
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+/* Profile image */
+.profile img {
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #f5cac3;
+}
+
+/* Edit button */
+.profile button {
+  background-color: #f5cac3;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.profile button:hover {
+  background-color: #f28482;
+  color: white;
+}
+
+/* Name section */
 .name {
   font-size: 24px;
   font-weight: bold;
-  margin-top: 10px;
+  color: #333;
+  text-align: center;
+  margin: 0; /* Ensure no extra margin is applied */
+  padding: 10px 0; /* Optional: Adjust padding if needed */
 }
 
+/* Reviews section */
 .reviews {
-  height: 200px;
-  /* overflow-y: auto; */
-  padding: 10px;
-  border-top: 1px solid #ccc;
-  margin-top: 10px;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Title for reviews */
 .reviews .title {
-  font-size: 14px;
-  line-height: 2px;
+  font-size: 20px;
   font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
 }
 
+/* Review items */
 .reviews div {
-  margin-bottom: 10px;
-  border-top: 1px solid #ccc;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.reviews p {
+/* Delete button */
+.reviews button {
+  background-color: #f5cac3;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
   font-size: 14px;
-  line-height: 2px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
-.details .reviews p:first-child {
-  font-weight: bold;
-  margin-top: 10px;
+.reviews button:hover {
+  background-color: #f28482;
+  color: white;
+}
+
+/* Input for file upload */
+input[type="file"] {
+  margin-right: 10px;
 }
