@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddReviewPage.css";
 import NavBar from "../../components/NavBar.tsx";
 import {
@@ -13,8 +13,11 @@ import {
 } from "@mantine/core";
 import { getToken } from "../../util/security.tsx";
 import { addVendorReview } from "../../service/vendors.tsx";
+import { useLocation } from "react-router-dom";
 
 export default function AddReviewPage(): JSX.Element {
+  const location = useLocation();
+  const { vendorName } = location.state || {};
   const [formState, setFormState] = useState({
     Venue: "",
     costperpax: "",
@@ -25,6 +28,13 @@ export default function AddReviewPage(): JSX.Element {
     overall: 1.5,
     comments: "",
   });
+
+  useEffect(() => {
+    setFormState((prevState) => ({
+      ...prevState,
+      Venue: vendorName || "", // Default to empty string if vendorName is undefined
+    }));
+  }, [vendorName]);
 
   function handleChange(evt) {
     const { name, value } = evt.target;

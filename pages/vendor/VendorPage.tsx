@@ -1,15 +1,32 @@
 import "./VendorPage.css";
-import { Box, Button } from "@mantine/core";
+import { Box, Button, Image } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
 import { addToWishlist } from "../../service/users";
 import NavBar from "../../components/NavBar";
 
+import { useNavigate } from "react-router-dom";
+
 export default function VendorPage() {
+  const navigate = useNavigate();
   // const fetchData await getVendorPage(vendor) try catch fnally
   const { vendorID } = useParams();
   const [vendorDetails, setVendorDetails] = useState(null);
+
+  // const handleClick = () => {
+  //   const token = getToken();
+  //   if (!token) {
+  //     navigate("/login");
+  //   } else {
+  //     const role = JSON.parse(atob(token.split(".")[1])).payload.role;
+  //     if (role === "client") {
+  //       navigate("/addreview");
+  //     } else if (role === "vendor") {
+  //       console.log("Unauthorized");
+  //     }
+  //   }
+  // };
 
   async function fetchData() {
     try {
@@ -38,9 +55,18 @@ export default function VendorPage() {
     <>
       <NavBar />
       <Box className="vendorContainer">
-        <Box className="image">IMAGE GOES HERE</Box>
+        <Image src={vendorDetails.image_url} alt="vendor" />
         <div className="details">
           <Button onClick={handleLike}>Like</Button>
+          <Button
+            onClick={() =>
+              navigate("/addreview", {
+                state: { vendorName: vendorDetails.Name },
+              })
+            }
+          >
+            Review a Venue
+          </Button>
           <Box fw={700}>{vendorDetails.Name}</Box>
           <Box> {vendorDetails.Description}</Box>
           <Box>
