@@ -9,6 +9,7 @@ import {
   deleteWishlistItem,
 } from "../../service/users";
 import { getVendorPage } from "../../service/vendors";
+import { IconTrash } from "@tabler/icons-react";
 
 export default function WishlistPage() {
   const [allVendors, setAllVendors] = useState<any[]>([]);
@@ -72,16 +73,23 @@ export default function WishlistPage() {
               <div key={vendor._id} className="wishlist-item">
                 <Image src={vendor.image_url} alt={vendor.Name} />
                 <h2>{vendor.Name}</h2>
-                <button onClick={(event) => handleDelete(event, vendor._id)}>
-                  delete
-                </button>
-                <p>{vendor.Description}</p>
+
+                <p>
+                  {vendor.MinCap} to {vendor.MaxCap} pax
+                </p>
+                <p>
+                  ${vendor.MinPrice} to ${vendor.MaxPrice} per pax
+                </p>
+                <p>{vendor.Location}</p>
                 <textarea
                   className="comment"
                   placeholder="Write a comment"
                   rows={4}
                   onChange={(event) => handleChange(event, vendor._id)}
                 />
+                <button onClick={(event) => handleDelete(event, vendor._id)}>
+                  <IconTrash bg="#F5CAC3" />
+                </button>
               </div>
             ))}
           </div>

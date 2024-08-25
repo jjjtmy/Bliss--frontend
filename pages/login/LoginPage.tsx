@@ -50,10 +50,10 @@ export default function LoginPage() {
   }
 
   return (
-    <>
+    <div className="loginpage">
       <NavBar />
       <Box className="FormContainer">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <TextInput
             label="Email"
             name="email"
@@ -74,14 +74,8 @@ export default function LoginPage() {
             Create account
           </Anchor>
         </Text>
-        {/* <Text c="dimmed" size="sm" ta="center" mt={10}>
-          Are you a vendor?{" "}
-          <Anchor size="sm" href="/signupvendor" mt={-10}>
-            Create a vendor account
-          </Anchor>
-        </Text> */}
         <p className="error-message">&nbsp;</p>
       </Box>
-    </>
+    </div>
   );
 }

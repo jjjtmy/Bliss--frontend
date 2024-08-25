@@ -4,6 +4,7 @@ import { hashData } from "../../util/security";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextInput, PasswordInput } from "@mantine/core";
 import "./SignUpPage.css";
+import NavBar from "../../components/NavBar";
 
 export default function SignUpPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
@@ -70,6 +71,7 @@ export default function SignUpPage() {
 
   return (
     <Box>
+      <NavBar />
       <div className="FormContainer">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextInput

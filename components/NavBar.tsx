@@ -2,11 +2,14 @@ import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { useEffect, useState } from "react";
 import { getUser, logoutUser, getUserRole } from "../service/users";
+import { Drawer, Burger } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 export default function NavBar() {
   const [user, setUser] = useState<string | null>(getUser());
   const [isClient, setIsClient] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [opened, { open, close }] = useDisclosure(false);
 
   async function checkUserRole() {
     const role = await getUserRole();
@@ -46,11 +49,26 @@ export default function NavBar() {
       {user ? (
         <>
           <div className="title-container">
-            <h3>Welcome, {user}!</h3>
-            <button onClick={handleMyProfile}>My profile</button>
-            {isClient ? (
-              <button onClick={handleMyWishlist}>My wishlist</button>
-            ) : null}
+            <Drawer
+              opened={opened}
+              onClose={close}
+              position="right"
+              size="xs"
+              className="drawer"
+            >
+              <h5>Welcome, {user}!</h5>
+              <div className="divider">
+                <button className="navbuttons" onClick={handleMyProfile}>
+                  My profile
+                </button>
+                {isClient ? (
+                  <button className="navbuttons" onClick={handleMyWishlist}>
+                    My wishlist
+                  </button>
+                ) : null}
+              </div>
+            </Drawer>
+            <Burger onClick={open} />
             <button className="button" onClick={handleLogOut}>
               Logout
             </button>

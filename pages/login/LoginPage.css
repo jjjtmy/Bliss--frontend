@@ -1,43 +1,43 @@
+.loginpage {
+  background-color: #fcf9f9;
+}
+
 .FormContainer {
-  width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  /* width: 300px; */
+  background-color: #fcf9f9;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  /* padding: 0%; */
 }
 
 /* Style the labels */
 .FormContainer label {
   display: block;
-  margin-bottom: 8px;
   font-weight: bold;
   text-align: left;
   color: black;
+  background-color: #fcf9f9;
 }
 
 /* Style the login button */
-.FormContainer button {
+.FormContainer Button {
   width: 100%;
-  padding: 10px;
-  background-color: #ffbdf8;
-  color: white;
-  border: none;
+  background-color: #f5cac3;
+  color: #383838;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
 }
 
-.FormContainer button:hover {
-  background-color: #b300ad;
+.FormContainer Button:hover {
+  background-color: #f28482;
 }
 
 /* Style the sign-up link */
 .FormContainer a {
   display: inline-block;
-  margin-top: 15px;
-  color: #9d00ff;
+  color: #f28482;
   text-decoration: none;
   font-size: 14px;
 }
@@ -49,5 +49,4 @@
 /* Style for error message */
 .error-message {
   color: red;
-  margin-top: 15px;
 }

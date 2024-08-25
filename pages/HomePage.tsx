@@ -8,13 +8,12 @@ export default function HomePage(): JSX.Element {
     <div className="container">
       <NavBar />
       <div className="Header">
-        <h1>Bliss</h1>
-        <h2>Make the most of your big day</h2>
-        <div className="button-container">
-          <button className="Buttons" onClick={() => navigate("/explore")}>
-            Find a Venue
-          </button>
-        </div>
+        <h1>Make the most</h1>
+        <h1> of your big day</h1>
+        <h3> Let us help you every step of the way</h3>
+        <button className="Buttons" onClick={() => navigate("/explore")}>
+          Find a Venue
+        </button>
       </div>
     </div>
   );

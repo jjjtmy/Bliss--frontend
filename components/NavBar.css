@@ -1,18 +1,18 @@
 /* Style for the header container */
 .header {
+  background-color: #fefefef9;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  position: relative;
+  padding: 0 10px;
 }
 
 /* Bliss in italics */
 .header h1 {
+  color: #f28482;
   font-style: italic;
   font-size: 50px;
   margin-left: 10px;
-  margin-top: 0;
 }
 
 /* Container for the title and welcome message */
@@ -21,25 +21,56 @@
   justify-content: flex-start;
   align-items: center;
   position: absolute;
-  top: 10px;
   right: 10px;
+  background-color: #fefefef9;
 }
 
-/* Welcome message */
-.header h3 {
-  margin-right: 10px;
+/* Custom Drawer Styles */
+.drawer {
+  background-color: #fefefef9;
+  color: #383838;
+}
+
+.drawer {
+  background-color: #fefefef9;
+  color: #383838;
+}
+
+/* Optional: Style the drawer's header, content, and close button */
+.drawer .mantine-Drawer-header {
+  background-color: #fefefef9;
+  color: #383838;
+}
+
+.drawer .mantine-Drawer-content {
+  padding: 16px;
+  background-color: #fefefef9;
+}
+
+.drawer .mantine-Drawer-closeButton {
+  background-color: #fefefef9;
+}
+
+.divider {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbuttons {
+  background-color: #fefefef9;
+  font-size: 0.5em;
 }
 
 /* Logout button positioned in the top right corner */
 .button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  background-color: #f5cac3;
+  color: #383838;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 20px;
   cursor: pointer;
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: #f28482;
 }
