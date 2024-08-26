@@ -1,20 +1,49 @@
 .explorePage {
-  /* display: flex;
-  flex-direction: column; */
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
-.explorePage form {
+.searchBar {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  gap: 5px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.searchBar button {
+  background-color: #f5cac3;
+  color: #383838;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 .filters {
+  color: black;
   display: flex;
   flex-direction: column;
   width: 70vw;
-  margin: 0 auto;
+  margin: 10px auto;
+}
+
+.filters button {
+  background-color: #84a59d;
+  color: #383838;
+  border: 1px solid white;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 50%;
+  margin: 10px auto;
+}
+
+.filters button:hover {
+  background-color: #5cae99ad;
 }
 
 .vendorcardgrid {

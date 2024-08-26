@@ -3,7 +3,7 @@ import { signUp } from "../../service/users";
 import { hashData } from "../../util/security";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextInput, PasswordInput } from "@mantine/core";
-import "./SignUpPageVendor.css";
+// import "./SignUpPageVendor.css";
 
 export default function SignUpPageVendor() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
@@ -70,7 +70,10 @@ export default function SignUpPageVendor() {
 
   return (
     <Box>
-      <div className="FormContainer">
+      <div
+        className="FormContainer"
+        style={{ width: "80vw", margin: "0 auto" }}
+      >
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextInput
             label="Name"

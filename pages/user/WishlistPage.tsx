@@ -1,7 +1,6 @@
 import "./WishlistPage.css";
 import { Box, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar";
 import {
   getUserfromID,
   getUserIDFromToken,
@@ -64,7 +63,6 @@ export default function WishlistPage() {
 
   return (
     <>
-      <NavBar />
       <Box>
         <h1>Wishlist</h1>
         {wishlistFilled ? (
@@ -73,22 +71,33 @@ export default function WishlistPage() {
               <div key={vendor._id} className="wishlist-item">
                 <Image src={vendor.image_url} alt={vendor.Name} />
                 <h2>{vendor.Name}</h2>
-
-                <p>
-                  {vendor.MinCap} to {vendor.MaxCap} pax
-                </p>
-                <p>
-                  ${vendor.MinPrice} to ${vendor.MaxPrice} per pax
-                </p>
-                <p>{vendor.Location}</p>
+                <div>
+                  <p>
+                    {vendor.MinCap} to {vendor.MaxCap} pax
+                  </p>
+                  <p>
+                    ${vendor.MinPrice} to ${vendor.MaxPrice} per pax
+                  </p>
+                  <p>{vendor.Location}</p>
+                </div>
                 <textarea
                   className="comment"
                   placeholder="Write a comment"
                   rows={4}
                   onChange={(event) => handleChange(event, vendor._id)}
                 />
-                <button onClick={(event) => handleDelete(event, vendor._id)}>
-                  <IconTrash bg="#F5CAC3" />
+                <button
+                  onClick={(event) => handleDelete(event, vendor._id)}
+                  className="button"
+                  style={{
+                    alignSelf: "flex-end",
+                    padding: "0",
+                  }}
+                >
+                  <IconTrash
+                    style={{ width: "50px", backgroundColor: "#F5CAC3" }}
+                  />{" "}
+                  {/* TODO: fix icon size  */}
                 </button>
               </div>
             ))}

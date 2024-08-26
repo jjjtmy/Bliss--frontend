@@ -1,4 +1,3 @@
-import "./EditVendorPage.css";
 import { useState, useEffect } from "react";
 import {
   Button,
@@ -16,7 +15,6 @@ import {
 } from "../../service/vendors.tsx";
 import { getUserfromUser, getUser } from "../../service/users.tsx";
 import { getToken } from "../../util/security.tsx";
-import NavBar from "../../components/NavBar.tsx";
 
 export default function EditVendorPage() {
   const [prefilledForm, setPrefilledForm] = useState({});
@@ -135,11 +133,16 @@ export default function EditVendorPage() {
 
   return (
     <>
-      <NavBar />
       <form
         autoComplete="off"
         onSubmit={handleSubmit}
-        className="formcontainer"
+        className="FormContainer"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          margin: "0 auto",
+          width: "80vw",
+        }}
       >
         <Image
           src={imageURL ? imageURL : prefilledForm.image_url}
@@ -155,7 +158,13 @@ export default function EditVendorPage() {
           onChange={handleImageUpload}
           accept="image/*"
         />{" "}
-        <button onClick={handleUploadImageClick}>Upload Image</button>
+        <button
+          className="button"
+          style={{ width: "20%", marginLeft: "5px", padding: "2px 0 " }}
+          onClick={handleUploadImageClick}
+        >
+          Upload Image
+        </button>
         <TextInput
           label="Name"
           name="Name"
@@ -223,7 +232,9 @@ export default function EditVendorPage() {
             value={prefilledForm.MaxPrice || undefined}
           />
         </Fieldset>
-        <Button type="submit">Submit</Button>
+        <Button className="button" type="submit">
+          Submit
+        </Button>
         <p className="error-message">{error}</p>
       </form>
     </>

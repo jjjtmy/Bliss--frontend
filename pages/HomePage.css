@@ -1,31 +1,15 @@
-.container {
-  background-color: #f7ede2;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
+.homepageHeader {
+  text-align: center;
+  margin-top: 50px;
 }
 
-.Header {
-  font-style: italic;
-  color: #383838;
-  padding-top: 8vh;
-}
-
-.Header h1 {
+.homepageHeader h1 {
   font-size: 3em;
   line-height: 0.4em;
 }
 
-.Header h3 {
+.homepageHeader h3 {
   font-size: 1em;
   margin-top: 50px;
   color: #f28482;
-}
-
-.Buttons {
-  font-size: 0.7em;
-  padding: 15px;
-  margin-right: 5px;
-  border-radius: 30px;
-  border: 1px solid white;
 }

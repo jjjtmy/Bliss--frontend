@@ -3,8 +3,7 @@ import { signUp } from "../../service/users";
 import { hashData } from "../../util/security";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextInput, PasswordInput } from "@mantine/core";
-import "./SignUpPage.css";
-import NavBar from "../../components/NavBar";
+// import "./SignUpPage.css";
 
 export default function SignUpPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
@@ -71,39 +70,40 @@ export default function SignUpPage() {
 
   return (
     <Box>
-      <NavBar />
-      <div className="FormContainer">
-        <form autoComplete="off" onSubmit={handleSubmit}>
-          <TextInput
-            label="Name"
-            name="name"
-            onChange={handleChange}
-            required
-          />
-          <TextInput
-            label="E-mail"
-            name="email"
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            label="Password"
-            name="password"
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            label="Confirm"
-            name="confirm"
-            onChange={handleChange}
-            required
-          />
-          <Button type="submit" disabled={disable}>
-            SIGN UP
-          </Button>
-        </form>
-      </div>
-      <p className="error-message">&nbsp;</p>
+      <Box className="Form">
+        <div className="FormContainer">
+          <form autoComplete="off" onSubmit={handleSubmit}>
+            <TextInput
+              label="Name"
+              name="name"
+              onChange={handleChange}
+              required
+            />
+            <TextInput
+              label="E-mail"
+              name="email"
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              label="Password"
+              name="password"
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              label="Confirm"
+              name="confirm"
+              onChange={handleChange}
+              required
+            />
+            <Button type="submit" className="button" disabled={disable}>
+              SIGN UP
+            </Button>
+          </form>
+        </div>
+        <p className="error-message">&nbsp;</p>
+      </Box>
     </Box>
   );
 }

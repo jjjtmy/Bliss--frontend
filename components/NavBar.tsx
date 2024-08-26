@@ -48,7 +48,7 @@ export default function NavBar() {
       <h1 onClick={() => navigate("/")}>Bliss</h1>
       {user ? (
         <>
-          <div className="title-container">
+          <div className="header">
             <Drawer
               opened={opened}
               onClose={close}
@@ -68,7 +68,7 @@ export default function NavBar() {
                 ) : null}
               </div>
             </Drawer>
-            <Burger onClick={open} />
+            <Burger onClick={open} lineSize={5} size="xl" mr={20} />
             <button className="button" onClick={handleLogOut}>
               Logout
             </button>

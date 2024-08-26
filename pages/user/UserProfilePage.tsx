@@ -1,8 +1,7 @@
-import "./UserProfilePage.css";
+// import "./UserProfilePage.css";
 import { Box } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar";
 import { getUserfromID } from "../../service/users";
 import { getReviewsByUser, getVendorPage } from "../../service/vendors";
 
@@ -41,7 +40,6 @@ export default function UserProfilePage() {
 
   return (
     <>
-      <NavBar />
       <Box className="userContainer">
         <Box className="profile">
           <Box className="image">Profile Picture </Box>

@@ -14,11 +14,14 @@ import UserProfilePage from "../pages/user/UserProfilePage";
 import ExplorePage from "../pages/ExplorePage";
 import MyProfilePage from "../pages/user/MyProfilePage";
 import WishlistPage from "../pages/user/WishlistPage";
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 
 function App() {
   return (
     <MantineProvider>
       <main className="App">
+        <NavBar />;
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -32,6 +35,7 @@ function App() {
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
         </Routes>
+        <Footer />;
       </main>
     </MantineProvider>
   );

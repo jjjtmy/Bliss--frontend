@@ -1,34 +1,31 @@
-/* Style for the header container */
 .header {
+  position: relative;
+  top: 0;
+  left: 0;
   background-color: #fefefef9;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  margin: 0;
+  height: 120px;
 }
 
 /* Bliss in italics */
 .header h1 {
   color: #f28482;
-  font-style: italic;
-  font-size: 50px;
-  margin-left: 10px;
+  font-style: italic bold;
+  font-size: 90px;
+  height: 90%;
+  border: 0;
+  margin: 0;
 }
 
-/* Container for the title and welcome message */
-.title-container {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  right: 10px;
-  background-color: #fefefef9;
-}
-
-/* Custom Drawer Styles */
-.drawer {
-  background-color: #fefefef9;
-  color: #383838;
+@media only screen and (max-width: 480px) {
+  .header h1 {
+    font-size: 60px;
+    margin-left: 20px;
+  }
 }
 
 .drawer {
@@ -36,7 +33,6 @@
   color: #383838;
 }
 
-/* Optional: Style the drawer's header, content, and close button */
 .drawer .mantine-Drawer-header {
   background-color: #fefefef9;
   color: #383838;
@@ -59,18 +55,7 @@
 .navbuttons {
   background-color: #fefefef9;
   font-size: 0.5em;
+  border: none;
 }
 
 /* Logout button positioned in the top right corner */
-.button {
-  background-color: #f5cac3;
-  color: #383838;
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #f28482;
-}

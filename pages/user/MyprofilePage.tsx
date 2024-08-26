@@ -1,17 +1,13 @@
 import "./MyProfilePage.css";
 import { Box, Input, Image } from "@mantine/core";
 import { useEffect, useState } from "react";
-import NavBar from "../../components/NavBar";
 import {
   getUserfromID,
   getUserIDFromToken,
   editUser,
 } from "../../service/users";
-import {
-  getReviewsByUser,
-  getVendorPage,
-  deleteReview,
-} from "../../service/vendors";
+import { getReviewsByUser, deleteReview } from "../../service/vendors";
+import { IconStarFilled } from "@tabler/icons-react";
 
 export default function MyProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -96,7 +92,6 @@ export default function MyProfilePage() {
 
   return (
     <>
-      <NavBar />
       <Box className="userContainer">
         <Box className="profile">
           <Image
@@ -108,7 +103,7 @@ export default function MyProfilePage() {
             fallbackSrc="https://placehold.co/600x400?text=Placeholder"
           />
           {!showInput ? (
-            <button onClick={handleEditButtonClick}>
+            <button onClick={handleEditButtonClick} className="button">
               Edit profile picture
             </button>
           ) : (
@@ -120,27 +115,67 @@ export default function MyProfilePage() {
                 onChange={handleImageUpload}
                 accept="image/*"
               />{" "}
-              <button onClick={handleUploadImageClick}>Upload Image</button>
+              <button onClick={handleUploadImageClick} className="button">
+                Upload Image
+              </button>
             </>
           )}
         </Box>
         <Box className="name">{userDetails.name}</Box>
       </Box>
       <Box className="reviews">
-        <p className="title">Reviews</p>
+        <p
+          className="title"
+          style={{
+            textAlign: "left",
+            marginBottom: "0",
+            fontSize: "38px",
+            fontWeight: "bold",
+          }}
+        >
+          Reviews
+        </p>
 
         {userDetails.reviews.map((reviewItem, index) => (
-          <div key={index}>
-            <button onClick={() => handleDeleteReview(reviewItem.review._id)}>
-              delete
+          <div key={index} className="review">
+            <button
+              className="button"
+              onClick={() => handleDeleteReview(reviewItem.review._id)}
+              style={{ alignSelf: "flex-end", padding: "0 0.2em" }}
+            >
+              X
             </button>
-            <p>Venue: {reviewItem.vendorName}</p>
-            <p>Cost per pax: {reviewItem.review.costperpax}</p>
-            <p>Food: {reviewItem.review.food}</p>
-            <p>Ambience: {reviewItem.review.ambience}</p>
-            <p>Pre-wedding support: {reviewItem.review.preWeddingSupport}</p>
-            <p>Day-of support: {reviewItem.review.dayOfSupport}</p>
-            <p>Overall: {reviewItem.review.overall}</p>
+            <p
+              style={{
+                fontWeight: "bold",
+                fontSize: "1.2em",
+                marginTop: "-50px",
+              }}
+            >
+              {reviewItem.vendorName}
+            </p>
+            <p>${reviewItem.review.costperpax}/pax</p>
+            <div>
+              <p>
+                Food: {reviewItem.review.food}
+                <IconStarFilled />
+              </p>
+              <p>
+                Ambience: {reviewItem.review.ambience} <IconStarFilled />
+              </p>
+              <p>
+                Pre-wedding support: {reviewItem.review.preWeddingSupport}
+                <IconStarFilled />
+              </p>
+              <p>
+                Day-of support: {reviewItem.review.dayOfSupport}
+                <IconStarFilled />
+              </p>
+              <p>
+                Overall: {reviewItem.review.overall}
+                <IconStarFilled />
+              </p>
+            </div>
             <p>Comments: {reviewItem.review.comments}</p>
           </div>
         ))}

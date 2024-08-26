@@ -1,32 +1,15 @@
 import "./VendorPage.css";
 import { Box, Button, Image } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
 import { addToWishlist } from "../../service/users";
-import NavBar from "../../components/NavBar";
-
-import { useNavigate } from "react-router-dom";
+import { IconStarFilled } from "@tabler/icons-react";
 
 export default function VendorPage() {
   const navigate = useNavigate();
-  // const fetchData await getVendorPage(vendor) try catch fnally
   const { vendorID } = useParams();
   const [vendorDetails, setVendorDetails] = useState(null);
-
-  // const handleClick = () => {
-  //   const token = getToken();
-  //   if (!token) {
-  //     navigate("/login");
-  //   } else {
-  //     const role = JSON.parse(atob(token.split(".")[1])).payload.role;
-  //     if (role === "client") {
-  //       navigate("/addreview");
-  //     } else if (role === "vendor") {
-  //       console.log("Unauthorized");
-  //     }
-  //   }
-  // };
 
   async function fetchData() {
     try {
@@ -53,47 +36,108 @@ export default function VendorPage() {
 
   return (
     <>
-      <NavBar />
       <Box className="vendorContainer">
-        <Image src={vendorDetails.image_url} alt="vendor" />
+        <Image className="image" src={vendorDetails.image_url} alt="vendor" />
         <div className="details">
-          <Button onClick={handleLike}>Like</Button>
+          <Button className="button" onClick={handleLike}>
+            Like
+          </Button>
           <Button
+            className="button"
             onClick={() =>
               navigate("/addreview", {
                 state: { vendorName: vendorDetails.Name },
               })
             }
           >
-            Review a Venue
+            Review this Venue
           </Button>
-          <Box fw={700}>{vendorDetails.Name}</Box>
-          <Box> {vendorDetails.Description}</Box>
-          <Box>
+          <p style={{ fontWeight: "bold", fontSize: "22px" }}>
+            {vendorDetails.Name}
+          </p>
+          <p> {vendorDetails.Description}</p>
+          <div className="eachSection">
             <p>
-              Capacity: {vendorDetails.MinCap} to
-              {vendorDetails.MaxCap}
+              Capacity: {vendorDetails.MinCap} to {vendorDetails.MaxCap} pax
             </p>
             <p>
-              Price: {vendorDetails.MinPrice} to {vendorDetails.MaxPrice}
+              Price: ${vendorDetails.MinPrice} to ${vendorDetails.MaxPrice}
             </p>
-          </Box>
-          <Box>
-            <p>Location: {vendorDetails.Location}</p>
-            <p>Email: {vendorDetails.Email}</p>
-            <p>Phone: {vendorDetails.Phone}</p>
-          </Box>
-          <Box className="reviews">
+          </div>
+          <div className="eachSection">
+            <p>{vendorDetails.Location}</p>
+            <p>{vendorDetails.Email}</p>
+            <p>{vendorDetails.Phone}</p>
+          </div>
+          <Box
+            className="reviews"
+            style={{ fontWeight: "bold", fontSize: "22px", marginTop: "20px" }}
+          >
             Reviews
-            {vendorDetails.reviews.map((review) => (
-              <div>
-                <p>{review.username} said:</p>
-                <p>Cost per pax: {review.costperpax}</p>
-                <p>Food: {review.food}</p>
-                <p>Ambience: {review.ambience}</p>
-                <p>Pre-wedding support: {review.preWeddingSupport}</p>
-                <p>Day-of support: {review.dayOfSupport}</p>
-                <p>Overall: {review.overall}</p>
+            {vendorDetails.reviews.map((review, index) => (
+              <div className="eachreview" key={index}>
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "left",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {review.username} said:
+                </p>
+                <p>${review.costperpax}/pax</p>
+                <div className="reviewratings">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: "0",
+                    }}
+                  >
+                    <p>Food: {review.food}</p>
+                    <IconStarFilled />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: "0",
+                    }}
+                  >
+                    <p>Ambience: {review.ambience}</p>
+                    <IconStarFilled />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: "0",
+                    }}
+                  >
+                    <p>Pre-wedding support: {review.preWeddingSupport}</p>
+                    <IconStarFilled />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: "0",
+                    }}
+                  >
+                    <p>Day-of support: {review.dayOfSupport}</p>
+                    <IconStarFilled />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      padding: "0",
+                    }}
+                  >
+                    <p>Overall: {review.overall}</p>
+                    <IconStarFilled />
+                  </div>
+                </div>
                 <p>Comments: {review.comments}</p>
               </div>
             ))}

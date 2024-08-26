@@ -1,12 +1,1 @@
-.FormContainer {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #fcf9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  color: black;
-}
+

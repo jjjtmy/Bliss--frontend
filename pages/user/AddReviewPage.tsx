@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import "./AddReviewPage.css";
-import NavBar from "../../components/NavBar.tsx";
+// import "./AddReviewPage.css";
 import {
   Box,
   Button,
@@ -65,8 +64,7 @@ export default function AddReviewPage(): JSX.Element {
 
   return (
     <>
-      <NavBar />
-      <Box className="FormContainer" w="60vw">
+      <Box className="FormContainer" w="80vw" style={{ margin: "0 auto" }}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextInput
             label="Venue"
@@ -86,6 +84,7 @@ export default function AddReviewPage(): JSX.Element {
             <Group>
               <Text c="black">Food</Text>
               <Rating
+                size="lg"
                 fractions={2}
                 value={formState.food}
                 onChange={(newValue) =>
@@ -99,6 +98,7 @@ export default function AddReviewPage(): JSX.Element {
             <Group>
               <Text c="black">Ambience</Text>
               <Rating
+                size="lg"
                 fractions={2}
                 value={formState.ambience}
                 onChange={(newValue) =>
@@ -112,6 +112,7 @@ export default function AddReviewPage(): JSX.Element {
             <Group>
               <Text c="black">Pre-wedding Support</Text>
               <Rating
+                size="lg"
                 fractions={2}
                 value={formState.preWeddingSupport}
                 onChange={(newValue) =>
@@ -125,6 +126,7 @@ export default function AddReviewPage(): JSX.Element {
             <Group>
               <Text c="black">Day-of Support</Text>
               <Rating
+                size="lg"
                 fractions={2}
                 value={formState.dayOfSupport}
                 onChange={(newValue) =>
@@ -138,6 +140,7 @@ export default function AddReviewPage(): JSX.Element {
             <Group>
               <Text c="black">Overall</Text>
               <Rating
+                size="lg"
                 fractions={2}
                 value={formState.overall}
                 onChange={(newValue) =>

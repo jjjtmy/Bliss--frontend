@@ -3,7 +3,6 @@ import "./ExplorePage.css";
 import { getVendorNames, getVendorByName } from "../service/vendors";
 import { Box, Button, Autocomplete, RangeSlider, Text } from "@mantine/core";
 import VendorCard from "../components/VendorCard";
-import NavBar from "../components/NavBar";
 
 export default function ExplorePage() {
   const [vendors, setVendors] = useState([]); //vendor names to autopopulate search bar
@@ -78,25 +77,22 @@ export default function ExplorePage() {
 
   return (
     <>
-      <NavBar />
       <div className="explorePage">
-        <Box>
-          <form autoComplete="off" onSubmit={handleSubmit}>
-            <Text size="m" fw={700}>
-              Search:
-            </Text>
-            <Autocomplete
-              placeholder="Enter a venue name"
-              data={vendors}
-              onChange={setFormState}
-            />
-            <Button type="submit">Go</Button>
-          </form>
-        </Box>
+        <form className="searchBar" autoComplete="off" onSubmit={handleSubmit}>
+          <Autocomplete
+            placeholder="Enter a venue name"
+            data={vendors}
+            onChange={setFormState}
+          />
+          <Button className="button" type="submit">
+            Go
+          </Button>
+          {/* TODO: change background color of go */}
+        </form>
 
         {searchResult ? null : (
           <Box className="filters">
-            <Text size="m" mt="xl" fw={700}>
+            <Text size="m" fw={700} mb={-10} align="left" ml={10}>
               Capacity
             </Text>
             <RangeSlider
@@ -106,11 +102,14 @@ export default function ExplorePage() {
               step={50}
               label={(value) => `${value} pax`}
               onChange={(value) => setCapFilter(value)}
+              color="#84A59D"
+              size="xs"
+              m={6}
             />
-            <Text size="sm">
-              Capacity Filter: {capFilter[0]} to {capFilter[1]} pax
+            <Text size="sm" mb={10}>
+              {capFilter[0]} to {capFilter[1]} pax
             </Text>
-            <Text size="m" fw={700}>
+            <Text size="m" fw={700} mb={-10} align="left" ml={10}>
               Price per pax
             </Text>
             <RangeSlider
@@ -120,11 +119,14 @@ export default function ExplorePage() {
               step={50}
               label={(value) => `$${value}`}
               onChange={(value) => setPriceFilter(value)}
+              color="#84A59D"
+              size="xs"
+              m={6}
             />
-            <Text size="sm">
-              Price Filter: ${priceFilter[0]} to ${priceFilter[1]}
+            <Text size="sm" mb={10}>
+              ${priceFilter[0]} to ${priceFilter[1]}
             </Text>
-            <Button onClick={submitFilters} mt={10}>
+            <Button className="button" onClick={submitFilters} mt={10}>
               Filter
             </Button>
           </Box>

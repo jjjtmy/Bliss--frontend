@@ -10,8 +10,6 @@ import {
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
-import NavBar from "../../components/NavBar";
 
 export default function LoginPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
@@ -51,30 +49,39 @@ export default function LoginPage() {
 
   return (
     <div className="loginpage">
-      <NavBar />
-      <Box className="FormContainer">
-        <form onSubmit={handleSubmit}>
-          <TextInput
-            label="Email"
-            name="email"
-            onChange={handleChange}
-            required
-          />
-          <PasswordInput
-            label="Password"
-            name="password"
-            onChange={handleChange}
-            required
-          />
-          <Button type="submit">LOG IN</Button>
-        </form>
-        <Text c="dimmed" size="sm" ta="center" mt={10}>
-          Do not have an account yet?{" "}
-          <Anchor size="sm" href="/signup" mt={-10}>
-            Create account
-          </Anchor>
-        </Text>
-        <p className="error-message">&nbsp;</p>
+      <Box className="Form">
+        <Box className="FormContainer">
+          <form onSubmit={handleSubmit}>
+            <TextInput
+              label="Email"
+              name="email"
+              onChange={handleChange}
+              required
+            />
+            <PasswordInput
+              label="Password"
+              name="password"
+              onChange={handleChange}
+              required
+              styles={{
+                visibilityToggle: {
+                  backgroundColor: "#f5cac3",
+                },
+              }}
+            />
+            <Button className="button" type="submit">
+              LOG IN
+            </Button>
+            {/* TODO: fix background of loginbutton */}
+          </form>
+          <Text c="dimmed" size="sm" ta="center" mt={10}>
+            Do not have an account yet?{" "}
+            <Anchor size="sm" href="/signup" mt={-10}>
+              Create account
+            </Anchor>
+          </Text>
+          <p className="error-message"></p>
+        </Box>
       </Box>
     </div>
   );
