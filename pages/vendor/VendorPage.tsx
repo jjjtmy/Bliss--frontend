@@ -1,5 +1,5 @@
 import "./VendorPage.css";
-import { Box, Image } from "@mantine/core";
+import { Box, Image, Anchor } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
@@ -49,8 +49,11 @@ export default function VendorPage() {
 
   useEffect(() => {
     fetchData();
-    checkUser();
   }, [vendorID]);
+
+  useEffect(() => {
+    checkUser();
+  }, [vendorDetails]);
 
   if (!vendorDetails) {
     return <div>Loading...</div>;
@@ -116,8 +119,21 @@ export default function VendorPage() {
             </p>
           </div>
           <div className="eachSection">
-            <p>{vendorDetails.Location}</p>
-            <p>{vendorDetails.Email}</p>
+            <p>
+              <Anchor
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  vendorDetails.Location
+                )}`}
+                target="_blank"
+              >
+                {vendorDetails.Location}
+              </Anchor>
+            </p>
+            <p>
+              <Anchor href={`mailto:${vendorDetails.Email}`}>
+                {vendorDetails.Email}
+              </Anchor>
+            </p>
             <p>{vendorDetails.Phone}</p>
           </div>
           <Box
@@ -132,7 +148,6 @@ export default function VendorPage() {
                     style={{
                       fontWeight: "bold",
                       textAlign: "left",
-                      marginLeft: "10px",
                     }}
                   >
                     {review.username} said:

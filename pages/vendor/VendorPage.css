@@ -1,12 +1,12 @@
 .vendorContainer {
   height: 100vh;
-  margin: 10px 0;
+  margin: 10px;
   display: flex;
   flex-direction: row;
 }
 
 .image {
-  height: 80vh;
+  height: 100vh;
   width: 50vw;
 }
 
@@ -23,6 +23,24 @@
   padding: 0;
 }
 
+.eachSection a {
+  color: #f28482; /* Change text color */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Make text bold */
+  font-size: 16px; /* Adjust font size */
+}
+
+/* Style for anchor tags when hovered */
+.eachSection a:hover {
+  color: #ba6261; /* Change color on hover */
+  text-decoration: underline; /* Underline text on hover */
+}
+
+/* Style for visited anchor tags */
+.eachSection a:visited {
+  color: #6a2e2d; /* Change color for visited links */
+}
+
 .details {
   overflow-y: scroll;
 }
@@ -34,7 +52,9 @@
 .eachreview {
   font-weight: normal;
   /* margin-bottom: 10px; */
-  border-top: 1px solid #ccc;
+  border: 1px solid #a59e9e34;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 .eachreview p {

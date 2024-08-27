@@ -136,7 +136,7 @@ export default function EditVendorPage() {
         style={{
           display: "flex",
           flexDirection: "column",
-          margin: "0 auto",
+          margin: "20px auto",
           width: "80vw",
         }}
       >
@@ -167,6 +167,7 @@ export default function EditVendorPage() {
           onChange={handleChange}
           value={formState.Name || ""}
           required
+          w="80%"
         />
         <TextInput
           label="Location"
@@ -174,6 +175,7 @@ export default function EditVendorPage() {
           onChange={handleChange}
           value={formState.Location || ""}
           required
+          w="80%"
         />
         <TextInput
           label="Email"
@@ -181,6 +183,7 @@ export default function EditVendorPage() {
           onChange={handleChange}
           value={formState.Email || ""}
           required
+          w="80%"
         />
         <TextInput
           label="Phone"
@@ -188,6 +191,7 @@ export default function EditVendorPage() {
           onChange={handleChange}
           value={formState.Phone || ""}
           required
+          w="80%"
         />
         <Textarea
           label="Description"
@@ -195,30 +199,38 @@ export default function EditVendorPage() {
           onChange={handleChange}
           value={formState.Description || ""}
           required
+          w="80%"
+          autosize
+          minRows={10}
+          maxRows={10}
         />
-        <Fieldset legend="Seating Capacity">
+        <Fieldset legend="Seating Capacity" w="60%">
           <NumberInput
             label="Minimum Capacity"
             name="MinCap"
             hideControls
             onChange={(value) => handleNumberChange("MinCap", value || 0)}
             value={formState.MinCap || 0}
+            w="100%"
           />
+
           <NumberInput
             label="Maximum Capacity"
             name="MaxCap"
             hideControls
             onChange={(value) => handleNumberChange("MaxCap", value || 0)}
             value={formState.MaxCap || 0}
+            w="100%"
           />
         </Fieldset>
-        <Fieldset legend="Estimated Price">
+        <Fieldset legend="Estimated Price" w="60%">
           <NumberInput
             label="Minimum price per pax"
             name="MinPrice"
             hideControls
             onChange={(value) => handleNumberChange("MinPrice", value || 0)}
             value={formState.MinPrice || 0}
+            w="100%"
           />
           <NumberInput
             label="Maximum price per pax"
@@ -226,9 +238,14 @@ export default function EditVendorPage() {
             hideControls
             onChange={(value) => handleNumberChange("MaxPrice", value || 0)}
             value={formState.MaxPrice || 0}
+            w="100%"
           />
         </Fieldset>
-        <button className="button" type="submit">
+        <button
+          className="button"
+          type="submit"
+          style={{ width: "60%", marginTop: "20px" }}
+        >
           Submit
         </button>
         <p className="error-message">{error}</p>
