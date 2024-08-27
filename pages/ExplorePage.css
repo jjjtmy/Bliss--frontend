@@ -12,11 +12,17 @@
   align-items: center;
   margin: 0;
   padding: 0;
+  width: 100%; /* Ensure full width */
+}
+
+.searchBar .mantine-Autocomplete {
+  /* Ensure full width for autocomplete */
+  width: 100%;
 }
 
 .searchBar button {
   background-color: #f5cac3;
-  color: #383838;
+  color: #615e5e;
   border: 1px solid white;
   padding: 10px;
   border-radius: 20px;
@@ -32,7 +38,7 @@
 }
 
 .filters button {
-  background-color: #84a59d;
+  background-color: #9cc0b7;
   color: #383838;
   border: 1px solid white;
   padding: 10px;
@@ -52,4 +58,13 @@
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.mantine-InputWrapper-root {
+  width: 60%;
+  color: black;
+}
+.mantine-Autocomplete-option {
+  height: 50px;
+  color: black;
 }

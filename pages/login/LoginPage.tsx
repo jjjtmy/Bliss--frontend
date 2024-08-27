@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Anchor,
-  Text,
-  TextInput,
-  PasswordInput,
-} from "@mantine/core";
+import { Box, Anchor, Text, TextInput, PasswordInput } from "@mantine/core";
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { useNavigate } from "react-router-dom";
@@ -42,8 +35,10 @@ export default function LoginPage() {
       const token = await loginUser(formData);
       storeToken(token);
       navigate("/");
+      window.location.reload();
     } catch (e) {
       console.error(e);
+      errorToast(error.message);
     }
   }
 
@@ -69,9 +64,9 @@ export default function LoginPage() {
                 },
               }}
             />
-            <Button className="button" type="submit">
+            <button className="button" type="submit">
               LOG IN
-            </Button>
+            </button>
             {/* TODO: fix background of loginbutton */}
           </form>
           <Text c="dimmed" size="sm" ta="center" mt={10}>

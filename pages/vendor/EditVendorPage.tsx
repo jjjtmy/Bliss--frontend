@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Button,
   TextInput,
   Textarea,
   NumberInput,
@@ -15,9 +14,9 @@ import {
 } from "../../service/vendors.tsx";
 import { getUserfromUser, getUser } from "../../service/users.tsx";
 import { getToken } from "../../util/security.tsx";
+import useToast from "../../components/useToast.tsx";
 
 export default function EditVendorPage() {
-  const [prefilledForm, setPrefilledForm] = useState({});
   const [formState, setFormState] = useState<{
     [key: string]: string | number;
   }>({});
@@ -25,6 +24,7 @@ export default function EditVendorPage() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageURL, setImageURL] = useState("");
   const [fetchedData, setfetchedData] = useState(false);
+  const { successToast, errorToast } = useToast();
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => ({
@@ -41,13 +41,13 @@ export default function EditVendorPage() {
   }
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("event file", event.target.files[0]);
     const file = event.target.files[0];
     setImageFile(file);
     if (!file) return;
   };
 
   const handleUploadImageClick = async () => {
+    if (!imageFile) return;
     const data = new FormData();
     data.append("file", imageFile);
     data.append("upload_preset", "vendor_image");
@@ -62,7 +62,7 @@ export default function EditVendorPage() {
     );
 
     const uploadedImageURL = await res.json();
-    console.log("uploadedImageURL", uploadedImageURL.url);
+    console.log("uploadedImageURL", uploadedImageURL);
     setImageURL(uploadedImageURL.url);
   };
 
@@ -70,55 +70,51 @@ export default function EditVendorPage() {
     evt.preventDefault();
     try {
       const token = getToken();
-      if (!token) {
-        // navigate("/login");
-        // console.log(`no token`);
-        return;
-      }
+      if (!token) return;
 
       const username = await getUser();
-      console.log("username", username);
       const user = await getUserfromUser(username);
-      console.log("user", user);
       const userID = user[0]._id;
 
-      // Update the form state with userID
       const updatedFormState = {
         ...formState,
         image_url: imageURL,
         UserID: userID,
       };
 
+      console.log("updatedFormState", updatedFormState);
+
       const pageDetails = {
         token: token,
         vendorPage: updatedFormState,
       };
 
-      console.log(`editvendorpage req`, pageDetails);
+      console.log("pageDetails", pageDetails);
       const res = await editVendorPage(pageDetails);
-      // navigate(`/myprofile`);
-      console.log("editvendorpage updated successfully:", res);
+      successToast({
+        title: "Success!",
+        message: "Your details have been updated",
+      });
     } catch (error) {
       console.error("Edit vendor error:", error);
+      errorToast(error.message);
     }
   }
 
   async function fetchData() {
     try {
-      //get userID from user in token - 66bf41d937c3e815af6da5bb
       const username = await getUser();
-      console.log("username", username);
       const user = await getUserfromUser(username);
-      console.log("user", user[0]._id);
       const vendorID = await getVendorbyUserID(user[0]._id);
-      console.log("vendorID", vendorID);
-      // get vendorpage by vendorid - 66c4a4c756d770941bcc2776
       const vendor = await getVendorPage(vendorID.data._id);
-      console.log(`vendorpage vendor`, vendor);
-      return vendor
-        ? (setPrefilledForm(vendor), setFormState(vendor))
-        : setfetchedData(true);
-    } catch {
+      console.log("fetchData vendor", vendor);
+      if (vendor) {
+        setFormState(vendor);
+        setImageURL(vendor.image_url || "");
+      } else {
+        setfetchedData(true);
+      }
+    } catch (error) {
       console.error("Error fetching vendor details", error);
     }
   }
@@ -127,7 +123,7 @@ export default function EditVendorPage() {
     fetchData();
   }, []);
 
-  if (!prefilledForm) {
+  if (!formState) {
     return <div>Loading...</div>;
   }
 
@@ -145,7 +141,7 @@ export default function EditVendorPage() {
         }}
       >
         <Image
-          src={imageURL ? imageURL : prefilledForm.image_url}
+          src={imageURL || formState.image_url}
           radius="md"
           h={200}
           w="auto"
@@ -169,35 +165,35 @@ export default function EditVendorPage() {
           label="Name"
           name="Name"
           onChange={handleChange}
-          value={prefilledForm.Name || undefined}
+          value={formState.Name || ""}
           required
         />
         <TextInput
           label="Location"
           name="Location"
           onChange={handleChange}
-          value={prefilledForm.Location || undefined}
+          value={formState.Location || ""}
           required
         />
         <TextInput
           label="Email"
           name="Email"
           onChange={handleChange}
-          value={prefilledForm.Email || undefined}
+          value={formState.Email || ""}
           required
         />
         <TextInput
           label="Phone"
           name="Phone"
           onChange={handleChange}
-          value={prefilledForm.Phone || undefined}
+          value={formState.Phone || ""}
           required
         />
         <Textarea
           label="Description"
           name="Description"
           onChange={handleChange}
-          value={prefilledForm.Description || undefined}
+          value={formState.Description || ""}
           required
         />
         <Fieldset legend="Seating Capacity">
@@ -206,14 +202,14 @@ export default function EditVendorPage() {
             name="MinCap"
             hideControls
             onChange={(value) => handleNumberChange("MinCap", value || 0)}
-            value={prefilledForm.MinCap || undefined}
+            value={formState.MinCap || 0}
           />
           <NumberInput
             label="Maximum Capacity"
             name="MaxCap"
             hideControls
             onChange={(value) => handleNumberChange("MaxCap", value || 0)}
-            value={prefilledForm.MaxCap || undefined}
+            value={formState.MaxCap || 0}
           />
         </Fieldset>
         <Fieldset legend="Estimated Price">
@@ -222,19 +218,19 @@ export default function EditVendorPage() {
             name="MinPrice"
             hideControls
             onChange={(value) => handleNumberChange("MinPrice", value || 0)}
-            value={prefilledForm.MinPrice || undefined}
+            value={formState.MinPrice || 0}
           />
           <NumberInput
             label="Maximum price per pax"
             name="MaxPrice"
             hideControls
             onChange={(value) => handleNumberChange("MaxPrice", value || 0)}
-            value={prefilledForm.MaxPrice || undefined}
+            value={formState.MaxPrice || 0}
           />
         </Fieldset>
-        <Button className="button" type="submit">
+        <button className="button" type="submit">
           Submit
-        </Button>
+        </button>
         <p className="error-message">{error}</p>
       </form>
     </>

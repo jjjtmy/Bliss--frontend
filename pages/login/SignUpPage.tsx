@@ -97,9 +97,9 @@ export default function SignUpPage() {
               onChange={handleChange}
               required
             />
-            <Button type="submit" className="button" disabled={disable}>
+            <button type="submit" className="button" disabled={disable}>
               SIGN UP
-            </Button>
+            </button>
           </form>
         </div>
         <p className="error-message">&nbsp;</p>

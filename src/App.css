@@ -1,3 +1,11 @@
+.mantine-Notifications-root {
+  position: fixed !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 1000 !important;
+}
+
 * {
   background-color: #fefefef9;
   font-family: "Crimson Text";
@@ -73,8 +81,9 @@ h1 {
   background-color: #f5cac3;
   color: #383838;
   border: 1px solid white;
-  padding: 10px;
+  padding: 5px;
   border-radius: 20px;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -115,8 +124,8 @@ div {
 }
 
 .review p {
-  line-height: 0.8;
+  line-height: 1;
   margin: 0;
   padding: 0;
-  font-size: 1em;
+  font-size: 18px;
 }

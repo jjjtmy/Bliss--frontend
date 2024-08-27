@@ -1,28 +1,55 @@
 import "./VendorPage.css";
-import { Box, Button, Image } from "@mantine/core";
+import { Box, Image } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
-import { addToWishlist } from "../../service/users";
+import {
+  addToWishlist,
+  getUserIDFromToken,
+  getUserRole,
+} from "../../service/users";
 import { IconStarFilled } from "@tabler/icons-react";
+import useToast from "../../components/useToast.tsx";
 
 export default function VendorPage() {
   const navigate = useNavigate();
   const { vendorID } = useParams();
   const [vendorDetails, setVendorDetails] = useState(null);
+  const { successToast, errorToast } = useToast();
+  const [isClient, setIsClient] = useState<boolean>(false);
+  const [isOwner, setIsOwner] = useState<boolean>(false);
 
   async function fetchData() {
     try {
       const vendor = await getVendorPage(vendorID);
       console.log(`vendorpage vendor`, vendor);
       setVendorDetails(vendor);
-    } catch {
+    } catch (error) {
       console.error("Error fetching vendor details", error);
+      errorToast(error.message);
+    }
+  }
+
+  async function checkUser() {
+    try {
+      const role = await getUserRole();
+      setIsClient(role === "client");
+
+      const userID = await getUserIDFromToken();
+      console.log("userID", userID);
+      console.log("vendorDetails userid", vendorDetails.UserID);
+      if (userID === vendorDetails.UserID) {
+        console.log("user is owner");
+        setIsOwner(true);
+      }
+    } catch (error) {
+      console.error("Error checking user", error);
     }
   }
 
   useEffect(() => {
     fetchData();
+    checkUser();
   }, [vendorID]);
 
   if (!vendorDetails) {
@@ -32,30 +59,54 @@ export default function VendorPage() {
   const handleLike = (event) => {
     event.preventDefault();
     addToWishlist(vendorID);
+    successToast({
+      title: "Added to Wishlist",
+      message: "This vendor has been added to your wishlist.",
+    });
   };
 
   return (
     <>
       <Box className="vendorContainer">
-        <Image className="image" src={vendorDetails.image_url} alt="vendor" />
+        <Image
+          className="image"
+          src={vendorDetails.image_url}
+          alt={vendorDetails.Name || "vendor image"}
+        />
         <div className="details">
-          <Button className="button" onClick={handleLike}>
-            Like
-          </Button>
-          <Button
-            className="button"
-            onClick={() =>
-              navigate("/addreview", {
-                state: { vendorName: vendorDetails.Name },
-              })
-            }
-          >
-            Review this Venue
-          </Button>
+          {isClient && (
+            <>
+              <button
+                className="button"
+                onClick={handleLike}
+                style={{ margin: "0 10px" }}
+              >
+                Like
+              </button>
+              <button
+                className="button"
+                onClick={() =>
+                  navigate("/addreview", {
+                    state: { vendorName: vendorDetails.Name },
+                  })
+                }
+              >
+                Review this Venue
+              </button>
+            </>
+          )}
+          {isOwner && (
+            <button
+              className="button"
+              onClick={() => navigate("/editvendorpage")}
+            >
+              Edit Details
+            </button>
+          )}
           <p style={{ fontWeight: "bold", fontSize: "22px" }}>
             {vendorDetails.Name}
           </p>
-          <p> {vendorDetails.Description}</p>
+          <p>{vendorDetails.Description}</p>
           <div className="eachSection">
             <p>
               Capacity: {vendorDetails.MinCap} to {vendorDetails.MaxCap} pax
@@ -74,73 +125,77 @@ export default function VendorPage() {
             style={{ fontWeight: "bold", fontSize: "22px", marginTop: "20px" }}
           >
             Reviews
-            {vendorDetails.reviews.map((review, index) => (
-              <div className="eachreview" key={index}>
-                <p
-                  style={{
-                    fontWeight: "bold",
-                    textAlign: "left",
-                    marginLeft: "10px",
-                  }}
-                >
-                  {review.username} said:
-                </p>
-                <p>${review.costperpax}/pax</p>
-                <div className="reviewratings">
-                  <div
+            {vendorDetails.reviews && vendorDetails.reviews.length > 0 ? (
+              vendorDetails.reviews.map((review, index) => (
+                <div className="eachreview" key={index}>
+                  <p
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: "0",
+                      fontWeight: "bold",
+                      textAlign: "left",
+                      marginLeft: "10px",
                     }}
                   >
-                    <p>Food: {review.food}</p>
-                    <IconStarFilled />
+                    {review.username} said:
+                  </p>
+                  <p>${review.costperpax}/pax</p>
+                  <div className="reviewratings">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "0",
+                      }}
+                    >
+                      <p>Food: {review.food}</p>
+                      <IconStarFilled />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "0",
+                      }}
+                    >
+                      <p>Ambience: {review.ambience}</p>
+                      <IconStarFilled />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "0",
+                      }}
+                    >
+                      <p>Pre-wedding support: {review.preWeddingSupport}</p>
+                      <IconStarFilled />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "0",
+                      }}
+                    >
+                      <p>Day-of support: {review.dayOfSupport}</p>
+                      <IconStarFilled />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        padding: "0",
+                      }}
+                    >
+                      <p>Overall: {review.overall}</p>
+                      <IconStarFilled />
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: "0",
-                    }}
-                  >
-                    <p>Ambience: {review.ambience}</p>
-                    <IconStarFilled />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: "0",
-                    }}
-                  >
-                    <p>Pre-wedding support: {review.preWeddingSupport}</p>
-                    <IconStarFilled />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: "0",
-                    }}
-                  >
-                    <p>Day-of support: {review.dayOfSupport}</p>
-                    <IconStarFilled />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      padding: "0",
-                    }}
-                  >
-                    <p>Overall: {review.overall}</p>
-                    <IconStarFilled />
-                  </div>
+                  <p>Comments: {review.comments}</p>
                 </div>
-                <p>Comments: {review.comments}</p>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>No reviews yet</p>
+            )}
           </Box>
         </div>
       </Box>

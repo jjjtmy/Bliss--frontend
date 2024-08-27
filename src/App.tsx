@@ -2,6 +2,7 @@ import "./App.css";
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Routes, Route } from "react-router-dom";
+import { Notifications } from "@mantine/notifications";
 
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/login/LoginPage";
@@ -20,8 +21,9 @@ import NavBar from "../components/NavBar";
 function App() {
   return (
     <MantineProvider>
+      <Notifications position="top-center" zIndex={1000} />
       <main className="App">
-        <NavBar />;
+        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -35,7 +37,7 @@ function App() {
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
         </Routes>
-        <Footer />;
+        <Footer />
       </main>
     </MantineProvider>
   );

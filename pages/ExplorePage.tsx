@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import "./ExplorePage.css";
 import { getVendorNames, getVendorByName } from "../service/vendors";
-import { Box, Button, Autocomplete, RangeSlider, Text } from "@mantine/core";
+import {
+  Box,
+  Autocomplete,
+  AutocompleteProps,
+  Image,
+  Group,
+  RangeSlider,
+  Text,
+} from "@mantine/core";
 import VendorCard from "../components/VendorCard";
 
 export default function ExplorePage() {
@@ -48,6 +56,27 @@ export default function ExplorePage() {
     fetchAllVendors();
   }, [vendors]);
 
+  // const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
+  //   value,
+  // }) => {
+  //   const eachVendor = allVendors.find((v) => v.Name === value);
+  //   return (
+  //     <Group c="blue" gap="sm">
+  //       {eachVendor && eachVendor.image_url && (
+  //         <Image src={eachVendor.image_url} size={5} radius="xl" />
+  //       )}
+  //       <div>
+  //         <Text c="blue" size="sm">
+  //           {value}
+  //         </Text>
+  //         <Text c="blue" style={{ color: "black" }} size="xs" opacity={0.5}>
+  //           {eachVendor ? eachVendor.Location : ""}
+  //         </Text>
+  //       </div>
+  //     </Group>
+  //   );
+  // };
+
   //handle submit for search bar
   async function handleSubmit(evt: React.FormEvent) {
     try {
@@ -81,13 +110,17 @@ export default function ExplorePage() {
         <form className="searchBar" autoComplete="off" onSubmit={handleSubmit}>
           <Autocomplete
             placeholder="Enter a venue name"
+            // renderOption={renderAutocompleteOption}
             data={vendors}
             onChange={setFormState}
           />
-          <Button className="button" type="submit">
+          <button
+            className="button"
+            type="submit"
+            style={{ fontSize: "16px", padding: "2px" }}
+          >
             Go
-          </Button>
-          {/* TODO: change background color of go */}
+          </button>
         </form>
 
         {searchResult ? null : (
@@ -103,8 +136,17 @@ export default function ExplorePage() {
               label={(value) => `${value} pax`}
               onChange={(value) => setCapFilter(value)}
               color="#84A59D"
-              size="xs"
               m={6}
+              styles={{
+                bar: {
+                  padding: "0",
+                  height: "6px",
+                },
+                track: {
+                  padding: "0",
+                  height: "6px",
+                },
+              }}
             />
             <Text size="sm" mb={10}>
               {capFilter[0]} to {capFilter[1]} pax
@@ -120,15 +162,29 @@ export default function ExplorePage() {
               label={(value) => `$${value}`}
               onChange={(value) => setPriceFilter(value)}
               color="#84A59D"
-              size="xs"
               m={6}
+              styles={{
+                bar: {
+                  padding: "0",
+                  height: "6px",
+                },
+                track: {
+                  padding: "0",
+                  height: "6px",
+                },
+              }}
             />
             <Text size="sm" mb={10}>
               ${priceFilter[0]} to ${priceFilter[1]}
             </Text>
-            <Button className="button" onClick={submitFilters} mt={10}>
+            <button
+              className="button"
+              onClick={submitFilters}
+              mt={10}
+              style={{ fontSize: "16px", padding: "0" }}
+            >
               Filter
-            </Button>
+            </button>
           </Box>
         )}
 

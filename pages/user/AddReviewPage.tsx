@@ -2,17 +2,18 @@ import { useState, useEffect } from "react";
 // import "./AddReviewPage.css";
 import {
   Box,
-  Button,
   Text,
   TextInput,
   Textarea,
   Rating,
   Group,
   Fieldset,
+  Notification,
 } from "@mantine/core";
 import { getToken } from "../../util/security.tsx";
 import { addVendorReview } from "../../service/vendors.tsx";
 import { useLocation } from "react-router-dom";
+import useToast from "../../components/useToast.tsx";
 
 export default function AddReviewPage(): JSX.Element {
   const location = useLocation();
@@ -27,6 +28,7 @@ export default function AddReviewPage(): JSX.Element {
     overall: 1.5,
     comments: "",
   });
+  const { successToast, errorToast } = useToast();
 
   useEffect(() => {
     setFormState((prevState) => ({
@@ -57,6 +59,10 @@ export default function AddReviewPage(): JSX.Element {
       console.log(`addreview req`, review);
       const res = await addVendorReview(review);
       console.log("addreview updated successfully:", res);
+      successToast({
+        title: "Review submitted successfully!",
+        message: "Thank you for sharing your experience.",
+      });
     } catch (error) {
       console.error("Add review error:", error);
     }
@@ -163,7 +169,7 @@ export default function AddReviewPage(): JSX.Element {
             maxRows={4}
             placeholder="Share your tips and comments here!"
           />
-          <Button type="submit">Submit</Button>
+          <button type="submit">Submit</button>
         </form>
         <p className="error-message">&nbsp;</p>
       </Box>

@@ -10,7 +10,6 @@ const Footer: React.FC = () => {
     <Box
       component="footer"
       style={{
-        position: "absolute",
         bottom: "0",
         backgroundColor: "#black",
         width: "100%",

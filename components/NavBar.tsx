@@ -13,6 +13,8 @@ export default function NavBar() {
 
   async function checkUserRole() {
     const role = await getUserRole();
+    console.log("role", role);
+    console.log("user", user);
     setIsClient(role === "client");
   }
 
@@ -32,6 +34,7 @@ export default function NavBar() {
   }
 
   async function handleMyProfile() {
+    close();
     if (isClient) {
       navigate("/myprofile");
     } else {
@@ -40,6 +43,7 @@ export default function NavBar() {
   }
 
   async function handleMyWishlist() {
+    close();
     navigate("/wishlist");
   }
 
@@ -68,7 +72,7 @@ export default function NavBar() {
                 ) : null}
               </div>
             </Drawer>
-            <Burger onClick={open} lineSize={5} size="xl" mr={20} />
+            <Burger onClick={open} size="xl" mr={20} />
             <button className="button" onClick={handleLogOut}>
               Logout
             </button>

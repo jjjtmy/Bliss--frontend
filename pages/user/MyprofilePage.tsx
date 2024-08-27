@@ -8,12 +8,14 @@ import {
 } from "../../service/users";
 import { getReviewsByUser, deleteReview } from "../../service/vendors";
 import { IconStarFilled } from "@tabler/icons-react";
+import useToast from "../../components/useToast.tsx";
 
 export default function MyProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   // const [imageURL, setImageURL] = useState("");
   const [showInput, setShowInput] = useState(false);
+  const { successToast, errorToast } = useToast();
 
   async function fetchData() {
     const userID = await getUserIDFromToken();
@@ -81,8 +83,13 @@ export default function MyProfilePage() {
       await deleteReview(reviewid);
       console.log("Review deleted");
       // window.location.reload();
+      successToast({
+        title: "Review deleted successfully!",
+        message: null,
+      });
     } catch {
       console.error("Error deleting review");
+      errorToast(error.message);
     }
   }
 
@@ -91,7 +98,7 @@ export default function MyProfilePage() {
   }
 
   return (
-    <>
+    <div className="myprofile">
       <Box className="userContainer">
         <Box className="profile">
           <Image
@@ -141,15 +148,19 @@ export default function MyProfilePage() {
             <button
               className="button"
               onClick={() => handleDeleteReview(reviewItem.review._id)}
-              style={{ alignSelf: "flex-end", padding: "0 0.2em" }}
+              style={{
+                fontSize: "20px",
+                alignSelf: "flex-end",
+                padding: "0 0.2em",
+              }}
             >
               X
             </button>
             <p
               style={{
                 fontWeight: "bold",
-                fontSize: "1.2em",
-                marginTop: "-50px",
+                fontSize: "24px",
+                marginTop: "-30px",
               }}
             >
               {reviewItem.vendorName}
@@ -180,6 +191,6 @@ export default function MyProfilePage() {
           </div>
         ))}
       </Box>
-    </>
+    </div>
   );
 }

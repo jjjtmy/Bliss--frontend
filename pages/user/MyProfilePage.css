@@ -1,3 +1,11 @@
+.myprofile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px;
+}
+
 .userContainer {
   max-width: 800px;
   margin: 0 auto;
@@ -18,8 +26,8 @@
 /* Profile image */
 .profile img {
   border-radius: 50%;
-  height: 200px;
-  width: 200px;
+  height: 100px;
+  width: 100px;
   margin-bottom: 10px;
   border: 2px solid #f5cac3;
 }
@@ -39,7 +47,7 @@
 
 /* Name section */
 .name {
-  font-size: 42px;
+  font-size: 36px;
   font-weight: bold;
   color: #333;
 }
