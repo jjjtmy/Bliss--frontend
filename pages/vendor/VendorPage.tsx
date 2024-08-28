@@ -18,6 +18,13 @@ export default function VendorPage() {
   const { successToast, errorToast } = useToast();
   const [isClient, setIsClient] = useState<boolean>(false);
   const [isOwner, setIsOwner] = useState<boolean>(false);
+  const [vendorRatings, setVendorRatings] = useState({
+    food: 0,
+    ambience: 0,
+    preWeddingSupport: 0,
+    dayOfSupport: 0,
+    overall: 0,
+  });
 
   async function fetchData() {
     try {
@@ -110,6 +117,29 @@ export default function VendorPage() {
             {vendorDetails.Name}
           </p>
           <p>{vendorDetails.Description}</p>
+
+          <Box className="vendorRatings">
+            <p>
+              Food: {vendorDetails.foodRating}
+              <IconStarFilled />
+            </p>
+            <p>
+              Ambience: {vendorDetails.ambienceRating}
+              <IconStarFilled />
+            </p>
+            <p>
+              Pre-wedding support: {vendorDetails.preWeddingSupportRating}
+              <IconStarFilled />
+            </p>
+            <p>
+              Day-of support: {vendorDetails.dayOfSupportRating}
+              <IconStarFilled />
+            </p>
+            <p style={{ fontWeight: "bold" }}>
+              Overall: {vendorDetails.overallRating}
+              <IconStarFilled />
+            </p>
+          </Box>
           <div className="eachSection">
             <p>
               Capacity: {vendorDetails.MinCap} to {vendorDetails.MaxCap} pax
@@ -136,6 +166,7 @@ export default function VendorPage() {
             </p>
             <p>{vendorDetails.Phone}</p>
           </div>
+
           <Box
             className="reviews"
             style={{ fontWeight: "bold", fontSize: "22px", marginTop: "20px" }}

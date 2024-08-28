@@ -20,6 +20,14 @@ export default function ExplorePage() {
   const [filteredVendors, setFilteredVendors] = useState([]); //filtered vendors
   const [priceFilter, setPriceFilter] = useState([0, 500]);
   const [capFilter, setCapFilter] = useState([0, 500]);
+  const [overallRatingFilter, setOverallRatingFilter] = useState([1, 5]);
+  const [foodRatingFilter, setFoodRatingFilter] = useState([1, 5]);
+  const [ambienceRatingFilter, setAmbienceRatingFilter] = useState([1, 5]);
+  const [preWeddingSupportRatingFilter, setPreWeddingSupportRatingFilter] =
+    useState([1, 5]);
+  const [dayOfSupportRatingFilter, setDayOfSupportRatingFilter] = useState([
+    1, 5,
+  ]);
   const [filterApplied, setFilterApplied] = useState(false); // track if filter is applied
 
   // retrieve available vendors
@@ -97,7 +105,19 @@ export default function ExplorePage() {
         (vendor.MinCap as number) >= capFilter[0] &&
         (vendor.MaxCap as number) <= capFilter[1] &&
         (vendor.MinPrice as number) >= priceFilter[0] &&
-        (vendor.MaxPrice as number) <= priceFilter[1]
+        (vendor.MaxPrice as number) <= priceFilter[1] &&
+        (vendor.overallRating as number) >= overallRatingFilter[0] &&
+        (vendor.overallRating as number) <= overallRatingFilter[1] &&
+        (vendor.foodRating as number) >= foodRatingFilter[0] &&
+        (vendor.foodRating as number) <= foodRatingFilter[1] &&
+        (vendor.ambienceRating as number) >= ambienceRatingFilter[0] &&
+        (vendor.ambienceRating as number) <= ambienceRatingFilter[1] &&
+        (vendor.preWeddingSupportRating as number) >=
+          preWeddingSupportRatingFilter[0] &&
+        (vendor.preWeddingSupportRating as number) <=
+          preWeddingSupportRatingFilter[1] &&
+        (vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
+        (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1]
       );
     });
     console.log("filteredVendors", filteredVendors);
@@ -124,59 +144,196 @@ export default function ExplorePage() {
         </form>
 
         {searchResult ? null : (
-          <Box className="filters">
-            <Text size="m" fw={700} mb={-10} align="left" ml={10}>
-              Capacity
-            </Text>
-            <RangeSlider
-              defaultValue={[0, 500]}
-              min={0}
-              max={500}
-              step={50}
-              label={(value) => `${value} pax`}
-              onChange={(value) => setCapFilter(value)}
-              color="#84A59D"
-              m={6}
-              styles={{
-                bar: {
-                  padding: "0",
-                  height: "6px",
-                },
-                track: {
-                  padding: "0",
-                  height: "6px",
-                },
-              }}
-            />
-            <Text size="sm" mb={10}>
-              {capFilter[0]} to {capFilter[1]} pax
-            </Text>
-            <Text size="m" fw={700} mb={-10} align="left" ml={10}>
-              Price per pax
-            </Text>
-            <RangeSlider
-              defaultValue={[0, 500]}
-              min={0}
-              max={500}
-              step={50}
-              label={(value) => `$${value}`}
-              onChange={(value) => setPriceFilter(value)}
-              color="#84A59D"
-              m={6}
-              styles={{
-                bar: {
-                  padding: "0",
-                  height: "6px",
-                },
-                track: {
-                  padding: "0",
-                  height: "6px",
-                },
-              }}
-            />
-            <Text size="sm" mb={10}>
-              ${priceFilter[0]} to ${priceFilter[1]}
-            </Text>
+          <>
+            <Box className="filters">
+              <div className="ratingFilters">
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Overall Rating
+                </Text>
+                <RangeSlider
+                  minRange={1}
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  label={(value) => `${value} stars`}
+                  onChange={(value) => setOverallRatingFilter(value)}
+                  color="#84A59D"
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {overallRatingFilter[0]} to {overallRatingFilter[1]} stars
+                </Text>
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Food Rating
+                </Text>
+                <RangeSlider
+                  minRange={1}
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  label={(value) => `${value} stars`}
+                  onChange={(value) => setFoodRatingFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {foodRatingFilter[0]} to {foodRatingFilter[1]} stars
+                </Text>
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Ambience Rating
+                </Text>
+                <RangeSlider
+                  minRange={1}
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  label={(value) => `${value} stars`}
+                  onChange={(value) => setAmbienceRatingFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {ambienceRatingFilter[0]} to {ambienceRatingFilter[1]} stars
+                </Text>
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Pre-wedding Support Rating
+                </Text>
+                <RangeSlider
+                  minRange={1}
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  label={(value) => `${value} stars`}
+                  onChange={(value) => setPreWeddingSupportRatingFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {preWeddingSupportRatingFilter[0]} to{" "}
+                  {preWeddingSupportRatingFilter[1]} stars
+                </Text>
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Day-of Support Rating
+                </Text>
+                <RangeSlider
+                  minRange={1}
+                  min={0}
+                  max={5}
+                  step={0.5}
+                  label={(value) => `${value} stars`}
+                  onChange={(value) => setDayOfSupportRatingFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {dayOfSupportRatingFilter[0]} to {dayOfSupportRatingFilter[1]}{" "}
+                  stars
+                </Text>
+              </div>
+              <div className="capAndPriceFilters">
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Capacity
+                </Text>
+                <RangeSlider
+                  defaultValue={[0, 500]}
+                  min={0}
+                  max={500}
+                  step={50}
+                  label={(value) => `${value} pax`}
+                  onChange={(value) => setCapFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  {capFilter[0]} to {capFilter[1]} pax
+                </Text>
+                <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                  Price per pax
+                </Text>
+                <RangeSlider
+                  defaultValue={[0, 500]}
+                  min={0}
+                  max={500}
+                  step={50}
+                  label={(value) => `$${value}`}
+                  onChange={(value) => setPriceFilter(value)}
+                  color="#84A59D"
+                  m={6}
+                  styles={{
+                    bar: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                    track: {
+                      padding: "0",
+                      height: "6px",
+                    },
+                  }}
+                />
+                <Text size="sm" mb={10}>
+                  ${priceFilter[0]} to ${priceFilter[1]}
+                </Text>
+              </div>
+            </Box>
             <button
               className="button"
               onClick={submitFilters}
@@ -185,7 +342,7 @@ export default function ExplorePage() {
             >
               Filter
             </button>
-          </Box>
+          </>
         )}
 
         <Box className="vendorcardgrid">

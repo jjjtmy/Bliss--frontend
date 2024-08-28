@@ -9,6 +9,7 @@ import {
 } from "../../service/users";
 import { getVendorPage } from "../../service/vendors";
 import { IconTrash } from "@tabler/icons-react";
+import { IconStarFilled } from "@tabler/icons-react";
 
 export default function WishlistPage() {
   const [allVendors, setAllVendors] = useState<any[]>([]);
@@ -98,6 +99,30 @@ export default function WishlistPage() {
                 </p>
                 <p>{vendor.Location}</p>
               </div>
+              <div className="vendorRatings">
+                <p>
+                  {" "}
+                  Food: {vendor.foodRating} <IconStarFilled />
+                </p>
+                <p>
+                  {" "}
+                  Ambience: {vendor.ambienceRating} <IconStarFilled />
+                </p>
+                <p>
+                  {" "}
+                  Pre-Wedding Support: {vendor.preWeddingSupportRating}{" "}
+                  <IconStarFilled />
+                </p>
+                <p>
+                  {" "}
+                  Day-Of Support: {vendor.dayOfSupportRating} <IconStarFilled />
+                </p>
+                <p>
+                  {" "}
+                  Overall: {vendor.overallRating} <IconStarFilled />
+                </p>
+              </div>
+
               <textarea
                 className="comment"
                 placeholder="Write a comment"

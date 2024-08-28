@@ -63,3 +63,17 @@ div {
   color: #999;
   text-align: center;
 }
+
+.vendorRatings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.vendorRatings p {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
