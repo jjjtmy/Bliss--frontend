@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import "./AddReviewPage.css";
+import "./AddReviewPage.css";
 import {
   Box,
   Text,
@@ -21,11 +21,11 @@ export default function AddReviewPage(): JSX.Element {
   const [formState, setFormState] = useState({
     Venue: "",
     costperpax: "",
-    food: 0,
-    ambience: 1.5,
-    preWeddingSupport: 1.5,
-    dayOfSupport: 1.5,
-    overall: 1.5,
+    food: 1,
+    ambience: 2,
+    preWeddingSupport: 3,
+    dayOfSupport: 4,
+    overall: 5,
     comments: "",
   });
   const { successToast, errorToast } = useToast();
@@ -70,7 +70,7 @@ export default function AddReviewPage(): JSX.Element {
 
   return (
     <>
-      <Box className="FormContainer" w="80vw" style={{ margin: "0 auto" }}>
+      <Box className="FormContainer" w="80vw" style={{ margin: "30px auto" }}>
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextInput
             label="Venue"
@@ -78,6 +78,7 @@ export default function AddReviewPage(): JSX.Element {
             value={formState.Venue}
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
           <TextInput
             label="Cost per pax"
@@ -85,6 +86,7 @@ export default function AddReviewPage(): JSX.Element {
             value={formState.costperpax}
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
           <Fieldset legend="Ratings" c="black" align="left">
             <Group>
@@ -105,7 +107,6 @@ export default function AddReviewPage(): JSX.Element {
               <Text c="black">Ambience</Text>
               <Rating
                 size="lg"
-                fractions={2}
                 value={formState.ambience}
                 onChange={(newValue) =>
                   setFormState((prevState) => ({
@@ -165,9 +166,10 @@ export default function AddReviewPage(): JSX.Element {
             onChange={handleChange}
             required
             autosize
-            minRows={2}
-            maxRows={4}
+            minRows={6}
+            maxRows={6}
             placeholder="Share your tips and comments here!"
+            style={{ width: "100%" }}
           />
           <button type="submit">Submit</button>
         </form>

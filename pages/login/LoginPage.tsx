@@ -52,15 +52,19 @@ export default function LoginPage() {
               name="email"
               onChange={handleChange}
               required
+              style={{ width: "100%" }}
             />
             <PasswordInput
               label="Password"
               name="password"
               onChange={handleChange}
               required
-              styles={{
+              style={{
+                width: "100%",
                 visibilityToggle: {
                   backgroundColor: "#f5cac3",
+                  height: "100%",
+                  padding: 0,
                 },
               }}
             />

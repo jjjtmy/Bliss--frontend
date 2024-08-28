@@ -1,1 +1,8 @@
+.mantine-Rating-symbolBody {
+  color: #f28482;
+  padding: 0;
+}
 
+.mantine-Rating-starSymbol {
+  padding: 0;
+}
