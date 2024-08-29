@@ -2,7 +2,6 @@
   position: relative;
   top: 0;
   left: 0;
-  background-color: #fefefef9;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,18 +28,15 @@
 }
 
 .drawer {
-  background-color: #fefefef9;
   color: #383838;
 }
 
 .drawer .mantine-Drawer-header {
-  background-color: #fefefef9;
   color: #383838;
 }
 
 .drawer .mantine-Drawer-content {
   padding: 16px;
-  background-color: #fefefef9;
 }
 
 .drawer .mantine-Drawer-closeButton {
@@ -57,5 +53,3 @@
   font-size: 0.5em;
   border: none;
 }
-
-/* Logout button positioned in the top right corner */

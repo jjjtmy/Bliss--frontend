@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Anchor, Text, TextInput, PasswordInput } from "@mantine/core";
+import { Box, Anchor, Text, TextInput, PasswordInput, px } from "@mantine/core";
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { useNavigate } from "react-router-dom";
@@ -59,12 +59,10 @@ export default function LoginPage() {
               name="password"
               onChange={handleChange}
               required
-              style={{
-                width: "100%",
+              style={{ width: "100%" }}
+              styles={{
                 visibilityToggle: {
                   backgroundColor: "#f5cac3",
-                  height: "100%",
-                  padding: 0,
                 },
               }}
             />

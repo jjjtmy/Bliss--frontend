@@ -1,7 +1,7 @@
 import "./HomePage.css";
 import { useNavigate } from "react-router-dom";
 import { Carousel } from "@mantine/carousel";
-import { Image } from "@mantine/core"; // Add this import
+import { Image } from "@mantine/core";
 import "@mantine/carousel/styles.css";
 
 export default function HomePage(): JSX.Element {
@@ -15,7 +15,15 @@ export default function HomePage(): JSX.Element {
 
   const slides = images.map((image, index) => (
     <Carousel.Slide key={index}>
-      <Image src={image} alt={`Slide ${index}`} /> {/* Corrected src */}
+      <Image
+        src={image}
+        alt={`Slide ${index}`}
+        style={{
+          filter: "saturate(0.3)",
+          height: "80vh",
+          width: "100%",
+        }}
+      />
     </Carousel.Slide>
   ));
 
@@ -24,7 +32,7 @@ export default function HomePage(): JSX.Element {
       <Carousel
         withIndicators
         slideSize={{ base: "100%" }}
-        slideGap={{ base: "xl", sm: 2 }}
+        slideGap={{ base: "lg", sm: 2 }}
         align="start"
       >
         {slides}

@@ -4,15 +4,26 @@
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  width: 30vw;
+  width: 250px; /* Set a fixed width for each card */
+  height: 350px; /* Set a fixed height for each card */
+  overflow: hidden; /* Ensure content doesn't overflow */
+  border: 1px solid transparent; /* Initial border to maintain layout */
+  transition: border 0.3s ease-in-out;
   line-height: 0;
-  padding: 0;
-  margin: 0;
+}
+
+.vendorCard img {
+  width: 100%;
+  height: auto;
+}
+
+.vendorCard:hover {
+  border: 2px solid pink; /* Pink outline on hover */
 }
 
 .vendorname {
   color: black;
-  font-size: 1.5rem;
+  font-size: 18px;
   padding: 0;
   margin: 20px 0;
 }

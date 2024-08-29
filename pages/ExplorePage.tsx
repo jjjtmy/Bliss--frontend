@@ -146,7 +146,7 @@ export default function ExplorePage() {
           <button
             className="button"
             type="submit"
-            style={{ fontSize: "16px", padding: "2px" }}
+            style={{ fontSize: "16px", padding: "1px 6px" }}
           >
             Go
           </button>
@@ -355,7 +355,7 @@ export default function ExplorePage() {
                     className="button"
                     onClick={submitFilters}
                     mt={10}
-                    style={{ fontSize: "16px", padding: "0" }}
+                    style={{ fontSize: "16px", padding: "1px 8px" }}
                   >
                     Filter
                   </button>
