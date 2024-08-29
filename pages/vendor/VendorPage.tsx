@@ -1,5 +1,5 @@
 import "./VendorPage.css";
-import { Box, Image, Anchor } from "@mantine/core";
+import { Box, Image, Anchor, Pagination, Text } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
@@ -25,6 +25,8 @@ export default function VendorPage() {
     dayOfSupport: 0,
     overall: 0,
   });
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 2;
 
   async function fetchData() {
     try {
@@ -74,6 +76,10 @@ export default function VendorPage() {
       message: "This vendor has been added to your wishlist.",
     });
   };
+
+  function paginate(array, pageSize, pageNumber) {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  }
 
   return (
     <>
@@ -173,76 +179,32 @@ export default function VendorPage() {
           >
             Reviews
             {vendorDetails.reviews && vendorDetails.reviews.length > 0 ? (
-              vendorDetails.reviews.map((review, index) => (
-                <div className="eachreview" key={index}>
-                  <p
-                    style={{
-                      fontWeight: "bold",
-                      textAlign: "left",
-                    }}
-                  >
-                    {review.username} said:
-                  </p>
-                  <p>${review.costperpax}/pax</p>
-                  <div className="reviewratings">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        padding: "0",
-                      }}
-                    >
-                      <p>Food: {review.food}</p>
-                      <IconStarFilled />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        padding: "0",
-                      }}
-                    >
-                      <p>Ambience: {review.ambience}</p>
-                      <IconStarFilled />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        padding: "0",
-                      }}
-                    >
-                      <p>Pre-wedding support: {review.preWeddingSupport}</p>
-                      <IconStarFilled />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        padding: "0",
-                      }}
-                    >
-                      <p>Day-of support: {review.dayOfSupport}</p>
-                      <IconStarFilled />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        padding: "0",
-                      }}
-                    >
-                      <p>Overall: {review.overall}</p>
-                      <IconStarFilled />
-                    </div>
+              paginate(vendorDetails.reviews, itemsPerPage, activePage).map(
+                (review, index) => (
+                  <div className="eachreview" key={index}>
+                    <p style={{ fontWeight: "bold", textAlign: "left" }}>
+                      {review.username} said:
+                    </p>
+                    <p>${review.costperpax}/pax</p>
+                    <div className="reviewratings">{/* Rating Sections */}</div>
+                    <p>Comments: {review.comments}</p>
                   </div>
-                  <p>Comments: {review.comments}</p>
-                </div>
-              ))
+                )
+              )
             ) : (
               <p>No reviews yet</p>
             )}
           </Box>
+
+          {vendorDetails.reviews &&
+            vendorDetails.reviews.length > itemsPerPage && (
+              <Pagination
+                total={Math.ceil(vendorDetails.reviews.length / itemsPerPage)}
+                value={activePage}
+                onChange={setActivePage}
+                mt="sm"
+              />
+            )}
         </div>
       </Box>
     </>

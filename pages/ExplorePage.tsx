@@ -10,7 +10,7 @@ import {
   RangeSlider,
   Text,
   Accordion,
-  rem,
+  Pagination,
 } from "@mantine/core";
 import VendorCard from "../components/VendorCard";
 
@@ -31,6 +31,8 @@ export default function ExplorePage() {
     1, 5,
   ]);
   const [filterApplied, setFilterApplied] = useState(false); // track if filter is applied
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 6;
 
   // retrieve available vendors
   async function getVendors() {
@@ -124,6 +126,11 @@ export default function ExplorePage() {
     });
     console.log("filteredVendors", filteredVendors);
     setFilteredVendors(filteredVendors);
+  }
+
+  //function to paginate the vendors based on the active page
+  function paginate(array, pageSize, pageNumber) {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
   }
 
   return (
@@ -364,11 +371,22 @@ export default function ExplorePage() {
           ) : filterApplied && filteredVendors.length === 0 ? (
             <Text>No results found</Text>
           ) : (
-            (filteredVendors.length > 0 ? filteredVendors : allVendors).map(
-              (vendor, index) => <VendorCard key={index} vendor={vendor} />
-            )
+            paginate(
+              filteredVendors.length > 0 ? filteredVendors : allVendors,
+              itemsPerPage,
+              activePage
+            ).map((vendor, index) => <VendorCard key={index} vendor={vendor} />)
           )}
         </Box>
+        <Pagination
+          total={Math.ceil(
+            (filteredVendors.length > 0 ? filteredVendors : allVendors).length /
+              itemsPerPage
+          )}
+          value={activePage}
+          onChange={setActivePage}
+          mt="sm"
+        />
       </div>
     </>
   );

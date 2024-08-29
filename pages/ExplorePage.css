@@ -110,3 +110,15 @@
   margin: 0px;
   /* background-color: black; */
 }
+
+.mantine-Pagination-control {
+  background-color: #f5cac3;
+  color: black;
+}
+
+.mantine-Pagination-control svg {
+  padding: 0px;
+  margin: 0px;
+  width: 25px;
+  height: 25px;
+}

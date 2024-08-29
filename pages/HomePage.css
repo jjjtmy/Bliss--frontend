@@ -1,15 +1,33 @@
+.mantine-Image-root {
+  width: 50%;
+  filter: saturate(0.5);
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: auto; /* Ensure container is relative for absolute positioning */
+}
+
 .homepageHeader {
+  position: absolute;
+  top: 50%; /* Adjust this value to vertically center the text */
+  left: 50%;
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Center the text horizontally and vertically */
   text-align: center;
-  margin-top: 50px;
+  color: white; /* Ensure the text is visible over the images */
 }
 
 .homepageHeader h1 {
   font-size: 3em;
-  line-height: 0.4em;
+  line-height: 0.8em; /* Adjust to your preference */
 }
 
 .homepageHeader h3 {
   font-size: 1em;
-  margin-top: 50px;
+  margin-top: 20px; /* Adjust for spacing */
   color: #f28482;
 }

@@ -1,5 +1,5 @@
 import "./MyProfilePage.css";
-import { Box, Input, Image } from "@mantine/core";
+import { Box, Input, Image, Pagination, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import {
   getUserfromID,
@@ -16,6 +16,8 @@ export default function MyProfilePage() {
   // const [imageURL, setImageURL] = useState("");
   const [showInput, setShowInput] = useState(false);
   const { successToast, errorToast } = useToast();
+  const [activePage, setActivePage] = useState(1);
+  const itemsPerPage = 3;
 
   async function fetchData() {
     const userID = await getUserIDFromToken();
@@ -97,6 +99,10 @@ export default function MyProfilePage() {
     return <div>Loading...</div>;
   }
 
+  function paginate(array, pageSize, pageNumber) {
+    return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  }
+
   return (
     <div className="myprofile">
       <Box className="userContainer">
@@ -143,53 +149,61 @@ export default function MyProfilePage() {
           Reviews
         </p>
 
-        {userDetails.reviews.map((reviewItem, index) => (
-          <div key={index} className="review">
-            <button
-              className="button"
-              onClick={() => handleDeleteReview(reviewItem.review._id)}
-              style={{
-                fontSize: "20px",
-                alignSelf: "flex-end",
-                padding: "0 0.2em",
-              }}
-            >
-              X
-            </button>
-            <p
-              style={{
-                fontWeight: "bold",
-                fontSize: "24px",
-                marginTop: "-30px",
-              }}
-            >
-              {reviewItem.vendorName}
-            </p>
-            <p>${reviewItem.review.costperpax}/pax</p>
-            <div>
-              <p>
-                Food: {reviewItem.review.food}
-                <IconStarFilled />
+        {paginate(userDetails.reviews, itemsPerPage, activePage).map(
+          (reviewItem, index) => (
+            <div key={index} className="review">
+              <button
+                className="button"
+                onClick={() => handleDeleteReview(reviewItem.review._id)}
+                style={{
+                  fontSize: "20px",
+                  alignSelf: "flex-end",
+                  padding: "0 0.2em",
+                }}
+              >
+                X
+              </button>
+              <p
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "24px",
+                  marginTop: "-30px",
+                }}
+              >
+                {reviewItem.vendorName}
               </p>
-              <p>
-                Ambience: {reviewItem.review.ambience} <IconStarFilled />
-              </p>
-              <p>
-                Pre-wedding support: {reviewItem.review.preWeddingSupport}
-                <IconStarFilled />
-              </p>
-              <p>
-                Day-of support: {reviewItem.review.dayOfSupport}
-                <IconStarFilled />
-              </p>
-              <p>
-                Overall: {reviewItem.review.overall}
-                <IconStarFilled />
-              </p>
+              <p>${reviewItem.review.costperpax}/pax</p>
+              <div>
+                <p>
+                  Food: {reviewItem.review.food}
+                  <IconStarFilled />
+                </p>
+                <p>
+                  Ambience: {reviewItem.review.ambience} <IconStarFilled />
+                </p>
+                <p>
+                  Pre-wedding support: {reviewItem.review.preWeddingSupport}
+                  <IconStarFilled />
+                </p>
+                <p>
+                  Day-of support: {reviewItem.review.dayOfSupport}
+                  <IconStarFilled />
+                </p>
+                <p>
+                  Overall: {reviewItem.review.overall}
+                  <IconStarFilled />
+                </p>
+              </div>
+              <p>Comments: {reviewItem.review.comments}</p>
             </div>
-            <p>Comments: {reviewItem.review.comments}</p>
-          </div>
-        ))}
+          )
+        )}
+        <Pagination
+          total={Math.ceil(userDetails.reviews.length / itemsPerPage)}
+          value={activePage}
+          onChange={setActivePage}
+          mt="sm"
+        />
       </Box>
     </div>
   );
