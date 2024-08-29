@@ -4,7 +4,8 @@
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  width: 250px; /* Set a fixed width for each card */
+  min-width: 250px;
+  width: 350px;
   height: 350px; /* Set a fixed height for each card */
   overflow: hidden; /* Ensure content doesn't overflow */
   border: 1px solid transparent; /* Initial border to maintain layout */

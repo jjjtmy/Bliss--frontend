@@ -72,8 +72,12 @@ export default function NavBar() {
                 ) : null}
               </div>
             </Drawer>
-            <Burger onClick={open} size="xl" mr={20} />
-            <button className="button" onClick={handleLogOut}>
+            <Burger onClick={open} size="md" mr={10} />
+            <button
+              className="button"
+              onClick={handleLogOut}
+              style={{ padding: "2px 10px" }}
+            >
               Logout
             </button>
           </div>

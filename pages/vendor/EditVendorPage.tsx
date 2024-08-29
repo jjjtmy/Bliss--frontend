@@ -143,8 +143,8 @@ export default function EditVendorPage() {
         <Image
           src={imageURL || formState.image_url}
           radius="md"
-          h={200}
-          w="auto"
+          h="auto"
+          w="500px"
           fit="contain"
           fallbackSrc="https://placehold.co/600x400?text=Placeholder"
         />

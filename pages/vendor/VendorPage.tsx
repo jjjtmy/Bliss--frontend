@@ -7,6 +7,7 @@ import {
   addToWishlist,
   getUserIDFromToken,
   getUserRole,
+  getUserfromID,
 } from "../../service/users";
 import { IconStarFilled } from "@tabler/icons-react";
 import useToast from "../../components/useToast.tsx";
@@ -27,6 +28,7 @@ export default function VendorPage() {
   });
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 2;
+  const [liked, setLiked] = useState(true);
 
   async function fetchData() {
     try {
@@ -56,8 +58,25 @@ export default function VendorPage() {
     }
   }
 
+  async function checkLiked() {
+    try {
+      const userID = await getUserIDFromToken();
+      console.log("userID checkliked", userID);
+      const userDetails = await getUserfromID(userID);
+      console.log("userDetails wishlist", userDetails.wishlist);
+      for (let i = 0; i < userDetails.wishlist.length; i++) {
+        if (userDetails.wishlist[i].vendorID === vendorID) {
+          setLiked(true);
+        }
+      }
+    } catch (error) {
+      console.error("Error checking if liked", error);
+    }
+  }
+
   useEffect(() => {
     fetchData();
+    checkLiked();
   }, [vendorID]);
 
   useEffect(() => {
@@ -95,11 +114,16 @@ export default function VendorPage() {
               <button
                 className="button"
                 onClick={handleLike}
-                style={{ margin: "0 10px" }}
+                style={{
+                  margin: "0 10px",
+                  padding: "2px 10px",
+                  backgroundColor: liked ? "#f28482" : "#f5cac3",
+                }}
               >
                 Like
               </button>
               <button
+                style={{ padding: "2px 10px" }}
                 className="button"
                 onClick={() =>
                   navigate("/addreview", {
@@ -127,23 +151,23 @@ export default function VendorPage() {
           <Box className="vendorRatings">
             <p>
               Food: {vendorDetails.foodRating}
-              <IconStarFilled />
+              <IconStarFilled style={{ height: "20px" }} />
             </p>
             <p>
               Ambience: {vendorDetails.ambienceRating}
-              <IconStarFilled />
+              <IconStarFilled style={{ height: "20px" }} />
             </p>
             <p>
               Pre-wedding support: {vendorDetails.preWeddingSupportRating}
-              <IconStarFilled />
+              <IconStarFilled style={{ height: "20px" }} />
             </p>
             <p>
               Day-of support: {vendorDetails.dayOfSupportRating}
-              <IconStarFilled />
+              <IconStarFilled style={{ height: "20px" }} />
             </p>
             <p style={{ fontWeight: "bold" }}>
               Overall: {vendorDetails.overallRating}
-              <IconStarFilled />
+              <IconStarFilled style={{ height: "20px" }} />
             </p>
           </Box>
           <div className="eachSection">

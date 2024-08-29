@@ -6,16 +6,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
-  margin: 0;
-  height: 120px;
+  height: 90px;
 }
 
 /* Bliss in italics */
 .header h1 {
   color: #f28482;
   font-style: italic bold;
-  font-size: 90px;
-  height: 90%;
+  font-size: 80px;
+  height: 100%;
   border: 0;
   margin: 0;
 }

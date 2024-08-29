@@ -7,14 +7,7 @@ import { Box, Container, Text, Stack } from "@mantine/core";
 
 const Footer: React.FC = () => {
   return (
-    <Box
-      component="footer"
-      style={{
-        bottom: "0",
-        backgroundColor: "#black",
-        width: "100%",
-      }}
-    >
+    <Box component="footer">
       <Container>
         <Stack spacing="md">
           <Box>

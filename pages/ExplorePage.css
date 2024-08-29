@@ -1,7 +1,7 @@
 .explorePage {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 20px;
   padding: 0;
 }
 
@@ -37,6 +37,7 @@
   width: 100%;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .ratingFilters {
@@ -87,6 +88,10 @@
   color: black;
 }
 
+.mantine-Accordion-content {
+  padding: 0;
+}
+
 .mantine-Accordion-item {
   border: none;
 }
@@ -119,9 +124,17 @@
   /* background-color: black; */
 }
 
+.mantine-Pagination-root {
+  margin: 0 auto;
+}
+
 .mantine-Pagination-control {
   background-color: #f5cac3;
   color: black;
+}
+.m_4addd315 {
+  color: black;
+  --pagination-active-bg: f5cac3;
 }
 
 .mantine-Pagination-control svg {

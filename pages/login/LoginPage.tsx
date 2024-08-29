@@ -3,11 +3,12 @@ import { Box, Anchor, Text, TextInput, PasswordInput, px } from "@mantine/core";
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { useNavigate } from "react-router-dom";
+import useToast from "../../components/useToast.tsx";
 
 export default function LoginPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
-
   const navigate = useNavigate();
+  const { successToast, errorToast } = useToast();
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => ({
@@ -38,7 +39,7 @@ export default function LoginPage() {
       window.location.reload();
     } catch (e) {
       console.error(e);
-      errorToast(error.message);
+      errorToast();
     }
   }
 

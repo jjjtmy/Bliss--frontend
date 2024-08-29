@@ -111,7 +111,7 @@ export default function MyProfilePage() {
             src={userDetails.image_url}
             radius="md"
             h={200}
-            w="auto"
+            w={200}
             fit="contain"
             fallbackSrc="https://placehold.co/600x400?text=Placeholder"
           />
@@ -159,6 +159,7 @@ export default function MyProfilePage() {
                   fontSize: "20px",
                   alignSelf: "flex-end",
                   padding: "0 0.2em",
+                  fontSize: "15px",
                 }}
               >
                 X
@@ -203,6 +204,7 @@ export default function MyProfilePage() {
           value={activePage}
           onChange={setActivePage}
           mt="sm"
+          mb="xl"
         />
       </Box>
     </div>

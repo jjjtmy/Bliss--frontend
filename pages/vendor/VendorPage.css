@@ -1,12 +1,13 @@
 .vendorContainer {
-  height: 100vh;
+  height: 70vh;
   margin: 10px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .image {
-  height: 100vh;
+  height: 70vh;
   width: 50vw;
 }
 
@@ -43,6 +44,7 @@
 
 .details {
   overflow-y: scroll;
+  margin: 10px;
 }
 
 .details p {
@@ -103,4 +105,33 @@
   flex-direction: row;
   justify-content: center;
   color: #f28482;
+}
+
+.mantine-Pagination-root {
+  margin: 0 auto;
+}
+
+.mantine-Group-root {
+  justify-content: center;
+}
+
+.m_4addd315 {
+  color: black;
+}
+
+@media (max-width: 600px) {
+  .vendorContainer {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .image {
+    width: 100%;
+    height: auto;
+  }
+
+  .details {
+    width: 100%;
+    margin-top: 10px;
+  }
 }

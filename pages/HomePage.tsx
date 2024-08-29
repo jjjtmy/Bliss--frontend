@@ -8,9 +8,9 @@ export default function HomePage(): JSX.Element {
   const navigate = useNavigate();
 
   const images = [
-    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724764381/ppjdoq8vmmrnoifhcwrp.jpg",
-    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724456692/etelng1hemsjziwfdxl8.jpg",
-    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724457027/lknokqubkautqxpgg0l5.jpg",
+    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724910258/qyyphhf7sjgdficrawyd.jpg",
+    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724910373/zrczfp0wk7fv6shfngvc.jpg",
+    "http://res.cloudinary.com/dagpbzoqq/image/upload/v1724910523/fj1tubpoti5tsre02qbi.jpg",
   ];
 
   const slides = images.map((image, index) => (
@@ -19,8 +19,8 @@ export default function HomePage(): JSX.Element {
         src={image}
         alt={`Slide ${index}`}
         style={{
-          filter: "saturate(0.3)",
-          height: "80vh",
+          filter: "saturate(0.5)",
+          height: "60vh",
           width: "100%",
         }}
       />
@@ -34,6 +34,7 @@ export default function HomePage(): JSX.Element {
         slideSize={{ base: "100%" }}
         slideGap={{ base: "lg", sm: 2 }}
         align="start"
+        containScroll="keepSnaps"
       >
         {slides}
       </Carousel>

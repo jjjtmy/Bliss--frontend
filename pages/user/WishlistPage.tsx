@@ -10,6 +10,7 @@ import {
 import { getVendorPage } from "../../service/vendors";
 import { IconTrash } from "@tabler/icons-react";
 import { IconStarFilled } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
 
 export default function WishlistPage() {
   const [allVendors, setAllVendors] = useState<any[]>([]);
@@ -17,6 +18,11 @@ export default function WishlistPage() {
   const [wishlistFilled, setWishlistFilled] = useState(false);
   const [comments, setComments] = useState<{ [key: string]: string }>({});
 
+  const navigate = useNavigate();
+
+  const handleClick = (vendorID) => {
+    navigate(`/vendors/${vendorID}`);
+  };
   async function fetchData() {
     const userID = await getUserIDFromToken();
     try {
@@ -82,12 +88,16 @@ export default function WishlistPage() {
   };
 
   return (
-    <Box>
+    <Box style={{ padding: "0 0 30px 0 " }}>
       <h1>Wishlist</h1>
       {wishlistFilled ? (
         <div className="wishlist">
           {allVendors.map((vendor) => (
-            <div key={vendor._id} className="wishlist-item">
+            <div
+              key={vendor._id}
+              className="wishlist-item"
+              onClick={() => handleClick(vendor._id)}
+            >
               <Image src={vendor.image_url} alt={vendor.Name} />
               <h2>{vendor.Name}</h2>
               <div>
@@ -102,24 +112,28 @@ export default function WishlistPage() {
               <div className="vendorRatings">
                 <p>
                   {" "}
-                  Food: {vendor.foodRating} <IconStarFilled />
+                  Food: {vendor.foodRating}{" "}
+                  <IconStarFilled style={{ height: "15px" }} />
                 </p>
                 <p>
                   {" "}
-                  Ambience: {vendor.ambienceRating} <IconStarFilled />
+                  Ambience: {vendor.ambienceRating}{" "}
+                  <IconStarFilled style={{ height: "15px" }} />
                 </p>
                 <p>
                   {" "}
                   Pre-Wedding Support: {vendor.preWeddingSupportRating}{" "}
-                  <IconStarFilled />
+                  <IconStarFilled style={{ height: "15px" }} />
                 </p>
                 <p>
                   {" "}
-                  Day-Of Support: {vendor.dayOfSupportRating} <IconStarFilled />
+                  Day-Of Support: {vendor.dayOfSupportRating}{" "}
+                  <IconStarFilled style={{ height: "15px" }} />
                 </p>
                 <p>
                   {" "}
-                  Overall: {vendor.overallRating} <IconStarFilled />
+                  Overall: {vendor.overallRating}{" "}
+                  <IconStarFilled style={{ height: "15px" }} />
                 </p>
               </div>
 
@@ -144,6 +158,7 @@ export default function WishlistPage() {
                     width: "100%",
                     padding: 0,
                     backgroundColor: "#F5CAC3",
+                    height: "20px",
                   }}
                 />
               </button>
