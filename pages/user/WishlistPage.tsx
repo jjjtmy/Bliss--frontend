@@ -89,7 +89,7 @@ export default function WishlistPage() {
 
   return (
     <Box style={{ padding: "0 0 30px 0 " }}>
-      <h1>Wishlist</h1>
+      <h1 style={{ fontSize: "38px" }}>Wishlist</h1>
       {wishlistFilled ? (
         <div className="wishlist">
           {allVendors.map((vendor) => (
@@ -127,7 +127,7 @@ export default function WishlistPage() {
                 </p>
                 <p>
                   {" "}
-                  Day-Of Support: {vendor.dayOfSupportRating}{" "}
+                  Day-Of Support: {vendor.dayOfSupportRating}
                   <IconStarFilled style={{ height: "15px" }} />
                 </p>
                 <p>

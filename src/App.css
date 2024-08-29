@@ -7,9 +7,8 @@
 }
 
 * {
-  /* background-color: #fefefef9; */
   font-family: "Crimson Text";
-  /* padding: 5px; */
+  font-size: 18px;
 }
 
 .Form {
@@ -56,6 +55,7 @@
   text-align: left;
   color: black;
   background-color: #fcf9f9;
+  font-size: 18px;
 }
 
 .FormContainer Button:hover {
@@ -67,7 +67,7 @@
   display: inline-block;
   color: #f28482;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .FormContainer a:hover {
@@ -83,7 +83,7 @@
 /* Wishlist title */
 h1 {
   font-size: 2em;
-  color: #636363;
+  color: #4f4f4f;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -110,7 +110,7 @@ h1 {
 
 div {
   font-size: 22px;
-  color: #999;
+  color: #323232;
   text-align: center;
 }
 
@@ -139,4 +139,5 @@ div {
   margin: 0;
   padding: 0;
   font-size: 18px;
+  color: rgb(47, 47, 47);
 }

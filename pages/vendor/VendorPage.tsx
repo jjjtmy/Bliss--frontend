@@ -199,7 +199,12 @@ export default function VendorPage() {
 
           <Box
             className="reviews"
-            style={{ fontWeight: "bold", fontSize: "22px", marginTop: "20px" }}
+            style={{
+              fontWeight: "bold",
+              fontSize: "22px",
+              marginTop: "20px",
+              color: "rgb(32, 32, 32)",
+            }}
           >
             Reviews
             {vendorDetails.reviews && vendorDetails.reviews.length > 0 ? (
@@ -210,7 +215,28 @@ export default function VendorPage() {
                       {review.username} said:
                     </p>
                     <p>${review.costperpax}/pax</p>
-                    <div className="reviewratings">{/* Rating Sections */}</div>
+                    <div className="reviewratings">
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        Food: {review.food}
+                        <IconStarFilled style={{ height: "20px" }} />
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        Ambience: {review.ambience}
+                        <IconStarFilled style={{ height: "20px" }} />
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        Pre-wedding support: {review.preWeddingSupport}
+                        <IconStarFilled style={{ height: "20px" }} />
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        Day-of support: {review.dayOfSupport}
+                        <IconStarFilled style={{ height: "20px" }} />
+                      </p>
+                      <p style={{ display: "flex", alignItems: "center" }}>
+                        Overall: {review.overall}
+                        <IconStarFilled style={{ height: "20px" }} />
+                      </p>
+                    </div>
                     <p>Comments: {review.comments}</p>
                   </div>
                 )

@@ -28,6 +28,7 @@
 
 .drawer {
   color: #383838;
+  font-size: 18px;
 }
 
 .drawer .mantine-Drawer-header {
@@ -49,6 +50,6 @@
 
 .navbuttons {
   background-color: #fefefef9;
-  font-size: 0.5em;
+  font-size: 18px;
   border: none;
 }

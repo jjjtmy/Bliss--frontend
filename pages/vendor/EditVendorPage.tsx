@@ -153,6 +153,7 @@ export default function EditVendorPage() {
           type="file"
           onChange={handleImageUpload}
           accept="image/*"
+          style={{ margin: "10px auto" }}
         />{" "}
         <button
           className="button"
@@ -244,7 +245,7 @@ export default function EditVendorPage() {
         <button
           className="button"
           type="submit"
-          style={{ width: "60%", marginTop: "20px" }}
+          style={{ width: "60%", margin: "10px auto" }}
         >
           Submit
         </button>

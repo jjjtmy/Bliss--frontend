@@ -171,7 +171,9 @@ export default function AddReviewPage(): JSX.Element {
             placeholder="Share your tips and comments here!"
             style={{ width: "100%" }}
           />
-          <button type="submit">Submit</button>
+          <button type="submit" style={{ margin: "10px auto" }}>
+            Submit
+          </button>
         </form>
         <p className="error-message">&nbsp;</p>
       </Box>

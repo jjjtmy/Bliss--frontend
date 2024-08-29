@@ -72,7 +72,7 @@ export default function SignUpPageVendor() {
     <Box>
       <div
         className="FormContainer"
-        style={{ width: "80vw", margin: "0 auto" }}
+        style={{ width: "60vw", margin: "50px auto" }}
       >
         <form autoComplete="off" onSubmit={handleSubmit}>
           <TextInput
@@ -80,26 +80,30 @@ export default function SignUpPageVendor() {
             name="name"
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
           <TextInput
             label="E-mail"
             name="email"
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
           <PasswordInput
             label="Password"
             name="password"
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
           <PasswordInput
             label="Confirm"
             name="confirm"
             onChange={handleChange}
             required
+            style={{ width: "100%" }}
           />
-          <Button type="submit" disabled={disable}>
+          <Button type="submit" disabled={disable} style={{ margin: "10px 0" }}>
             SIGN UP
           </Button>
         </form>

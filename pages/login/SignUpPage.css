@@ -50,3 +50,11 @@
 .error-message {
   color: red;
 }
+
+.mantine-TextInput-input {
+  --input-bd-focus: #356559ad;
+}
+
+.mantine-PasswordInput-input {
+  --input-bd-focus: #356559ad;
+}

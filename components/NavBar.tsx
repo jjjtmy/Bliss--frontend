@@ -60,7 +60,7 @@ export default function NavBar() {
               size="xs"
               className="drawer"
             >
-              <h5>Welcome, {user}!</h5>
+              <h3>Welcome, {user}!</h3>
               <div className="divider">
                 <button className="navbuttons" onClick={handleMyProfile}>
                   My profile

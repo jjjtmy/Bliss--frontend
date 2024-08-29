@@ -4,6 +4,7 @@ import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 import { useNavigate } from "react-router-dom";
 import useToast from "../../components/useToast.tsx";
+import "./LoginPage.css";
 
 export default function LoginPage() {
   const [formState, setFormState] = useState<{ [key: string]: string }>({});
@@ -44,7 +45,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="loginpage">
+    <div className="loginpage" style={{ margin: "30px 0" }}>
       <Box className="Form">
         <Box className="FormContainer">
           <form onSubmit={handleSubmit}>
@@ -67,10 +68,13 @@ export default function LoginPage() {
                 },
               }}
             />
-            <button className="button" type="submit">
+            <button
+              className="button"
+              type="submit"
+              style={{ margin: "10px 0" }}
+            >
               LOG IN
             </button>
-            {/* TODO: fix background of loginbutton */}
           </form>
           <Text c="dimmed" size="sm" ta="center" mt={10}>
             Do not have an account yet?{" "}
