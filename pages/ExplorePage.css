@@ -83,3 +83,30 @@
   height: 50px;
   color: black;
 }
+
+.mantine-Accordion-control {
+  padding: 0px;
+  margin: 0px;
+  height: 20px;
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.mantine-Accordion-chevron {
+  /* color: black; */
+  height: 25px;
+  width: 25px;
+  padding: 0px;
+  margin: 0px;
+}
+.mantine-Accordion-chevron svg {
+  color: black;
+  outline: 2px solid #356559ad;
+  height: 25px;
+  width: 25px;
+  padding: 0px;
+  margin: 0px;
+  /* background-color: black; */
+}
