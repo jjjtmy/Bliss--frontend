@@ -106,12 +106,17 @@
   justify-content: flex-start;
 }
 
+.mantine-Accordion-panel {
+  padding: 10px;
+  margin: 10px;
+}
+
 .mantine-Accordion-chevron {
   /* color: black; */
   height: 25px;
   width: 25px;
   padding: 0px;
-  margin: 0px;
+  margin: 0 10px;
 }
 .mantine-Accordion-chevron svg {
   color: black;
@@ -142,4 +147,8 @@
   margin: 0px;
   width: 25px;
   height: 25px;
+}
+
+.mantine-Autocomplete-input {
+  --input-bd-focus: black;
 }

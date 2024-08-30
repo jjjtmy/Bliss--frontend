@@ -28,7 +28,7 @@ export default function VendorPage() {
   });
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 2;
-  const [liked, setLiked] = useState(true);
+  const [liked, setLiked] = useState(false);
 
   async function fetchData() {
     try {

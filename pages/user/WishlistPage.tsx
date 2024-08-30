@@ -93,13 +93,13 @@ export default function WishlistPage() {
       {wishlistFilled ? (
         <div className="wishlist">
           {allVendors.map((vendor) => (
-            <div
-              key={vendor._id}
-              className="wishlist-item"
-              onClick={() => handleClick(vendor._id)}
-            >
-              <Image src={vendor.image_url} alt={vendor.Name} />
-              <h2>{vendor.Name}</h2>
+            <div key={vendor._id} className="wishlist-item">
+              <Image
+                src={vendor.image_url}
+                alt={vendor.Name}
+                onClick={() => handleClick(vendor._id)}
+              />
+              <h2 onClick={() => handleClick(vendor._id)}>{vendor.Name}</h2>
               <div>
                 <p>
                   {vendor.MinCap} to {vendor.MaxCap} pax

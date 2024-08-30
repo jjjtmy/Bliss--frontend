@@ -154,13 +154,13 @@ export default function ExplorePage() {
 
         {searchResult ? null : (
           <>
-            <Accordion variant="contained">
+            <Accordion variant="contained" style={{ margin: "30px" }}>
               <Accordion.Item value="photos">
                 <Accordion.Control>Filters</Accordion.Control>
                 <Accordion.Panel>
                   <Box className="filters">
                     <div className="ratingFilters">
-                      <Text size="m" fw={700} mb={-10} align="left" ml={10}>
+                      <Text size="m" fw={700} mb={0} align="left" ml={10}>
                         Overall Rating
                       </Text>
                       <RangeSlider

@@ -175,24 +175,25 @@ export default function MyProfilePage() {
               </p>
               <p>${reviewItem.review.costperpax}/pax</p>
               <div>
-                <p>
+                <p style={{ display: "flex", justifyContent: "center" }}>
                   Food: {reviewItem.review.food}
-                  <IconStarFilled />
+                  <IconStarFilled style={{ height: "20px" }} />
                 </p>
-                <p>
-                  Ambience: {reviewItem.review.ambience} <IconStarFilled />
+                <p style={{ display: "flex", justifyContent: "center" }}>
+                  Ambience: {reviewItem.review.ambience}{" "}
+                  <IconStarFilled style={{ height: "20px" }} />
                 </p>
-                <p>
+                <p style={{ display: "flex", justifyContent: "center" }}>
                   Pre-wedding support: {reviewItem.review.preWeddingSupport}
-                  <IconStarFilled />
+                  <IconStarFilled style={{ height: "20px" }} />
                 </p>
-                <p>
+                <p style={{ display: "flex", justifyContent: "center" }}>
                   Day-of support: {reviewItem.review.dayOfSupport}
-                  <IconStarFilled />
+                  <IconStarFilled style={{ height: "20px" }} />
                 </p>
-                <p>
+                <p style={{ display: "flex", justifyContent: "center" }}>
                   Overall: {reviewItem.review.overall}
-                  <IconStarFilled />
+                  <IconStarFilled style={{ height: "20px" }} />
                 </p>
               </div>
               <p>Comments: {reviewItem.review.comments}</p>
