@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Bliss
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **Bliss** – your ultimate wedding venue resource! Planning a wedding can be overwhelming, especially when it comes to finding the perfect venue. **Bliss** is here to make that process easier by providing a platform where you can discover venues, specifically rated as wedding venues, and save your favorites for later.
 
-Currently, two official plugins are available:
+### Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Venue Ratings**: Find detailed reviews and ratings for hotels, restaurants, and other venues, specifically focusing on their suitability as wedding venues. No more sifting through irrelevant reviews—**Bliss** brings you what you need.
+  
+- **Wishlist**: Save your favorite venues to a personalized wishlist. Add comments to keep track of details or thoughts about each venue, helping you organize your options.
 
-## Expanding the ESLint configuration
+- **Vendor Contact**: Easily reach out to venue vendors directly through email. No need to search for contact details elsewhere; we have it all in one place.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Google Maps Integration**: View venue locations on Google Maps directly from **Bliss**. Get directions, check out the area, and plan your visit with just a click.
 
-- Configure the top-level `parserOptions` property like this:
+## Screenshots
+### Landing Page
+ ![Landing Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Homepage.png)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Explore Page 
+ ![Explore Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Autocomplete.png)
+ 
+### Vendor Page
+ ![Vendor Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Vendor%20Page.png)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Add Review Page
+ ![Add Review Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Add%20Review%20.png)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Wishlist
+ ![Wishlist](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/wishlist.png)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Vendor Edit Page
+ ![Vendor Edit Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Edit%20Vendor%20Page.png)
+
+## Technologies Used
+### Backend API/DB
+* [Mongo DB](https://www.mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
+* [Express](https://expressjs.com/)
+
+### Frontend Application
+* [React](https://react.dev/)
+* [React router dom](https://reactrouter.com/en/main) -Routing system
+* [Mantine](https://mantine.dev/) -UI Library
+
+### Other packeges used
+* [Cloudinary](https://cloudinary.com/) - Image uploading
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+* [bcrypt](https://www.npmjs.com/package/bcrypt)
+* [Typescript](https://www.typescriptlang.org/)
+
+## Documentations
+* [Wireframe and ERD](https://www.figma.com/design/ovFHKA8C0KXyywtB2fl3ZY/Bliss?node-id=1102-384&t=KWgaDjSdBIpqvoKu-1) 
+
+## Key Challenges/Takeaways
+* Keeping track of what requests and responses each function has  - used clear namings and commented in the code to properly identify inputs and handle the responses
+* Familiarising with using a different UI library - used a combination of the documentation and inspect tool in browser to identify the selectors and props
+
+## Next Steps
+* Improve user experience such as providing more details in autocomplete such as address and ratings
+* Include more vendor categories apart from venues such as photogprahers and makeup artists
+* Use Google Maps API to render map directly on each vendor's page
