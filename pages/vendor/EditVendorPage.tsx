@@ -15,6 +15,7 @@ import {
 import { getUserfromUser, getUser } from "../../service/users.tsx";
 import { getToken } from "../../util/security.tsx";
 import useToast from "../../components/useToast.tsx";
+import "./EditVendorPage.css";
 
 export default function EditVendorPage() {
   const [formState, setFormState] = useState<{

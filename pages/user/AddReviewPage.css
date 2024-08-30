@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+.mantine-Textarea-input {
+  --input-bd-focus: #356559ad;
+}
+
 @media only screen and (max-width: 480px) {
   .mantine-Group-root {
     display: flex;

@@ -8,7 +8,6 @@ import {
   Rating,
   Group,
   Fieldset,
-  Notification,
 } from "@mantine/core";
 import { getToken } from "../../util/security.tsx";
 import { addVendorReview } from "../../service/vendors.tsx";

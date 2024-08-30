@@ -1,5 +1,5 @@
 import "./WishlistPage.css";
-import { Box, Image } from "@mantine/core";
+import { Box, Image, Textarea } from "@mantine/core";
 import { useEffect, useState } from "react";
 import {
   getUserfromID,
@@ -137,7 +137,7 @@ export default function WishlistPage() {
                 </p>
               </div>
 
-              <textarea
+              <Textarea
                 className="comment"
                 placeholder="Write a comment"
                 value={comments[vendor._id] || ""}

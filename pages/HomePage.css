@@ -15,14 +15,14 @@
   ); /* Center the text horizontally and vertically */
   text-align: center;
   width: 80%;
-  height: 70%;
+  height: 65%;
   background-color: rgba(255, 255, 255, 0.8);
 }
 
 .homepageHeader h1 {
   color: white;
   font-size: 55px;
-  line-height: 1px;
+  line-height: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
   -webkit-text-stroke: 1px rgb(105, 104, 104);
 }

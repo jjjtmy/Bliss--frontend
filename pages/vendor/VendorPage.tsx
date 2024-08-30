@@ -90,6 +90,7 @@ export default function VendorPage() {
   const handleLike = (event) => {
     event.preventDefault();
     addToWishlist(vendorID);
+    setLiked(true);
     successToast({
       title: "Added to Wishlist",
       message: "This vendor has been added to your wishlist.",
@@ -204,6 +205,7 @@ export default function VendorPage() {
               fontSize: "22px",
               marginTop: "20px",
               color: "rgb(32, 32, 32)",
+              width: "50vw",
             }}
           >
             Reviews

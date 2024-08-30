@@ -1,0 +1,9 @@
+.mantine-Input-wrapper {
+  --input-bd-focus: #356559ad;
+}
+
+@media only screen and (max-width: 480px) {
+  .mantine-Image-root {
+    width: 200px;
+  }
+}

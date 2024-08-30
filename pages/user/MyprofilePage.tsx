@@ -13,7 +13,6 @@ import useToast from "../../components/useToast.tsx";
 export default function MyProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  // const [imageURL, setImageURL] = useState("");
   const [showInput, setShowInput] = useState(false);
   const { successToast, errorToast } = useToast();
   const [activePage, setActivePage] = useState(1);
@@ -21,18 +20,13 @@ export default function MyProfilePage() {
 
   async function fetchData() {
     const userID = await getUserIDFromToken();
-    // console.log("fetchData userID", userID);
     try {
       const user = await getUserfromID(userID);
-      console.log("fetchData user", user);
       const reviews = await getReviewsByUser(userID);
-      console.log("getReviewsByUser reviews", reviews);
-      // const vendor = await getVendorPage(reviews.vendorID);
       setUserDetails({
         name: user.name,
         image_url: user.image_url,
         reviews: reviews.userReviewsArray,
-        // vendor: vendor.Name,
       });
     } catch {
       console.error("Error fetching user details");
@@ -43,17 +37,11 @@ export default function MyProfilePage() {
     fetchData();
   }, []);
 
-  //to see what is in userDetails
-  useEffect(() => {
-    console.log("userDetails", userDetails);
-  }, [userDetails]);
-
   const handleEditButtonClick = () => {
     setShowInput(true);
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("event file", event.target.files[0]);
     const file = event.target.files[0];
     setImageFile(file);
     if (!file) return;
@@ -74,22 +62,20 @@ export default function MyProfilePage() {
     );
 
     const uploadedImageURL = await res.json();
-    editUser({ ...userDetails, image_url: uploadedImageURL.url });
+    await editUser({ ...userDetails, image_url: uploadedImageURL.url });
     fetchData();
     setShowInput(false);
   };
 
   async function handleDeleteReview(reviewid) {
-    console.log("deleterviewid", reviewid);
     try {
       await deleteReview(reviewid);
-      console.log("Review deleted");
-      // window.location.reload();
       successToast({
         title: "Review deleted successfully!",
         message: null,
       });
-    } catch {
+      fetchData();
+    } catch (error) {
       console.error("Error deleting review");
       errorToast(error.message);
     }
@@ -109,10 +95,9 @@ export default function MyProfilePage() {
         <Box className="profile">
           <Image
             src={userDetails.image_url}
-            radius="md"
-            h={200}
-            w={200}
-            fit="contain"
+            h="200px"
+            w="200px"
+            fit="cover"
             fallbackSrc="https://placehold.co/600x400?text=Placeholder"
           />
           {!showInput ? (
@@ -121,13 +106,12 @@ export default function MyProfilePage() {
             </button>
           ) : (
             <>
-              {" "}
               <Input
                 name="image_url"
                 type="file"
                 onChange={handleImageUpload}
                 accept="image/*"
-              />{" "}
+              />
               <button onClick={handleUploadImageClick} className="button">
                 Upload Image
               </button>
@@ -136,11 +120,10 @@ export default function MyProfilePage() {
         </Box>
         <Box className="name">{userDetails.name}</Box>
       </Box>
-      <Box className="reviews">
+      <Box className="reviews" style={{ margin: "10px 0 50px 0" }}>
         <p
           className="title"
           style={{
-            textAlign: "left",
             marginBottom: "0",
             fontSize: "38px",
             fontWeight: "bold",
@@ -148,56 +131,58 @@ export default function MyProfilePage() {
         >
           Reviews
         </p>
-
-        {paginate(userDetails.reviews, itemsPerPage, activePage).map(
-          (reviewItem, index) => (
-            <div key={index} className="review">
-              <button
-                className="button"
-                onClick={() => handleDeleteReview(reviewItem.review._id)}
-                style={{
-                  fontSize: "20px",
-                  alignSelf: "flex-end",
-                  padding: "0 0.2em",
-                  fontSize: "15px",
-                }}
-              >
-                X
-              </button>
-              <p
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "24px",
-                  marginTop: "-30px",
-                }}
-              >
-                {reviewItem.vendorName}
-              </p>
-              <p>${reviewItem.review.costperpax}/pax</p>
-              <div>
-                <p style={{ display: "flex", justifyContent: "center" }}>
-                  Food: {reviewItem.review.food}
-                  <IconStarFilled style={{ height: "20px" }} />
+        {userDetails.reviews.length === 0 ? (
+          <div>No reviews yet</div>
+        ) : (
+          paginate(userDetails.reviews, itemsPerPage, activePage).map(
+            (reviewItem, index) => (
+              <div key={index} className="review">
+                <button
+                  className="button"
+                  onClick={() => handleDeleteReview(reviewItem.review._id)}
+                  style={{
+                    fontSize: "20px",
+                    alignSelf: "flex-end",
+                    padding: "0 0.2em",
+                  }}
+                >
+                  X
+                </button>
+                <p
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "24px",
+                    marginTop: "-30px",
+                  }}
+                >
+                  {reviewItem.vendorName}
                 </p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
-                  Ambience: {reviewItem.review.ambience}{" "}
-                  <IconStarFilled style={{ height: "20px" }} />
-                </p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
-                  Pre-wedding support: {reviewItem.review.preWeddingSupport}
-                  <IconStarFilled style={{ height: "20px" }} />
-                </p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
-                  Day-of support: {reviewItem.review.dayOfSupport}
-                  <IconStarFilled style={{ height: "20px" }} />
-                </p>
-                <p style={{ display: "flex", justifyContent: "center" }}>
-                  Overall: {reviewItem.review.overall}
-                  <IconStarFilled style={{ height: "20px" }} />
-                </p>
+                <p>${reviewItem.review.costperpax}/pax</p>
+                <div>
+                  <p style={{ display: "flex", justifyContent: "center" }}>
+                    Food: {reviewItem.review.food}
+                    <IconStarFilled style={{ height: "20px" }} />
+                  </p>
+                  <p style={{ display: "flex", justifyContent: "center" }}>
+                    Ambience: {reviewItem.review.ambience}
+                    <IconStarFilled style={{ height: "20px" }} />
+                  </p>
+                  <p style={{ display: "flex", justifyContent: "center" }}>
+                    Pre-wedding support: {reviewItem.review.preWeddingSupport}
+                    <IconStarFilled style={{ height: "20px" }} />
+                  </p>
+                  <p style={{ display: "flex", justifyContent: "center" }}>
+                    Day-of support: {reviewItem.review.dayOfSupport}
+                    <IconStarFilled style={{ height: "20px" }} />
+                  </p>
+                  <p style={{ display: "flex", justifyContent: "center" }}>
+                    Overall: {reviewItem.review.overall}
+                    <IconStarFilled style={{ height: "20px" }} />
+                  </p>
+                </div>
+                <p>Comments: {reviewItem.review.comments}</p>
               </div>
-              <p>Comments: {reviewItem.review.comments}</p>
-            </div>
+            )
           )
         )}
         <Pagination
