@@ -152,3 +152,10 @@
 .mantine-Autocomplete-input {
   --input-bd-focus: black;
 }
+
+@media (max-width: 600px) {
+  .filters {
+    display: flex;
+    flex-direction: column;
+  }
+}
