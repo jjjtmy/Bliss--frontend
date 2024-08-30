@@ -31,6 +31,9 @@ Welcome to **Bliss** – your ultimate wedding venue resource! Planning a weddin
 ### Vendor Edit Page
  ![Vendor Edit Page](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/Edit%20Vendor%20Page.png)
 
+### Mobile View
+ ![Mobile View](https://github.com/jjjtmy/Bliss--wedding-vendors-frontend/blob/main/images/mobile.png)
+
 ## Technologies Used
 ### Backend API/DB
 * [Mongo DB](https://www.mongodb.com/)
