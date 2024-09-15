@@ -97,10 +97,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  line-height: 0;
 }
 
 .vendorRatings p {
-  margin: 0 10px;
+  margin: 0 5px;
   padding: 0;
   display: flex;
   flex-direction: row;

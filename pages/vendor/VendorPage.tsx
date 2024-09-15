@@ -1,5 +1,13 @@
 import "./VendorPage.css";
-import { Card, Box, Image, Anchor, Pagination, Text } from "@mantine/core";
+import {
+  Card,
+  Box,
+  Image,
+  Anchor,
+  Pagination,
+  Text,
+  Alert,
+} from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
@@ -29,6 +37,7 @@ export default function VendorPage() {
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 2;
   const [liked, setLiked] = useState(false);
+  const [showAlert, setShowAlert] = useState(false); // state to control alert
 
   async function fetchData() {
     try {
@@ -89,12 +98,17 @@ export default function VendorPage() {
 
   const handleLike = (event) => {
     event.preventDefault();
-    addToWishlist(vendorID);
-    setLiked(true);
-    successToast({
-      title: "Added to Wishlist",
-      message: "This vendor has been added to your wishlist.",
-    });
+
+    if (liked) {
+      setShowAlert(true);
+    } else {
+      addToWishlist(vendorID);
+      setLiked(true);
+      successToast({
+        title: "Added to Wishlist",
+        message: "This vendor has been added to your wishlist.",
+      });
+    }
   };
 
   function paginate(array, pageSize, pageNumber) {
@@ -112,6 +126,16 @@ export default function VendorPage() {
         <div className="details">
           {isClient && (
             <>
+              {showAlert && (
+                <Alert
+                  color="grey"
+                  withCloseButton
+                  onClose={() => setShowAlert(false)}
+                  p={3}
+                >
+                  Please go to "My Wishlist" to remove this vendor
+                </Alert>
+              )}
               <button
                 className="button"
                 onClick={handleLike}
@@ -123,6 +147,7 @@ export default function VendorPage() {
               >
                 Like
               </button>
+
               <button
                 style={{ padding: "2px 10px" }}
                 className="button"
@@ -205,7 +230,7 @@ export default function VendorPage() {
               fontSize: "22px",
               marginTop: "20px",
               color: "rgb(32, 32, 32)",
-              width: "50vw",
+              width: "100%",
             }}
           >
             Reviews
@@ -214,7 +239,7 @@ export default function VendorPage() {
                 (review, index) => (
                   <Card className="eachreview" key={index}>
                     <p style={{ fontWeight: "bold", textAlign: "left" }}>
-                      {review.username} said:
+                      {review.username}:
                     </p>
                     <p>${review.costperpax}/pax</p>
                     <div className="reviewratings">
