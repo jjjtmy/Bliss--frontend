@@ -5,10 +5,10 @@ import {
   Box,
   Autocomplete,
   AutocompleteProps,
-  Image,
+  Avatar,
   Group,
-  RangeSlider,
   Text,
+  RangeSlider,
   Accordion,
   Pagination,
 } from "@mantine/core";
@@ -34,60 +34,51 @@ export default function ExplorePage() {
   const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 6;
 
-  // retrieve available vendors
-  async function getVendors() {
-    try {
-      const vendorNames = await getVendorNames();
-      const vendorNamelist = vendorNames.data.map((vendor) => vendor.Name);
-      console.log("vendorNamelist", vendorNamelist);
-      setVendors(vendorNamelist); //setVendor state
-    } catch {
-      console.error("Error fetching vendors");
-    }
-  }
-
   useEffect(() => {
-    getVendors();
-    setSearchResult(null); //null so that all vendors show when page loads
+    const fetchInitialData = async () => {
+      try {
+        // Fetch vendor names and then all vendors
+        const vendorNames = await getVendorNames();
+        const vendorNamelist = vendorNames.data.map((vendor) => vendor.Name);
+        setVendors(vendorNamelist);
+
+        const vendorPromises = vendorNamelist.map(async (vendor) => {
+          return await getVendorByName(vendor);
+        });
+        const allVendors = await Promise.all(vendorPromises);
+        setAllVendors(allVendors);
+      } catch (error) {
+        console.error("Error fetching vendors", error);
+      }
+    };
+
+    fetchInitialData();
   }, []);
 
-  // retrieve all vendors
-  async function fetchAllVendors() {
-    try {
-      const vendorPromises = vendors.map(async (vendor) => {
-        return await getVendorByName(vendor);
-      });
-      const allVendors = await Promise.all(vendorPromises);
-      console.log("fetchAllVendors", allVendors);
-      setAllVendors(allVendors as never[]);
-    } catch {
-      console.error("Error fetching all vendors");
-    }
-  }
-  useEffect(() => {
-    fetchAllVendors();
-  }, [vendors]);
+  // Get image URL or return a default if not available
+  const getImage = (vendor) => {
+    const foundVendor = allVendors.find((v) => v.Name === vendor);
+    return foundVendor?.image_url || "default-avatar.png"; // Add a fallback image
+  };
 
-  // const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
-  //   value,
-  // }) => {
-  //   const eachVendor = allVendors.find((v) => v.Name === value);
-  //   return (
-  //     <Group c="blue" gap="sm">
-  //       {eachVendor && eachVendor.image_url && (
-  //         <Image src={eachVendor.image_url} size={5} radius="xl" />
-  //       )}
-  //       <div>
-  //         <Text c="blue" size="sm">
-  //           {value}
-  //         </Text>
-  //         <Text c="blue" style={{ color: "black" }} size="xs" opacity={0.5}>
-  //           {eachVendor ? eachVendor.Location : ""}
-  //         </Text>
-  //       </div>
-  //     </Group>
-  //   );
-  // };
+  const getLocation = (vendor) => {
+    const foundVendor = allVendors.find((v) => v.Name === vendor);
+    return foundVendor?.Location || "Location not available";
+  };
+
+  const renderAutocompleteOption: AutocompleteProps["renderOption"] = ({
+    option,
+  }) => (
+    <Group gap="sm">
+      <Avatar src={getImage(option.value)} size={36} radius="xl" />
+      <div>
+        <Text size="sm">{option.value}</Text>
+        <Text size="xs" opacity={0.8}>
+          {getLocation(option.value)}
+        </Text>
+      </div>
+    </Group>
+  );
 
   //handle submit for search bar
   async function handleSubmit(evt: React.FormEvent) {
@@ -136,12 +127,13 @@ export default function ExplorePage() {
   return (
     <>
       <div className="explorePage">
-        <form className="searchBar" autoComplete="off" onSubmit={handleSubmit}>
+        <form className="searchBar" onSubmit={handleSubmit}>
           <Autocomplete
+            renderOption={renderAutocompleteOption}
             placeholder="Enter a venue name"
-            // renderOption={renderAutocompleteOption}
             data={vendors}
             onChange={setFormState}
+            maxDropdownHeight={300}
           />
           <button
             className="button"

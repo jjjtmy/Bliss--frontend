@@ -1,5 +1,5 @@
 import "./VendorPage.css";
-import { Box, Image, Anchor, Pagination, Text } from "@mantine/core";
+import { Card, Box, Image, Anchor, Pagination, Text } from "@mantine/core";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVendorPage } from "../../service/vendors";
@@ -212,7 +212,7 @@ export default function VendorPage() {
             {vendorDetails.reviews && vendorDetails.reviews.length > 0 ? (
               paginate(vendorDetails.reviews, itemsPerPage, activePage).map(
                 (review, index) => (
-                  <div className="eachreview" key={index}>
+                  <Card className="eachreview" key={index}>
                     <p style={{ fontWeight: "bold", textAlign: "left" }}>
                       {review.username} said:
                     </p>
@@ -240,7 +240,7 @@ export default function VendorPage() {
                       </p>
                     </div>
                     <p>Comments: {review.comments}</p>
-                  </div>
+                  </Card>
                 )
               )
             ) : (

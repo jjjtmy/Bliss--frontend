@@ -1,5 +1,5 @@
 import "./VendorCard.css";
-import { Box, Image } from "@mantine/core";
+import { Box, Image, Card } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { IconMapPin } from "@tabler/icons-react";
 
@@ -12,7 +12,7 @@ export default function VendorCard({ vendor }) {
 
   return (
     <Box className="vendorCard">
-      <div onClick={handleClick}>
+      <Card onClick={handleClick}>
         <Image src={vendor.image_url} alt="vendor" />
         <p className="vendorname">{vendor.Name}</p>
         <div
@@ -27,7 +27,7 @@ export default function VendorCard({ vendor }) {
           <IconMapPin />
           <p className="vendorlocation">{vendor.Location}</p>
         </div>
-      </div>
+      </Card>
     </Box>
   );
 }

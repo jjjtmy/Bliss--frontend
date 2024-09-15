@@ -55,11 +55,8 @@
 
 .eachreview {
   font-weight: normal;
-  /* margin-bottom: 10px; */
   border: 1px solid #a59e9e34;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  color: rgb(32, 32, 32);
 }
 
 .eachreview p {
