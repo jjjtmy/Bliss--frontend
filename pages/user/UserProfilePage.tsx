@@ -1,5 +1,5 @@
 // import "./UserProfilePage.css";
-import { Box } from "@mantine/core";
+import { Box, Card } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUserfromID } from "../../service/users";
@@ -29,11 +29,6 @@ export default function UserProfilePage() {
     fetchData();
   }, [userID]);
 
-  //to see what is in userDetails
-  // useEffect(() => {
-  //   console.log("userDetails", userDetails);
-  // }, [userDetails]);
-
   if (!userDetails) {
     return <div>Loading...</div>;
   }
@@ -48,7 +43,7 @@ export default function UserProfilePage() {
         <Box className="reviews">
           <p className="title">Reviews</p>
           {userDetails.reviews.map((review) => (
-            <div>
+            <Card>
               <p>Venue: {userDetails.vendor}</p>
               <p>Cost per pax: {review.costperpax}</p>
               <p>Food: {review.food}</p>
@@ -57,7 +52,7 @@ export default function UserProfilePage() {
               <p>Day-of support: {review.dayOfSupport}</p>
               <p>Overall: {review.overall}</p>
               <p>Comments: {review.comments}</p>
-            </div>
+            </Card>
           ))}
         </Box>
       </Box>

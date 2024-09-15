@@ -1,5 +1,5 @@
 import "./MyProfilePage.css";
-import { Box, Input, Image, Pagination, Text } from "@mantine/core";
+import { Box, Input, Image, Pagination, Text, Card } from "@mantine/core";
 import { useEffect, useState } from "react";
 import {
   getUserfromID,
@@ -136,7 +136,7 @@ export default function MyProfilePage() {
         ) : (
           paginate(userDetails.reviews, itemsPerPage, activePage).map(
             (reviewItem, index) => (
-              <div key={index} className="review">
+              <Card key={index} className="review">
                 <button
                   className="button"
                   onClick={() => handleDeleteReview(reviewItem.review._id)}
@@ -181,7 +181,7 @@ export default function MyProfilePage() {
                   </p>
                 </div>
                 <p>Comments: {reviewItem.review.comments}</p>
-              </div>
+              </Card>
             )
           )
         )}

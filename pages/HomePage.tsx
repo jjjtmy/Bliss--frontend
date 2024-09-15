@@ -35,6 +35,7 @@ export default function HomePage(): JSX.Element {
         slideGap={{ base: "lg", sm: 2 }}
         align="start"
         containScroll="keepSnaps"
+        loop
       >
         {slides}
       </Carousel>

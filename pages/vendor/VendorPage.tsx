@@ -19,6 +19,7 @@ import {
 } from "../../service/users";
 import { IconStarFilled } from "@tabler/icons-react";
 import useToast from "../../components/useToast.tsx";
+import Contact from "../../components/Contact.tsx";
 
 export default function VendorPage() {
   const navigate = useNavigate();
@@ -222,6 +223,8 @@ export default function VendorPage() {
             </p>
             <p>{vendorDetails.Phone}</p>
           </div>
+
+          <Contact />
 
           <Box
             className="reviews"
