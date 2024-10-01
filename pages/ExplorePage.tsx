@@ -63,6 +63,7 @@ export default function ExplorePage() {
 
   const getLocation = (vendor) => {
     const foundVendor = allVendors.find((v) => v.Name === vendor);
+    console.log("foundVendor", foundVendor);
     return foundVendor?.Location || "Location not available";
   };
 

@@ -2,6 +2,10 @@
   --input-bd-focus: #356559ad;
 }
 
+div .m_46b77525.mantine-InputWrapper-root {
+  width: 80%;
+}
+
 @media only screen and (max-width: 480px) {
   .mantine-Image-root {
     width: 200px;

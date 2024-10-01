@@ -6,6 +6,8 @@ import {
   Fieldset,
   Input,
   Image,
+  Combobox,
+  useCombobox,
 } from "@mantine/core";
 import {
   editVendorPage,
@@ -26,6 +28,31 @@ export default function EditVendorPage() {
   const [imageURL, setImageURL] = useState("");
   const [fetchedData, setfetchedData] = useState(false);
   const { successToast, errorToast } = useToast();
+
+  const vendorTypes = [
+    "Venue",
+    "Photographer/Videographer",
+    "Hair and Makeup",
+    "Entertainment",
+  ];
+
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
+
+  const [value, setValue] = useState("");
+  const shouldFilterOptions = !vendorTypes.some((item) => item === value);
+  const filteredOptions = shouldFilterOptions
+    ? vendorTypes.filter((item) =>
+        item.toLowerCase().includes(value.toLowerCase().trim())
+      )
+    : vendorTypes;
+
+  const options = filteredOptions.map((item) => (
+    <Combobox.Option value={item} key={item}>
+      {item}
+    </Combobox.Option>
+  ));
 
   function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
     setFormState((prevState) => ({
@@ -163,6 +190,40 @@ export default function EditVendorPage() {
         >
           Upload Image
         </button>
+        <Combobox
+          onOptionSubmit={(optionValue) => {
+            setValue(optionValue);
+            setFormState((prevState) => ({
+              ...prevState,
+              vendorType: optionValue, // Update formState with the selected vendor type
+            }));
+            combobox.closeDropdown();
+          }}
+          store={combobox}
+          withinPortal={false}
+        >
+          <Combobox.Target>
+            <TextInput
+              label="Vendor Type"
+              placeholder="Pick value or type anything"
+              value={value}
+              onChange={(event) => {
+                setValue(event.currentTarget.value);
+                combobox.openDropdown();
+                combobox.updateSelectedOptionIndex();
+              }}
+              onClick={() => combobox.openDropdown()}
+              onFocus={() => combobox.openDropdown()}
+              onBlur={() => combobox.closeDropdown()}
+            />
+          </Combobox.Target>
+
+          <Combobox.Dropdown>
+            <Combobox.Options mah={200} style={{ overflowY: "auto" }}>
+              {options}
+            </Combobox.Options>
+          </Combobox.Dropdown>
+        </Combobox>
         <TextInput
           label="Name"
           name="Name"
