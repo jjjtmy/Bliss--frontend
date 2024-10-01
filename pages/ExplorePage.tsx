@@ -72,8 +72,10 @@ export default function ExplorePage() {
     <Group gap="sm">
       <Avatar src={getImage(option.value)} size={36} radius="xl" />
       <div>
-        <Text size="sm">{option.value}</Text>
-        <Text size="xs" opacity={0.8}>
+        <Text size="sm" align="left">
+          {option.value}
+        </Text>
+        <Text size="sm" opacity={0.8} align="left">
           {getLocation(option.value)}
         </Text>
       </div>
