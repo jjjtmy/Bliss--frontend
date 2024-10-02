@@ -195,7 +195,7 @@ export default function EditVendorPage() {
             setValue(optionValue);
             setFormState((prevState) => ({
               ...prevState,
-              vendorType: optionValue, // Update formState with the selected vendor type
+              VendorType: optionValue, // Update formState with the selected vendor type
             }));
             combobox.closeDropdown();
           }}
@@ -205,13 +205,10 @@ export default function EditVendorPage() {
           <Combobox.Target>
             <TextInput
               label="Vendor Type"
+              name="VendorType"
               placeholder="Pick value or type anything"
               value={value}
-              onChange={(event) => {
-                setValue(event.currentTarget.value);
-                combobox.openDropdown();
-                combobox.updateSelectedOptionIndex();
-              }}
+              onChange={handleChange}
               onClick={() => combobox.openDropdown()}
               onFocus={() => combobox.openDropdown()}
               onBlur={() => combobox.closeDropdown()}
