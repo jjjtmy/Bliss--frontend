@@ -207,7 +207,7 @@ export default function EditVendorPage() {
               label="Vendor Type"
               name="VendorType"
               placeholder="Pick value or type anything"
-              value={value}
+              value={formState.VendorType || ""}
               onChange={handleChange}
               onClick={() => combobox.openDropdown()}
               onFocus={() => combobox.openDropdown()}
