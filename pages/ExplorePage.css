@@ -40,12 +40,10 @@
   width: 100%;
 }
 
-#mantine-87eeh6sb8-label {
-  font-size: 20px;
-}
-
 .m_8fdc1311 {
   display: flex;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .ratingFilters {

@@ -172,7 +172,7 @@ export default function ExplorePage() {
                   <Box className="filters">
                     <div className="ratingFilters">
                       <Checkbox.Group label="Vendor Type">
-                        <Group mt="xs">
+                        <Group mt="xs" mb="lg">
                           <Checkbox
                             value="Venue"
                             label="Venue"
