@@ -44,7 +44,7 @@ export default function HomePage(): JSX.Element {
         <h1> of your big day</h1>
         <h3> Let us help you every step of the way</h3>
         <button className="button" onClick={() => navigate("/explore")}>
-          Find a Venue
+          Find a Vendor
         </button>
       </div>
     </div>

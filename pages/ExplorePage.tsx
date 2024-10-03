@@ -11,6 +11,7 @@ import {
   RangeSlider,
   Accordion,
   Pagination,
+  Checkbox,
 } from "@mantine/core";
 import VendorCard from "../components/VendorCard";
 
@@ -22,6 +23,7 @@ export default function ExplorePage() {
   const [filteredVendors, setFilteredVendors] = useState([]); //filtered vendors
   const [priceFilter, setPriceFilter] = useState([0, 500]);
   const [capFilter, setCapFilter] = useState([0, 500]);
+  const [vendorTypeFilter, setVendorTypeFilter] = useState<string[]>([]);
   const [overallRatingFilter, setOverallRatingFilter] = useState([1, 5]);
   const [foodRatingFilter, setFoodRatingFilter] = useState([1, 5]);
   const [ambienceRatingFilter, setAmbienceRatingFilter] = useState([1, 5]);
@@ -51,7 +53,6 @@ export default function ExplorePage() {
         console.error("Error fetching vendors", error);
       }
     };
-
     fetchInitialData();
   }, []);
 
@@ -95,9 +96,22 @@ export default function ExplorePage() {
     }
   }
 
+  function handleVendorTypeFilter(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+
+    setVendorTypeFilter(
+      (prev: string[]) =>
+        isChecked
+          ? [...prev, value] // If checked, add the value
+          : prev.filter((item) => item !== value) // If unchecked, remove the value
+    );
+  }
+
   //when filter changes, filter vendors
   async function submitFilters() {
     setFilterApplied(true);
+    console.log("submittedvendorfilter", vendorTypeFilter);
     const filteredVendors = allVendors.filter((vendor) => {
       return (
         (vendor.MinCap as number) >= capFilter[0] &&
@@ -115,7 +129,9 @@ export default function ExplorePage() {
         (vendor.preWeddingSupportRating as number) <=
           preWeddingSupportRatingFilter[1] &&
         (vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
-        (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1]
+        (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1] &&
+        (vendorTypeFilter.length === 0 ||
+          vendorTypeFilter.includes(vendor.VendorType))
       );
     });
     console.log("filteredVendors", filteredVendors);
@@ -155,6 +171,35 @@ export default function ExplorePage() {
                 <Accordion.Panel>
                   <Box className="filters">
                     <div className="ratingFilters">
+                      <Checkbox.Group label="Vendor Type">
+                        <Group mt="xs">
+                          <Checkbox
+                            value="Venue"
+                            label="Venue"
+                            color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
+                          />
+                          <Checkbox
+                            value="Photographer/Videographer"
+                            label="Photographer/Videographer"
+                            color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
+                          />
+                          <Checkbox
+                            value="Hair and Makeup"
+                            label="Hair and Makeup"
+                            color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
+                          />
+                          <Checkbox
+                            value="Entertainment"
+                            label="Entertainment"
+                            color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
+                          />
+                        </Group>
+                      </Checkbox.Group>
+
                       <Text size="m" fw={700} mb={0} align="left" ml={10}>
                         Overall Rating
                       </Text>
