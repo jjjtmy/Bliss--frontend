@@ -230,7 +230,7 @@ export default function EditVendorPage() {
           w="80%"
         />
         <TextInput
-          label="Location"
+          label="Address"
           name="Location"
           onChange={handleChange}
           value={formState.Location || ""}
@@ -264,7 +264,7 @@ export default function EditVendorPage() {
           minRows={10}
           maxRows={10}
         />
-        <Fieldset legend="Seating Capacity" w="60%">
+        <Fieldset legend="Seating Capacity (If applicable)" w="60%">
           <NumberInput
             label="Minimum Capacity"
             name="MinCap"

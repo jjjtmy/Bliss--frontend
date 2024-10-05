@@ -13,7 +13,7 @@ export default function VendorCard({ vendor }) {
   return (
     <Box className="vendorCard">
       <Card onClick={handleClick}>
-        <Image src={vendor.image_url} alt="vendor" />
+        <Image h="160px" w="300px" src={vendor.image_url} alt="vendor" />
         <p className="vendorname">{vendor.Name}</p>
         <div
           style={{
