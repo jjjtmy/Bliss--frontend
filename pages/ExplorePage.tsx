@@ -49,6 +49,7 @@ export default function ExplorePage() {
         });
         const allVendors = await Promise.all(vendorPromises);
         setAllVendors(allVendors);
+        console.log("allVendors", allVendors);
       } catch (error) {
         console.error("Error fetching vendors", error);
       }
@@ -112,6 +113,7 @@ export default function ExplorePage() {
   async function submitFilters() {
     setFilterApplied(true);
     console.log("submittedvendorfilter", vendorTypeFilter);
+    console.log("allVendors submitFilter", allVendors);
     const filteredVendors = allVendors.filter((vendor) => {
       return (
         (vendor.MinCap as number) >= capFilter[0] &&
@@ -130,8 +132,7 @@ export default function ExplorePage() {
           preWeddingSupportRatingFilter[1] &&
         (vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
         (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1] &&
-        (vendorTypeFilter.length === 0 ||
-          vendorTypeFilter.includes(vendor.VendorType))
+        vendorTypeFilter.includes(vendor.VendorType as string)
       );
     });
     console.log("filteredVendors", filteredVendors);
