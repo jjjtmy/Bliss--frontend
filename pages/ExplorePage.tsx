@@ -132,7 +132,7 @@ export default function ExplorePage() {
           preWeddingSupportRatingFilter[1] &&
         (vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
         (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1] &&
-        vendorTypeFilter.includes(vendor.VendorType as string)
+        vendorTypeFilter.some((type) => type === vendor.VendorType)
       );
     });
     console.log("filteredVendors", filteredVendors);
@@ -172,31 +172,31 @@ export default function ExplorePage() {
                 <Accordion.Panel>
                   <Box className="filters">
                     <div className="ratingFilters">
-                      <Checkbox.Group label="Vendor Type">
+                      <Checkbox.Group
+                        value={vendorTypeFilter}
+                        onChange={setVendorTypeFilter} // Directly set the entire array
+                        label="Vendor Type"
+                      >
                         <Group mt="xs" mb="lg">
                           <Checkbox
                             value="Venue"
                             label="Venue"
                             color="#f4a69a"
-                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Photographer/Videographer"
                             label="Photographer/Videographer"
                             color="#f4a69a"
-                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Hair and Makeup"
                             label="Hair and Makeup"
                             color="#f4a69a"
-                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Entertainment"
                             label="Entertainment"
                             color="#f4a69a"
-                            onChange={handleVendorTypeFilter}
                           />
                         </Group>
                       </Checkbox.Group>
