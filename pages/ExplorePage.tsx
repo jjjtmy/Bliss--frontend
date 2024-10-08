@@ -112,29 +112,65 @@ export default function ExplorePage() {
   //when filter changes, filter vendors
   async function submitFilters() {
     setFilterApplied(true);
-    console.log("submittedvendorfilter", vendorTypeFilter);
-    console.log("allVendors submitFilter", allVendors);
+
     const filteredVendors = allVendors.filter((vendor) => {
-      return (
-        (vendor.MinCap as number) >= capFilter[0] &&
-        (vendor.MaxCap as number) <= capFilter[1] &&
-        (vendor.MinPrice as number) >= priceFilter[0] &&
-        (vendor.MaxPrice as number) <= priceFilter[1] &&
-        (vendor.overallRating as number) >= overallRatingFilter[0] &&
-        (vendor.overallRating as number) <= overallRatingFilter[1] &&
-        (vendor.foodRating as number) >= foodRatingFilter[0] &&
-        (vendor.foodRating as number) <= foodRatingFilter[1] &&
-        (vendor.ambienceRating as number) >= ambienceRatingFilter[0] &&
-        (vendor.ambienceRating as number) <= ambienceRatingFilter[1] &&
-        (vendor.preWeddingSupportRating as number) >=
+      // Check if a filter is applied for each criteria, otherwise skip that filter
+      const matchesCapacity =
+        (capFilter[0] === 0 && capFilter[1] === 500) || // No filter applied
+        ((vendor.MinCap as number) >= capFilter[0] &&
+          (vendor.MaxCap as number) <= capFilter[1]);
+
+      const matchesPrice =
+        (priceFilter[0] === 0 && priceFilter[1] === 500) || // No filter applied
+        ((vendor.MinPrice as number) >= priceFilter[0] &&
+          (vendor.MaxPrice as number) <= priceFilter[1]);
+
+      const matchesOverallRating =
+        (overallRatingFilter[0] === 1 && overallRatingFilter[1] === 5) || // No filter applied
+        ((vendor.overallRating as number) >= overallRatingFilter[0] &&
+          (vendor.overallRating as number) <= overallRatingFilter[1]);
+
+      const matchesFoodRating =
+        (foodRatingFilter[0] === 1 && foodRatingFilter[1] === 5) || // No filter applied
+        ((vendor.foodRating as number) >= foodRatingFilter[0] &&
+          (vendor.foodRating as number) <= foodRatingFilter[1]);
+
+      const matchesAmbienceRating =
+        (ambienceRatingFilter[0] === 1 && ambienceRatingFilter[1] === 5) || // No filter applied
+        ((vendor.ambienceRating as number) >= ambienceRatingFilter[0] &&
+          (vendor.ambienceRating as number) <= ambienceRatingFilter[1]);
+
+      const matchesPreWeddingSupport =
+        (preWeddingSupportRatingFilter[0] === 1 &&
+          preWeddingSupportRatingFilter[1] === 5) || // No filter applied
+        ((vendor.preWeddingSupportRating as number) >=
           preWeddingSupportRatingFilter[0] &&
-        (vendor.preWeddingSupportRating as number) <=
-          preWeddingSupportRatingFilter[1] &&
-        (vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
-        (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1] &&
-        vendorTypeFilter.some((type) => type === vendor.VendorType)
+          (vendor.preWeddingSupportRating as number) <=
+            preWeddingSupportRatingFilter[1]);
+
+      const matchesDayOfSupport =
+        (dayOfSupportRatingFilter[0] === 1 &&
+          dayOfSupportRatingFilter[1] === 5) || // No filter applied
+        ((vendor.dayOfSupportRating as number) >= dayOfSupportRatingFilter[0] &&
+          (vendor.dayOfSupportRating as number) <= dayOfSupportRatingFilter[1]);
+
+      const matchesVendorType =
+        vendorTypeFilter.length === 0 || // No filter applied
+        vendorTypeFilter.some((type) => type === vendor.VendorType);
+
+      // Only include vendors that match all the selected filters
+      return (
+        matchesCapacity &&
+        matchesPrice &&
+        matchesOverallRating &&
+        matchesFoodRating &&
+        matchesAmbienceRating &&
+        matchesPreWeddingSupport &&
+        matchesDayOfSupport &&
+        matchesVendorType
       );
     });
+
     console.log("filteredVendors", filteredVendors);
     setFilteredVendors(filteredVendors);
   }
@@ -172,31 +208,31 @@ export default function ExplorePage() {
                 <Accordion.Panel>
                   <Box className="filters">
                     <div className="ratingFilters">
-                      <Checkbox.Group
-                        value={vendorTypeFilter}
-                        onChange={setVendorTypeFilter} // Directly set the entire array
-                        label="Vendor Type"
-                      >
+                      <Checkbox.Group label="Vendor Type">
                         <Group mt="xs" mb="lg">
                           <Checkbox
                             value="Venue"
                             label="Venue"
                             color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Photographer/Videographer"
                             label="Photographer/Videographer"
                             color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Hair and Makeup"
                             label="Hair and Makeup"
                             color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
                           />
                           <Checkbox
                             value="Entertainment"
                             label="Entertainment"
                             color="#f4a69a"
+                            onChange={handleVendorTypeFilter}
                           />
                         </Group>
                       </Checkbox.Group>
