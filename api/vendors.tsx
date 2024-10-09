@@ -40,16 +40,6 @@ export async function getVendorByName(vendorname) {
   );
 }
 
-export async function getVendorbyUserID(userID) {
-  console.log("getVendorbyUserID API", userID);
-  return await sendRequest(
-    `${BASE_URL}/user/${userID}`,
-    "GET",
-    null,
-    "Invalid Vendor"
-  );
-}
-
 export async function addVendorReview(review) {
   console.log("addVendorReview API", review);
   return await sendRequest(

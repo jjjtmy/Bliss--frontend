@@ -7,13 +7,13 @@ export async function getUserfromID(id) {
   return user; //returns user collection
 }
 
-export async function getUserfromUser(username) {
+export async function getUserfromUser(username: string) {
   console.log("getUserfromUser", username);
   const user = await usersAPI.getUserfromUser(username);
   return user;
 }
 
-export async function getLoginDetails(email) {
+export async function getLoginDetails(email: string) {
   console.log("getLoginDetails service", email);
   const loginDetails = await usersAPI.getLoginDetails(email);
   return loginDetails; //returns id, name, salt, iterations

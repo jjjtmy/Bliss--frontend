@@ -7,12 +7,12 @@ const MIN_ITERATIONS = 3; // inclusive
 const MAX_ITERATIONS = 10; // exclusive
 
 export function hashData(data) {
-  var salt = CryptoJS.lib.WordArray.random(SALT_LENGTH).toString(
+  const salt = CryptoJS.lib.WordArray.random(SALT_LENGTH).toString(
     CryptoJS.enc.Base64
   );
-  var iterations = getRndInteger(MIN_ITERATIONS, MAX_ITERATIONS);
+  const iterations = getRndInteger(MIN_ITERATIONS, MAX_ITERATIONS);
   // console.log(data, salt, iterations);
-  var hash = CryptoJS.PBKDF2(data, salt, {
+  const hash = CryptoJS.PBKDF2(data, salt, {
     keySize: KEY_SIZE,
     iterations: iterations,
   });
@@ -23,7 +23,11 @@ export function hashData(data) {
   };
 }
 
-export function hashDataWithSaltRounds(data, salt, iterations) {
+export function hashDataWithSaltRounds(
+  data: string,
+  salt: string,
+  iterations: number
+) {
   console.log(`hashDataWithSaltRounds: ${data}, ${salt}, ${iterations}`);
   return CryptoJS.PBKDF2(data, salt, {
     keySize: KEY_SIZE,
@@ -31,7 +35,7 @@ export function hashDataWithSaltRounds(data, salt, iterations) {
   }).toString(CryptoJS.enc.Base64);
 }
 
-export function storeToken(token) {
+export function storeToken(token: string): void {
   localStorage.setItem("token", token);
 }
 
